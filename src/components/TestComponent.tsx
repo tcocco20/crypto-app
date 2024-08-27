@@ -45,10 +45,20 @@ const TestComponent = () => {
         </div>
         <div className="flex flex-col gap-4">
           <p>Coins Array:</p>
-          <p>{coins}</p>
+          <p>{coins.map((coin) => coin.name)}</p>
           <button
             className="p-4 bg-blue-300 rounded-md text-sm"
-            onClick={() => dispatch(addCoin("New Coin"))}
+            onClick={() =>
+              dispatch(
+                addCoin({
+                  id: "test",
+                  amount: 1,
+                  dateAdded: new Date(),
+                  name: "Test Coin",
+                  symbol: "TST",
+                })
+              )
+            }
           >
             Add to coins array
           </button>

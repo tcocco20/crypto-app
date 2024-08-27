@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-// import type { RootState } from "../../store";
 
 export interface PreferencesState {
   selectedCurrency: string;
@@ -25,8 +24,5 @@ export const preferencesSlice = createSlice({
 });
 
 export const { toggleDarkMode, setSelectedCurrency } = preferencesSlice.actions;
-
-// // Other code such as selectors can use the imported `RootState` type
-// export const selectCount = (state: RootState) => state.counter.value;
 
 export default preferencesSlice.reducer;

@@ -1,8 +1,8 @@
+import { UserCoin } from "@/lib/types/user-coin";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-// import type { RootState } from "../../store";
 
 export interface PortfolioState {
-  coins: any[];
+  coins: UserCoin[];
 }
 
 const initialState: PortfolioState = {
@@ -13,15 +13,15 @@ export const portfolioSlice = createSlice({
   name: "portfolio",
   initialState,
   reducers: {
-    addCoin: (state, action: PayloadAction<any>) => {
+    addCoin: (state, action: PayloadAction<UserCoin>) => {
       state.coins.push(action.payload);
+    },
+    removeCoinById: (state, action: PayloadAction<string>) => {
+      state.coins = state.coins.filter((coin) => coin.id !== action.payload);
     },
   },
 });
 
-export const { addCoin } = portfolioSlice.actions;
-
-// // Other code such as selectors can use the imported `RootState` type
-// export const selectCount = (state: RootState) => state.counter.value;
+export const { addCoin, removeCoinById } = portfolioSlice.actions;
 
 export default portfolioSlice.reducer;
