@@ -1,8 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { portfolioSlice } from "./features/portfolio/portfolioSlice";
+import { preferencesSlice } from "./features/preferences/preferencesSlice";
 
 export const makeStore = () => {
   return configureStore({
-    reducer: {},
+    reducer: {
+      portfolio: portfolioSlice.reducer,
+      preferences: preferencesSlice.reducer,
+    },
   });
 };
 

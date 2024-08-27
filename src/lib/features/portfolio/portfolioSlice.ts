@@ -2,31 +2,26 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 // import type { RootState } from "../../store";
 
 export interface PortfolioState {
-  selectedCurrency: string;
-  darkMode: boolean;
+  coins: any[];
 }
 
 const initialState: PortfolioState = {
-  selectedCurrency: "USD",
-  darkMode: true,
+  coins: [],
 };
 
-export const preferencesSlice = createSlice({
-  name: "preferences",
+export const portfolioSlice = createSlice({
+  name: "portfolio",
   initialState,
   reducers: {
-    toggleDarkMode: (state) => {
-      state.darkMode = !state.darkMode;
-    },
-    setSelectedCurrency: (state, action: PayloadAction<string>) => {
-      state.selectedCurrency = action.payload;
+    addCoin: (state, action: PayloadAction<any>) => {
+      state.coins.push(action.payload);
     },
   },
 });
 
-export const { toggleDarkMode, setSelectedCurrency } = preferencesSlice.actions;
+export const { addCoin } = portfolioSlice.actions;
 
 // // Other code such as selectors can use the imported `RootState` type
 // export const selectCount = (state: RootState) => state.counter.value;
 
-export default preferencesSlice.reducer;
+export default portfolioSlice.reducer;
