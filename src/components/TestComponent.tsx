@@ -1,5 +1,8 @@
 "use client";
-import { addCoin } from "@/lib/features/portfolio/portfolioSlice";
+import {
+  addCoin,
+  removeCoinById,
+} from "@/lib/features/portfolio/portfolioSlice";
 import {
   setSelectedCurrency,
   toggleDarkMode,
@@ -45,7 +48,7 @@ const TestComponent = () => {
         </div>
         <div className="flex flex-col gap-4">
           <p>Coins Array:</p>
-          <p>{coins.map((coin) => coin.name)}</p>
+          <p>{coins.length ? coins.map((coin) => coin.name) : ""}</p>
           <button
             className="p-4 bg-blue-300 rounded-md text-sm"
             onClick={() =>
@@ -61,6 +64,12 @@ const TestComponent = () => {
             }
           >
             Add to coins array
+          </button>
+          <button
+            className="p-4 bg-blue-300 rounded-md text-sm"
+            onClick={() => dispatch(removeCoinById("test"))}
+          >
+            delete from coins array
           </button>
         </div>
       </div>
