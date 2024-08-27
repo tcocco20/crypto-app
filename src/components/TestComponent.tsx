@@ -22,6 +22,27 @@ const TestComponent = () => {
       ? dispatch(setSelectedCurrency("USD"))
       : dispatch(setSelectedCurrency("EUR"));
   };
+
+  const handleToggleDarkMode = () => {
+    dispatch(toggleDarkMode());
+  };
+
+  const handleDeleteCoin = () => {
+    dispatch(removeCoinById("test"));
+  };
+
+  const handleAddCoin = () => {
+    dispatch(
+      addCoin({
+        id: "test",
+        amount: 1,
+        dateAdded: new Date(),
+        name: "Test Coin",
+        symbol: "TST",
+      })
+    );
+  };
+
   return (
     <div>
       <h2 className="text-2xl text-center my-12">Test Area</h2>
@@ -41,33 +62,23 @@ const TestComponent = () => {
           <p>{darkMode ? "true" : "false"}</p>
           <button
             className="p-4 bg-blue-300 rounded-md text-sm"
-            onClick={() => dispatch(toggleDarkMode())}
+            onClick={handleToggleDarkMode}
           >
             Toggle Dark Mode
           </button>
         </div>
         <div className="flex flex-col gap-4">
           <p>Coins Array:</p>
-          <p>{coins.length ? coins.map((coin) => coin.name) : ""}</p>
+          <p>{!!coins.length && coins.map((coin) => coin.name)}</p>
           <button
             className="p-4 bg-blue-300 rounded-md text-sm"
-            onClick={() =>
-              dispatch(
-                addCoin({
-                  id: "test",
-                  amount: 1,
-                  dateAdded: new Date(),
-                  name: "Test Coin",
-                  symbol: "TST",
-                })
-              )
-            }
+            onClick={handleAddCoin}
           >
             Add to coins array
           </button>
           <button
             className="p-4 bg-blue-300 rounded-md text-sm"
-            onClick={() => dispatch(removeCoinById("test"))}
+            onClick={handleDeleteCoin}
           >
             delete from coins array
           </button>
