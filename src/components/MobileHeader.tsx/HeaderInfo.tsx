@@ -1,7 +1,9 @@
 import React from "react";
 
 const HeaderInfo = () => {
-  return <div>HeaderInfo</div>;
+  return <div className="bg-indigo-800">
+    
+  </div>;
 };
 
 export default HeaderInfo;
