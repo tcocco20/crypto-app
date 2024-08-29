@@ -11,15 +11,11 @@ interface TwoLabelMeter extends HTMLMeterElement {
 
 type MarketCapMeterProps = OneLabelMeter | TwoLabelMeter;
 
-const MarketCapMeter = ({
-  label,
-  startLabel,
-  endLabel,
-}: MarketCapMeterProps) => {
+const MarketCapMeter = (props: MarketCapMeterProps) => {
   return (
     <div>
-      <label htmlFor="">{label}</label>
-      <meter value=""></meter>
+      <label htmlFor=""></label>
+      <meter value={props.value}></meter>
     </div>
   );
 };
