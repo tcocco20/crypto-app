@@ -1,9 +1,17 @@
+"use client";
+import ProgressBar from "@ramonak/react-progress-bar";
+import { ReactNode } from "react";
+
 interface MeterProps {
-  id: string;
   className?: string;
   value: number;
   max: number;
   min?: number;
+  height?: string;
+  barContainerClassName?: string;
+  color?: string;
+  completedClassName?: string;
+  icon?: ReactNode;
 }
 
 interface OneLabelMeter {
@@ -24,15 +32,19 @@ const MarketCapMeter = (props: MarketCapMeterProps) => {
   }
 
   return (
-    <div className="flex gap-2 items-center text-xs">
-      <label className={props.labelClasses} htmlFor={props.id}>
-        {props.label}
-      </label>
-      <meter
-        className={props.className}
-        id={props.id}
-        value={props.value}
-        max={props.max}
+    <div className="flex gap-2 items-center text-xs flex-grow">
+      {!!props.icon && props.icon}
+      <label className={props.labelClasses}>{props.label}</label>
+      <ProgressBar
+        completed={props.value}
+        maxCompleted={props.max}
+        height={props.height}
+        bgColor={props.color}
+        customLabel=" "
+        className="w-full"
+        barContainerClassName={`rounded-sm ${props.barContainerClassName}`}
+        completedClassName={props.completedClassName}
+        // isLabelVisible={false}
       />
     </div>
   );
