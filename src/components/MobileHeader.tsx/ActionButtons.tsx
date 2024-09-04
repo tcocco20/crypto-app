@@ -1,6 +1,7 @@
 "use client";
 import { useAppSelector } from "@/lib/hooks";
 import { ChevronDown, Search, SunDim } from "lucide-react";
+import HeaderButton from "@/components/UI/HeaderButton";
 
 const ActionButtons = () => {
   const selectedCurrency = useAppSelector(
@@ -8,16 +9,16 @@ const ActionButtons = () => {
   );
   return (
     <div className="flex gap-2">
-      <button className="p-2 rounded text-white bg-violet-950 border border-gray-700/80">
+      <HeaderButton>
         <Search size={18} />
-      </button>
-      <button className="p-2 rounded text-white text-xs bg-violet-950 border border-gray-700/80 flex gap-2 items-center">
+      </HeaderButton>
+      <HeaderButton>
         {selectedCurrency}
         <ChevronDown size={13} />
-      </button>
-      <button className="p-2 rounded text-white bg-violet-950 border border-gray-700/80">
+      </HeaderButton>
+      <HeaderButton>
         <SunDim size={20} />
-      </button>
+      </HeaderButton>
     </div>
   );
 };
