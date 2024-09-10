@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "./StoreProvider";
 import MobileNavbar from "@/components/MobileNavbar";
-import MobileHeader from "@/components/MobileHeader.tsx";
+import MobileHeader from "@/components/MobileHeader";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-gray-800`}>
+      <body className={`${inter.className} bg-gray-800 md:bg-gray-950`}>
         <StoreProvider>
           <MobileHeader />
           {children}
