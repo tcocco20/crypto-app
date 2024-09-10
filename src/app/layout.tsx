@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "./StoreProvider";
+import MobileNavbar from "@/components/MobileNavbar";
 import MobileHeader from "@/components/MobileHeader.tsx";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,6 +23,7 @@ export default function RootLayout({
         <StoreProvider>
           <MobileHeader />
           {children}
+          <MobileNavbar />
         </StoreProvider>
       </body>
     </html>
