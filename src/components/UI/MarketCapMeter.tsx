@@ -43,7 +43,6 @@ const MarketCapMeter = (props: MarketCapMeterProps) => {
         className="w-10/12"
         barContainerClassName={`rounded-sm ${props.barContainerClassName}`}
         completedClassName={props.completedClassName}
-        // isLabelVisible={false}
       />
     </div>
   );
