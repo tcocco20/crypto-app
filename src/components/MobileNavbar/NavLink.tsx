@@ -1,5 +1,7 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 interface NavLinkProps {
   href: string;
@@ -8,14 +10,13 @@ interface NavLinkProps {
 }
 
 const NavLink = ({ href, icon, label }: NavLinkProps) => {
-  //   const router = useRouter();
-  //   const { pathname } = router;
-  const active = false;
+  const path = usePathname();
+  const active = href === path;
   return (
     <div
-      className={`${
+      className={`p-[1px] ${
         active
-          ? "relative p-[1px] bg-gradient-to-b from-indigo-300 to-indigo-600 rounded-md shadow-2xl shadow-indigo-500"
+          ? "relative bg-gradient-to-b from-indigo-300 to-indigo-600 rounded-md shadow-2xl shadow-indigo-500"
           : ""
       }`}
     >
