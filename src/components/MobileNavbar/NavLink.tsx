@@ -22,11 +22,11 @@ const NavLink = ({ href, icon, label }: NavLinkProps) => {
     >
       <Link
         href={href}
-        className={`flex flex-col justify-center items-center py-2 px-6 rounded-md ${
+        className={`flex flex-col justify-center items-center py-1 px-6 rounded-md ${
           active && "bg-indigo-700/90"
         }`}
       >
-        <Image src={icon} width={24} height={24} alt={`Link to ${label}`} />
+        <Image src={icon} width={20} height={20} alt={`Link to ${label}`} />
         <p className="text-xs font-extralight text-white">{label}</p>
       </Link>
     </div>
