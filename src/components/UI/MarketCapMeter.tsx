@@ -32,7 +32,7 @@ const MarketCapMeter = (props: MarketCapMeterProps) => {
   }
 
   return (
-    <div className="flex gap-1 items-center text-xs flex-grow">
+    <div className="flex gap-1 items-center text-xs md:text-sm flex-grow">
       <label className={props.labelClasses}>{props.label}</label>
       <ProgressBar
         completed={props.value}
