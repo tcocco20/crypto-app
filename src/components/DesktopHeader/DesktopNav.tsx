@@ -1,5 +1,6 @@
 import Image from "next/image";
 import NavLinks from "./NavLinks";
+import NavActions from "./NavActions";
 
 const DesktopNav = () => {
   return (
@@ -11,6 +12,7 @@ const DesktopNav = () => {
         alt="Company Logo"
       />
       <NavLinks />
+      <NavActions />
     </nav>
   );
 };
