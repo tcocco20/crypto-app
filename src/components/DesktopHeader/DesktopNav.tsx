@@ -4,7 +4,7 @@ import NavActions from "./NavActions";
 
 const DesktopNav = () => {
   return (
-    <nav className="flex justify-between px-20 py-8">
+    <nav className="flex justify-between px-4 lg:px-12 xl:px-20 py-8">
       <Image
         src="/images/logo.png"
         width={200}

@@ -9,14 +9,14 @@ const ActionButtons = () => {
   );
   return (
     <div className="flex gap-2">
-      <HeaderButton size="sm">
+      <HeaderButton>
         <Search size={18} />
       </HeaderButton>
-      <HeaderButton size="sm">
+      <HeaderButton>
         {selectedCurrency}
         <ChevronDown size={12} strokeWidth={3} />
       </HeaderButton>
-      <HeaderButton size="sm">
+      <HeaderButton>
         <SunDim size={20} />
       </HeaderButton>
     </div>

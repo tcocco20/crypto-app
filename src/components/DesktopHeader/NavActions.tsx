@@ -9,8 +9,8 @@ const NavActions = () => {
   );
 
   return (
-    <div className="flex gap-5 items-stretch">
-      <div className="rounded-lg flex gap-4 items-center bg-violet-950 border border-gray-700/80 px-3">
+    <div className="flex gap-2 lg:gap-3 xl:gap-4 items-stretch">
+      <div className="rounded-lg flex gap-1 lg:gap-4 items-center bg-violet-950 border border-gray-700/80 px-2 lg:px-4 w-[14.2rem] lg:w-72 xl:w-96">
         <Search size={18} color="#fff" strokeWidth={2.5} />
         <input
           type="text"
@@ -18,12 +18,12 @@ const NavActions = () => {
           className="bg-transparent outline-none text-white"
         />
       </div>
-      <HeaderButton size="lg">
+      <HeaderButton>
         {selectedCurrency}
-        <ChevronDown size={15} strokeWidth={3} />
+        <ChevronDown strokeWidth={3} />
       </HeaderButton>
-      <HeaderButton size="lg">
-        <SunMedium size={36} strokeWidth={1.2} />
+      <HeaderButton>
+        <SunMedium strokeWidth={1.2} />
       </HeaderButton>
     </div>
   );
