@@ -3,7 +3,7 @@ import HeaderInfo from "./HeaderInfo";
 
 const MobileHeader = () => {
   return (
-    <header>
+    <header className="block md:hidden">
       <HeaderActions />
       <HeaderInfo />
     </header>
