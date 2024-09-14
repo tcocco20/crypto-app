@@ -15,15 +15,15 @@ const NavActions = () => {
         <input
           type="text"
           placeholder="Search..."
-          className="bg-transparent outline-none text-white"
+          className="bg-transparent outline-none text-white flex-1"
         />
       </div>
       <HeaderButton>
         {selectedCurrency}
-        <ChevronDown strokeWidth={3} />
+        <ChevronDown strokeWidth={3} size={13} />
       </HeaderButton>
       <HeaderButton>
-        <SunMedium strokeWidth={1.2} />
+        <SunMedium strokeWidth={1.2} size={34} />
       </HeaderButton>
     </div>
   );
