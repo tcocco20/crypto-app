@@ -14,7 +14,7 @@ const ActionButtons = () => {
       </HeaderButton>
       <HeaderButton>
         {selectedCurrency}
-        <ChevronDown size={13} />
+        <ChevronDown size={12} strokeWidth={3} />
       </HeaderButton>
       <HeaderButton>
         <SunDim size={20} />
