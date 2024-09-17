@@ -5,6 +5,7 @@ import StoreProvider from "./StoreProvider";
 import DesktopHeader from "@/components/DesktopHeader";
 import MobileNavbar from "@/components/MobileNavbar";
 import MobileHeader from "@/components/MobileHeader";
+import DarkModeWrapper from "@/components/utilityComponents/DarkModeWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,14 +21,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-gray-800 md:bg-gray-900`}>
-        <StoreProvider>
-          <MobileHeader />
-          <DesktopHeader />
-          {children}
-          <MobileNavbar />
-        </StoreProvider>
-      </body>
+      <StoreProvider>
+        <DarkModeWrapper>
+          <body
+            className={`${inter.className} dark:bg-gray-800 dark:md:bg-gray-900`}
+          >
+            <MobileHeader />
+            <DesktopHeader />
+            {children}
+            <MobileNavbar />
+          </body>
+        </DarkModeWrapper>
+      </StoreProvider>
     </html>
   );
 }
