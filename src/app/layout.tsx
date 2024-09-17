@@ -21,18 +21,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <StoreProvider>
-        <DarkModeWrapper>
-          <body
-            className={`${inter.className} dark:bg-gray-800 dark:md:bg-gray-900`}
-          >
+      <body className={inter.className}>
+        <StoreProvider>
+          <DarkModeWrapper>
             <MobileHeader />
             <DesktopHeader />
             {children}
             <MobileNavbar />
-          </body>
-        </DarkModeWrapper>
-      </StoreProvider>
+          </DarkModeWrapper>
+        </StoreProvider>
+      </body>
     </html>
   );
 }
