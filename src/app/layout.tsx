@@ -5,7 +5,6 @@ import StoreProvider from "./StoreProvider";
 import DesktopHeader from "@/components/DesktopHeader";
 import MobileNavbar from "@/components/MobileNavbar";
 import MobileHeader from "@/components/MobileHeader";
-import DarkModeWrapper from "@/components/utilityComponents/DarkModeWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,15 +19,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" className="dark">
+      <body
+        className={`${inter.className} bg-white dark:bg-gray-800 dark:md:bg-gray-900 transition-all duration-500`}
+      >
         <StoreProvider>
-          <DarkModeWrapper>
-            <MobileHeader />
-            <DesktopHeader />
-            {children}
-            <MobileNavbar />
-          </DarkModeWrapper>
+          <MobileHeader />
+          <DesktopHeader />
+          {children}
+          <MobileNavbar />
         </StoreProvider>
       </body>
     </html>
