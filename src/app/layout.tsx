@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import StoreProvider from "./StoreProvider";
 import DesktopHeader from "@/components/DesktopHeader";
 import MobileNavbar from "@/components/MobileNavbar";
 import MobileHeader from "@/components/MobileHeader";
-// import { QueryClientProvider } from "@tanstack/react-query";
-// import { queryClient } from "@/http";
+import Providers from "@/components/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,14 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} bg-gray-800 md:bg-gray-900`}>
-        {/* <QueryClientProvider client={queryClient}> */}
-        <StoreProvider>
+        <Providers>
           <MobileHeader />
           <DesktopHeader />
           {children}
           <MobileNavbar />
-        </StoreProvider>
-        {/* </QueryClientProvider> */}
+        </Providers>
       </body>
     </html>
   );
