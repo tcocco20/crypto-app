@@ -9,7 +9,7 @@ const HeaderInfo = () => {
   }
 
   return (
-    <div className="bg-indigo-900/50 flex gap-3 p-4 border border-gray-600/80 text-white">
+    <div className="bg-indigo-900 dark:bg-indigo-900/50 flex gap-3 p-4 dark:border-y border-gray-600/80 text-white">
       <MarketCapMeter
         label="$124.45B"
         max={100}

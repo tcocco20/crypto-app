@@ -11,7 +11,7 @@ const TopBar = () => {
   }
 
   return (
-    <div className="bg-indigo-900/40 p-5 border-b border-gray-600/80 text-white justify-center">
+    <div className="bg-indigo-900 shadow-black dark:bg-indigo-900/40 p-5 dark:border-b dark:border-gray-600/80 text-white justify-center">
       <div className="max-w-4xl mx-auto flex gap-11 justify-center text-sm">
         <TopBarText
           text="Coins"

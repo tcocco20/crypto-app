@@ -44,7 +44,7 @@ const TestComponent = () => {
   };
 
   return (
-    <div>
+    <div className="dark:text-white">
       <h2 className="text-2xl text-center my-12">Test Area</h2>
       <div className="flex gap-5">
         <div className="flex flex-col gap-4">
