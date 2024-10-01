@@ -4,7 +4,7 @@ import "./globals.css";
 import DesktopHeader from "@/components/DesktopHeader";
 import MobileNavbar from "@/components/MobileNavbar";
 import MobileHeader from "@/components/MobileHeader";
-import Providers from "@/components/Providers";
+import Providers from "@/app/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
