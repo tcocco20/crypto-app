@@ -15,6 +15,7 @@ export const preferencesSlice = createSlice({
   initialState,
   reducers: {
     toggleDarkMode: (state) => {
+      document.documentElement.classList.toggle("dark");
       state.darkMode = !state.darkMode;
     },
     setSelectedCurrency: (state, action: PayloadAction<string>) => {

@@ -48,7 +48,7 @@ const TestComponent = ({ apiMessage }: TestComponentProps) => {
   };
 
   return (
-    <div>
+    <div className="dark:text-white">
       <h2 className="text-2xl text-center my-12">Test Area</h2>
       {!!apiMessage && <p>{apiMessage}</p>}
       <div className="flex gap-5">
