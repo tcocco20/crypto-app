@@ -14,7 +14,7 @@ const NavLink = ({ href, icon, label }: NavLinkProps) => {
   const path = usePathname();
   const active = href === path;
   return (
-    <SelectableWrapper selected={active}>
+    <SelectableWrapper selected={active} shadowSize="shadow-2xl">
       <Link
         href={href}
         className="flex flex-col justify-center items-center py-1 px-6"

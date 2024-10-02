@@ -12,7 +12,7 @@ const NavLinks = () => {
         <Link
           href="/"
           className={`${
-            path === "/"
+            path === "/" || path === "/converter"
               ? "text-indigo-900 dark:text-white"
               : "text-indigo-900/40 dark:text-gray-500"
           } lg:text-lg flex gap-3 items-center`}

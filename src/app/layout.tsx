@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${inter.className} bg-white dark:bg-gray-800 dark:md:bg-gray-900 transition-all duration-500`}
+        className={`${inter.className} bg-gray-200/45 dark:bg-gray-800 dark:md:bg-gray-900 transition-all duration-500`}
       >
         <StoreProvider>
           <MobileHeader />

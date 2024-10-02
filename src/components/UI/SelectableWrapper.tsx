@@ -11,19 +11,20 @@ const SelectableWrapper = ({
   selected,
   children,
   py,
+  shadowSize,
 }: SelectableWrapperProps) => {
   return (
     <div
       className={`p-[1px] ${
         selected
-          ? "relative bg-gradient-to-b from-indigo-300 to-indigo-600 rounded-md shadow-indigo-500"
+          ? "relative bg-gradient-to-b from-indigo-300 to-indigo-600 rounded-md shadow-indigo-500 text-white"
           : ""
-      }`}
+      } ${shadowSize ? shadowSize : ""}`}
     >
       <div
-        className={`${selected ? "bg-indigo-700/90 " : ""} rounded-md ${
-          py ? py : ""
-        }`}
+        className={`${
+          selected ? "bg-indigo-400 dark:bg-indigo-700/90 " : ""
+        } rounded-md ${py ? py : ""}`}
       >
         {children}
       </div>
