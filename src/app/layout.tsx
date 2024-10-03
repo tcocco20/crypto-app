@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import StoreProvider from "./StoreProvider";
 import DesktopHeader from "@/components/DesktopHeader";
 import MobileNavbar from "@/components/MobileNavbar";
 import MobileHeader from "@/components/MobileHeader";
+import Providers from "@/app/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,12 +23,12 @@ export default function RootLayout({
       <body
         className={`${inter.className} bg-white dark:bg-gray-800 dark:md:bg-gray-900 transition-all duration-500`}
       >
-        <StoreProvider>
+        <Providers>
           <MobileHeader />
           <DesktopHeader />
           {children}
           <MobileNavbar />
-        </StoreProvider>
+        </Providers>
       </body>
     </html>
   );

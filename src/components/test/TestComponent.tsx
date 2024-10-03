@@ -9,7 +9,11 @@ import {
 } from "@/lib/features/preferences/preferencesSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
-const TestComponent = () => {
+interface TestComponentProps {
+  apiMessage?: string;
+}
+
+const TestComponent = ({ apiMessage }: TestComponentProps) => {
   const selectedCurrency = useAppSelector(
     (state) => state.preferences.selectedCurrency
   );
@@ -46,6 +50,7 @@ const TestComponent = () => {
   return (
     <div className="dark:text-white">
       <h2 className="text-2xl text-center my-12">Test Area</h2>
+      {!!apiMessage && <p>{apiMessage}</p>}
       <div className="flex gap-5">
         <div className="flex flex-col gap-4">
           <p>Selected Currency:</p>
