@@ -21,5 +21,5 @@ export const testConnection = async () => {
   if (!response.ok) {
     throw new Error("Failed to connect to CoinGecko API");
   }
-  return response.json() as Promise<TestResponse>;
+  return (await response.json()) as Promise<TestResponse>;
 };
