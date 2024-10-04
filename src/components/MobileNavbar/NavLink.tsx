@@ -2,6 +2,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import SelectableWrapper from "../UI/SelectableWrapper";
+import { useAppSelector } from "@/lib/hooks";
 
 interface NavLinkProps {
   href: string;
@@ -12,24 +14,23 @@ interface NavLinkProps {
 const NavLink = ({ href, icon, label }: NavLinkProps) => {
   const path = usePathname();
   const active = href === path;
+  const isDarkMode = useAppSelector((state) => state.preferences.darkMode);
+
   return (
-    <div
-      className={`p-[1px] ${
-        active
-          ? "relative bg-gradient-to-b from-indigo-300 to-indigo-600 rounded-md shadow-2xl shadow-indigo-500"
-          : ""
-      }`}
-    >
+    <SelectableWrapper selected={active} shadowSize="shadow-2xl">
       <Link
         href={href}
-        className={`flex flex-col justify-center items-center py-1 px-6 rounded-md ${
-          active && "bg-indigo-700/90"
-        }`}
+        className="flex flex-col justify-center items-center py-1 px-6 text-black dark:text-white"
       >
-        <Image src={icon} width={20} height={20} alt={`Link to ${label}`} />
-        <p className="text-xs font-extralight text-white">{label}</p>
+        <Image
+          src={`${icon}${!isDarkMode ? "-light" : ""}.svg`}
+          width={20}
+          height={20}
+          alt={`Link to ${label}`}
+        />
+        <p className="text-xs font-extralight">{label}</p>
       </Link>
-    </div>
+    </SelectableWrapper>
   );
 };
 
