@@ -17,7 +17,7 @@ const SelectableWrapper = ({
     <div
       className={`p-[1px] ${
         selected
-          ? `relative bg-gradient-to-b from-indigo-600 to-indigo-500 dark:from-indigo-300 dark:to-indigo-600 rounded-md shadow-indigo-500 ${
+          ? `bg-gradient-to-b from-indigo-600 to-indigo-500 dark:from-indigo-300 dark:to-indigo-600 rounded-md shadow-indigo-500 ${
               shadowSize ? shadowSize : ""
             } text-white`
           : ""

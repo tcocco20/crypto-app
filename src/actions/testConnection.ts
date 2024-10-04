@@ -1,9 +1,10 @@
 "use server";
 
+export interface TestResponse {
+  gecko_says: string;
+}
+
 export const testConnection = async () => {
-  interface TestResponse {
-    gecko_says: string;
-  }
   const url = "https://api.coingecko.com/api/v3/ping";
   const apiKey = process.env.API_SECRET_KEY;
   const options = {

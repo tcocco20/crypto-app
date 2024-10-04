@@ -1,14 +1,21 @@
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import CoinButton from "./CoinButton";
+import { type CoinData } from "@/actions/getCoinsList";
 
-const CoinSelector = () => {
+interface CoinSelectorProps {
+  coinsList: CoinData[];
+}
+
+const CoinSelector = ({ coinsList }: CoinSelectorProps) => {
   return (
-    <Swiper spaceBetween={50} slidesPerView={3}>
-      <SwiperSlide>Slide 1</SwiperSlide>
-      <SwiperSlide>Slide 2</SwiperSlide>
-      <SwiperSlide>Slide 3</SwiperSlide>
-      <SwiperSlide>Slide 4</SwiperSlide>
+    <Swiper spaceBetween={10} slidesPerView={3}>
+      {coinsList.map((coin) => (
+        <SwiperSlide key={coin.id}>
+          <CoinButton name={coin.symbol} image={coin.image} />
+        </SwiperSlide>
+      ))}
     </Swiper>
   );
 };
