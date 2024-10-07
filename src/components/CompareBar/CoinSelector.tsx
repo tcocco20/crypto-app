@@ -1,4 +1,3 @@
-"use client";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -19,7 +18,7 @@ const CoinSelector = ({ coinsList }: CoinSelectorProps) => {
       slidesPerView={"auto"}
     >
       {coinsList.map((coin) => (
-        <SwiperSlide key={coin.id}>
+        <SwiperSlide key={coin.id} style={{ width: "100px" }}>
           <CoinButton name={coin.symbol} image={coin.image} />
         </SwiperSlide>
       ))}
