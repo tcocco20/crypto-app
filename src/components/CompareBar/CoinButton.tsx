@@ -10,7 +10,7 @@ interface CoinButtonProps {
 
 const CoinButton = ({ selected = false, name, image }: CoinButtonProps) => {
   return (
-    <SelectableWrapper selected={selected}>
+    <SelectableWrapper selected={selected} widthClasses="w-[100px]">
       <button
         className={`p-3 w-full rounded-md flex items-center gap-2 ${
           !selected ? "bg-violet-950" : ""
