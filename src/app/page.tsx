@@ -1,5 +1,5 @@
 import actions from "@/actions";
-import CompareBar from "@/components/CompareBar";
+import CompareBar from "@/components/homeComponents/CompareBar";
 import HomeNav from "@/components/homeComponents/HomeNav";
 
 export default async function Home() {

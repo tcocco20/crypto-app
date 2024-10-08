@@ -1,5 +1,5 @@
 import React from "react";
-import SelectableWrapper from "../UI/SelectableWrapper";
+import SelectableWrapper from "../../UI/SelectableWrapper";
 import Image from "next/image";
 
 interface CoinButtonProps {
