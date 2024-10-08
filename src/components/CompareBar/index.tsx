@@ -6,6 +6,7 @@ import { useState } from "react";
 
 interface CompareBarProps {
   coins: CoinData[];
+  quickFix?: boolean;
 }
 
 const CompareBar = ({ coins }: CompareBarProps) => {
