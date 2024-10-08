@@ -23,8 +23,8 @@ const CoinSelector = ({
     if (!compareModeSelected) {
       setSelectedCoin(coin);
     } else {
-      if (selectedCoin === "") {
-        setSelectedCoin(coin);
+      if (coin === selectedCoin) {
+        return;
       } else {
         setSecondSelectedCoin(coin);
       }
