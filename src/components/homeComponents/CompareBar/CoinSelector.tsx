@@ -52,12 +52,7 @@ const CoinSelector = ({
           <CoinButton
             name={coin.symbol}
             image={coin.image}
-            selected={
-              compareModeSelected
-                ? coin.symbol === selectedCoin ||
-                  coin.symbol === secondSelectedCoin
-                : coin.symbol === selectedCoin
-            }
+            selected={selectedCoin === coin.symbol || secondSelectedCoin === coin.symbol}
             onClick={() => handleCoinClick(coin.symbol)}
           />
         </SwiperSlide>
