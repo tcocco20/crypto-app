@@ -2,16 +2,16 @@ import Select from "react-select";
 
 interface ConverterCurrencySelectorProps {
   isFromCurrency?: boolean;
+  options: { value: string; label: string }[];
+  value: any;
+  onChange: any;
 }
-
-const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
-];
 
 const ConverterCurrencySelector = ({
   isFromCurrency,
+  options,
+  value,
+  onChange,
 }: ConverterCurrencySelectorProps) => {
   return (
     <div
@@ -25,7 +25,16 @@ const ConverterCurrencySelector = ({
         {isFromCurrency ? "You sell" : "You buy"}
       </p>
       <div className="flex justify-between border-b-black dark:border-b-white border-b">
-        <Select options={options} defaultValue={options[0]} className="text-black" />
+        <Select
+          options={options}
+          classNames={{
+            menu: () => "bg-gray-900/80 p-2 rounded min-w-[150px]",
+            menuList: () => "flex flex-col gap-2",
+          }}
+          value={value}
+          onChange={onChange}
+          unstyled
+        />
         <p className="text-lg">2</p>
       </div>
       <p className="text-xs">
