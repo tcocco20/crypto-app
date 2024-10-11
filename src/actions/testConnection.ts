@@ -1,9 +1,10 @@
 "use server";
 
+export interface TestResponse {
+  gecko_says: string;
+}
+
 export const testConnection = async () => {
-  interface TestResponse {
-    gecko_says: string;
-  }
   const url = "https://api.coingecko.com/api/v3/ping";
   const apiKey = process.env.API_SECRET_KEY;
   const options = {
@@ -21,5 +22,5 @@ export const testConnection = async () => {
   if (!response.ok) {
     throw new Error("Failed to connect to CoinGecko API");
   }
-  return response.json() as Promise<TestResponse>;
+  return (await response.json()) as Promise<TestResponse>;
 };
