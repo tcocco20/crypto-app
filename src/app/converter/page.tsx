@@ -1,7 +1,9 @@
+import actions from "@/actions";
 import ConverterContainer from "@/components/ConverterContainer";
 import HomeNav from "@/components/homeComponents/HomeNav";
 
-const Converter = () => {
+const Converter = async () => {
+  const coinsList = await actions.getCoinsList();
   return (
     <main className="flex min-h-screen flex-col items-center px-3 md:px-24">
       <HomeNav />
@@ -13,7 +15,7 @@ const Converter = () => {
           09/29/2023 14:15
         </p>
       </div>
-      <ConverterContainer />
+      <ConverterContainer coins={coinsList} />
     </main>
   );
 };

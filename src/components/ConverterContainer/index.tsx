@@ -3,17 +3,21 @@
 import { Repeat } from "lucide-react";
 import ConverterCurrencySelector from "./ConverterCurrencySelector";
 import { useEffect, useState } from "react";
+import { type CoinData } from "@/actions/getCoinsList";
 
-const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
-];
+interface ConverterContainerProps {
+  coins: CoinData[];
+}
 
-const ConverterContainer = () => {
+const ConverterContainer = ({ coins }: ConverterContainerProps) => {
   const [fromCurrency, setFromCurrency] = useState<any | undefined>();
   const [toCurrency, setToCurrency] = useState<any | undefined>();
   const [hasError, setHasError] = useState(false);
+
+  const options = coins.map((coin, index) => ({
+    value: index.toString(),
+    label: coin.name,
+  }));
 
   const handleSwap = () => {
     const temp = fromCurrency;
