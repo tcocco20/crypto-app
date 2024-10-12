@@ -5,6 +5,7 @@ interface ConverterCurrencySelectorProps {
   options: { value: string; label: string }[];
   value: any;
   onChange: any;
+  currentPrice?: string;
 }
 
 const ConverterCurrencySelector = ({
@@ -12,6 +13,7 @@ const ConverterCurrencySelector = ({
   options,
   value,
   onChange,
+  currentPrice,
 }: ConverterCurrencySelectorProps) => {
   return (
     <div
@@ -32,14 +34,16 @@ const ConverterCurrencySelector = ({
             menuList: () => "flex flex-col gap-2",
           }}
           value={value}
-          onChange={onChange}
+          onChange={(newValue) => onChange(newValue.value)}
           unstyled
         />
         <p className="text-lg">2</p>
       </div>
-      <p className="text-xs">
-        <span className="text-gray-400">1 BTC = </span>$XXXXX.XX
-      </p>
+      {currentPrice && (
+        <p className="text-xs">
+          <span className="text-gray-400">1 BTC = </span>${currentPrice}
+        </p>
+      )}
     </div>
   );
 };

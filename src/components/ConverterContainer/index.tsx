@@ -35,19 +35,32 @@ const ConverterContainer = ({ coins }: ConverterContainerProps) => {
     }
   }, [fromCurrency, toCurrency]);
 
+  const getCurrencyFromIndex = (coinIndex: string) => {
+    return coins[+coinIndex];
+  };
+
+  const getOptionFromCurrency = (coin: CoinData) => {
+    return {
+      value: coins.indexOf(coin).toString(),
+      label: coin.name + " (" + coin.symbol.toUpperCase() + ")",
+    };
+  };
+
   return (
     <section className="w-full">
       <div className="flex flex-col gap-4 mb-4 relative">
         <ConverterCurrencySelector
           options={options}
-          onChange={setFromCurrency}
+          onChange={(val: any) => setFromCurrency(getCurrencyFromIndex(val))}
           isFromCurrency
-          value={fromCurrency}
+          value={fromCurrency && getOptionFromCurrency(fromCurrency)}
+          currentPrice={fromCurrency?.current_price}
         />
         <ConverterCurrencySelector
           options={options}
-          value={toCurrency}
-          onChange={setToCurrency}
+          value={toCurrency && getOptionFromCurrency(toCurrency)}
+          onChange={(val: any) => setToCurrency(getCurrencyFromIndex(val))}
+          currentPrice={toCurrency?.current_price}
         />
         <button
           onClick={handleSwap}
