@@ -56,7 +56,7 @@ const ConverterContainer = ({ coins }: ConverterContainerProps) => {
           value={fromCurrency && getOptionFromCurrency(fromCurrency)}
           currentPrice={fromCurrency?.current_price.toString()}
           symbol={fromCurrency?.symbol.toUpperCase()}
-          // image={fromCurrency?.image}
+          image={fromCurrency?.image}
         />
         <ConverterCurrencySelector
           options={options}
@@ -64,7 +64,7 @@ const ConverterContainer = ({ coins }: ConverterContainerProps) => {
           onChange={(val: any) => setToCurrency(getCurrencyFromIndex(val))}
           currentPrice={toCurrency?.current_price.toString()}
           symbol={toCurrency?.symbol.toUpperCase()}
-          // image={toCurrency?.image}
+          image={toCurrency?.image}
         />
         <button
           onClick={handleSwap}

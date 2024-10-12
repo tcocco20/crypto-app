@@ -1,4 +1,5 @@
-// import Image from "next/image";
+import Image from "next/image";
+import { ReactNode } from "react";
 import Select from "react-select";
 
 interface ConverterCurrencySelectorProps {
@@ -18,7 +19,7 @@ const ConverterCurrencySelector = ({
   onChange,
   currentPrice,
   symbol,
-  // image,
+  image,
 }: ConverterCurrencySelectorProps) => {
   return (
     <div
@@ -34,16 +35,25 @@ const ConverterCurrencySelector = ({
       <div className="flex justify-between border-b-black dark:border-b-white border-b">
         <Select
           options={options}
-          // components={{
-          //   SingleValue: ({ innerProps, children }) => (
-          //     <div {...innerProps} className="flex items-center gap-2 h-full">
-          //       {image && (
-          //         <Image src={image} width={24} height={24} alt="coin" />
-          //       )}
-          //       {children}
-          //     </div>
-          //   ),
-          // }}
+          components={{
+            SingleValue: ({
+              innerProps,
+              children,
+            }: {
+              innerProps: any;
+              children: ReactNode;
+            }) => (
+              <div
+                {...innerProps}
+                className=" py-2 flex items-center gap-2 h-full"
+              >
+                {image && (
+                  <Image src={image} width={24} height={24} alt="coin" />
+                )}
+                {children && children}
+              </div>
+            ),
+          }}
           classNames={{
             menu: () => "bg-gray-900/80 p-2 rounded min-w-[150px]",
             menuList: () => "flex flex-col gap-2",
