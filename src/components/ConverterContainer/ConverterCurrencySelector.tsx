@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import Select from "react-select";
 
 interface ConverterCurrencySelectorProps {
@@ -43,24 +43,23 @@ const ConverterCurrencySelector = ({
               innerProps: any;
               children: ReactNode;
             }) => (
-              <div
-                {...innerProps}
-                className=" py-2 flex items-center gap-2 h-full"
-              >
+              <div {...innerProps} className="py-2 flex items-center gap-2">
                 {image && (
                   <Image src={image} width={24} height={24} alt="coin" />
                 )}
-                {children && children}
+                {children}
               </div>
             ),
           }}
           classNames={{
             menu: () => "bg-gray-900/80 p-2 rounded min-w-[150px]",
             menuList: () => "flex flex-col gap-2",
+            input: () => "!hidden h-0",
           }}
           value={value}
           onChange={(newValue) => onChange(newValue.value)}
           unstyled
+          placeholder="Select a currency"
         />
         <p className="text-lg">2</p>
       </div>
