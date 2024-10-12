@@ -10,8 +10,8 @@ interface ConverterContainerProps {
 }
 
 const ConverterContainer = ({ coins }: ConverterContainerProps) => {
-  const [fromCurrency, setFromCurrency] = useState<any | undefined>();
-  const [toCurrency, setToCurrency] = useState<any | undefined>();
+  const [fromCurrency, setFromCurrency] = useState<CoinData | undefined>();
+  const [toCurrency, setToCurrency] = useState<CoinData | undefined>();
   const [hasError, setHasError] = useState(false);
 
   const options = coins.map((coin, index) => ({
@@ -54,13 +54,17 @@ const ConverterContainer = ({ coins }: ConverterContainerProps) => {
           onChange={(val: any) => setFromCurrency(getCurrencyFromIndex(val))}
           isFromCurrency
           value={fromCurrency && getOptionFromCurrency(fromCurrency)}
-          currentPrice={fromCurrency?.current_price}
+          currentPrice={fromCurrency?.current_price.toString()}
+          symbol={fromCurrency?.symbol.toUpperCase()}
+          // image={fromCurrency?.image}
         />
         <ConverterCurrencySelector
           options={options}
           value={toCurrency && getOptionFromCurrency(toCurrency)}
           onChange={(val: any) => setToCurrency(getCurrencyFromIndex(val))}
-          currentPrice={toCurrency?.current_price}
+          currentPrice={toCurrency?.current_price.toString()}
+          symbol={toCurrency?.symbol.toUpperCase()}
+          // image={toCurrency?.image}
         />
         <button
           onClick={handleSwap}

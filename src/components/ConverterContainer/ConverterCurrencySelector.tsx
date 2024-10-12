@@ -1,3 +1,4 @@
+// import Image from "next/image";
 import Select from "react-select";
 
 interface ConverterCurrencySelectorProps {
@@ -6,6 +7,8 @@ interface ConverterCurrencySelectorProps {
   value: any;
   onChange: any;
   currentPrice?: string;
+  symbol?: string;
+  image?: string;
 }
 
 const ConverterCurrencySelector = ({
@@ -14,6 +17,8 @@ const ConverterCurrencySelector = ({
   value,
   onChange,
   currentPrice,
+  symbol,
+  // image,
 }: ConverterCurrencySelectorProps) => {
   return (
     <div
@@ -29,6 +34,16 @@ const ConverterCurrencySelector = ({
       <div className="flex justify-between border-b-black dark:border-b-white border-b">
         <Select
           options={options}
+          // components={{
+          //   SingleValue: ({ innerProps, children }) => (
+          //     <div {...innerProps} className="flex items-center gap-2 h-full">
+          //       {image && (
+          //         <Image src={image} width={24} height={24} alt="coin" />
+          //       )}
+          //       {children}
+          //     </div>
+          //   ),
+          // }}
           classNames={{
             menu: () => "bg-gray-900/80 p-2 rounded min-w-[150px]",
             menuList: () => "flex flex-col gap-2",
@@ -41,7 +56,7 @@ const ConverterCurrencySelector = ({
       </div>
       {currentPrice && (
         <p className="text-xs">
-          <span className="text-gray-400">1 BTC = </span>${currentPrice}
+          <span className="text-gray-400">1 {symbol} = </span>${currentPrice}
         </p>
       )}
     </div>
