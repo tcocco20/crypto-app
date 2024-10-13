@@ -47,7 +47,7 @@ const ConverterCurrencySelector = ({
               innerProps: any;
               children: ReactNode;
             }) => (
-              <div {...innerProps} className="py-2 flex items-center gap-2">
+              <div {...innerProps} className="py-2 flex items-center gap-2 text-sm">
                 {image && (
                   <Image src={image} width={24} height={24} alt="coin" />
                 )}
@@ -56,7 +56,7 @@ const ConverterCurrencySelector = ({
             ),
           }}
           classNames={{
-            menu: () => "bg-gray-900/80 p-2 rounded min-w-[150px]",
+            menu: () => "bg-violet-200/90 dark:bg-gray-900/80 p-2 rounded min-w-[170px]",
             menuList: () => "flex flex-col gap-2",
             input: () => "!hidden h-0",
           }}
@@ -70,7 +70,7 @@ const ConverterCurrencySelector = ({
             type="number"
             value={quantity}
             onChange={(e) => onChangeQuantity(e.target.value)}
-            className="text-right text-sm bg-transparent focus:outline-none"
+            className="w-24 text-right text-sm bg-transparent focus:outline-none"
             placeholder="0"
             size={2}
           />

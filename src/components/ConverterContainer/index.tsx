@@ -4,6 +4,7 @@ import { Repeat } from "lucide-react";
 import ConverterCurrencySelector from "./ConverterCurrencySelector";
 import { useEffect, useState } from "react";
 import { type CoinData } from "@/actions/getCoinsList";
+import utils from "@/utils";
 
 interface ConverterContainerProps {
   coins: CoinData[];
@@ -45,8 +46,23 @@ const ConverterContainer = ({ coins }: ConverterContainerProps) => {
   const getOptionFromCurrency = (coin: CoinData) => {
     return {
       value: coins.indexOf(coin).toString(),
-      label: coin.name + " (" + coin.symbol.toUpperCase() + ")",
+      label:
+        utils.truncateString(coin.name, 9) +
+        " (" +
+        coin.symbol.toUpperCase() +
+        ")",
     };
+  };
+
+  const displayFromCurrency = () => {
+    if (fromCurrency && toCurrency && fromCurrencyQuantity) {
+      return utils.convertCurrencies(
+        fromCurrency.current_price,
+        toCurrency.current_price,
+        fromCurrencyQuantity
+      );
+    }
+    return 0;
   };
 
   return (
@@ -70,6 +86,7 @@ const ConverterContainer = ({ coins }: ConverterContainerProps) => {
           currentPrice={toCurrency?.current_price.toString()}
           symbol={toCurrency?.symbol.toUpperCase()}
           image={toCurrency?.image}
+          quantity={displayFromCurrency()}
         />
         <button
           onClick={handleSwap}

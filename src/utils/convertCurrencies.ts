@@ -1,3 +1,7 @@
-export const convertCurrencies = (fromCurrency: number, toCurrency: number) => {
-  return fromCurrency / toCurrency;
+export const convertCurrencies = (
+  fromCurrency: number,
+  toCurrency: number,
+  quantity: number
+) => {
+  return (fromCurrency / toCurrency) * quantity;
 };
