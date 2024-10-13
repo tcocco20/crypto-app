@@ -7,9 +7,11 @@ interface ConverterCurrencySelectorProps {
   options: { value: string; label: string }[];
   value: any;
   onChange: any;
+  onChangeQuantity?: any;
   currentPrice?: string;
   symbol?: string;
   image?: string;
+  quantity?: number;
 }
 
 const ConverterCurrencySelector = ({
@@ -17,9 +19,11 @@ const ConverterCurrencySelector = ({
   options,
   value,
   onChange,
+  onChangeQuantity,
   currentPrice,
   symbol,
   image,
+  quantity,
 }: ConverterCurrencySelectorProps) => {
   return (
     <div
@@ -29,7 +33,7 @@ const ConverterCurrencySelector = ({
           : " bg-gray-200 dark:bg-purple-950/20"
       }`}
     >
-      <p className="text-xs text-gray-300 font-light">
+      <p className="text-xs text-gray-800 dark:text-gray-300 font-light">
         {isFromCurrency ? "You sell" : "You buy"}
       </p>
       <div className="flex justify-between border-b-black dark:border-b-white border-b">
@@ -61,11 +65,25 @@ const ConverterCurrencySelector = ({
           unstyled
           placeholder="Select a currency"
         />
-        <p className="text-lg">2</p>
+        {isFromCurrency ? (
+          <input
+            type="number"
+            value={quantity}
+            onChange={(e) => onChangeQuantity(e.target.value)}
+            className="text-right text-sm bg-transparent focus:outline-none"
+            placeholder="0"
+            size={2}
+          />
+        ) : (
+          <p className="text-right text-sm">{quantity ? quantity : "0"}</p>
+        )}
       </div>
       {currentPrice && (
         <p className="text-xs">
-          <span className="text-gray-400">1 {symbol} = </span>${currentPrice}
+          <span className="text-gray-700 dark:text-gray-400">
+            1 {symbol} ={" "}
+          </span>
+          ${currentPrice}
         </p>
       )}
     </div>

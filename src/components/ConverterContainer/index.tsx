@@ -11,6 +11,9 @@ interface ConverterContainerProps {
 
 const ConverterContainer = ({ coins }: ConverterContainerProps) => {
   const [fromCurrency, setFromCurrency] = useState<CoinData | undefined>();
+  const [fromCurrencyQuantity, setFromCurrencyQuantity] = useState<
+    number | undefined
+  >();
   const [toCurrency, setToCurrency] = useState<CoinData | undefined>();
   const [hasError, setHasError] = useState(false);
 
@@ -53,6 +56,8 @@ const ConverterContainer = ({ coins }: ConverterContainerProps) => {
           options={options}
           onChange={(val: any) => setFromCurrency(getCurrencyFromIndex(val))}
           isFromCurrency
+          quantity={fromCurrencyQuantity}
+          onChangeQuantity={(val: number) => setFromCurrencyQuantity(val)}
           value={fromCurrency && getOptionFromCurrency(fromCurrency)}
           currentPrice={fromCurrency?.current_price.toString()}
           symbol={fromCurrency?.symbol.toUpperCase()}
