@@ -1,3 +1,4 @@
+import utils from "@/utils";
 import Image from "next/image";
 import { type ReactNode } from "react";
 import Select from "react-select";
@@ -27,10 +28,8 @@ const ConverterCurrencySelector = ({
 }: ConverterCurrencySelectorProps) => {
   return (
     <div
-      className={`flex flex-col gap-3 w-full px-4 py-6 rounded-md dark:text-white${
-        isFromCurrency
-          ? " bg-white dark:bg-indigo-900/25"
-          : " bg-gray-200 dark:bg-purple-950/20"
+      className={`flex flex-col gap-3 w-full px-4 py-6 rounded-md bg-white dark:text-white${
+        isFromCurrency ? " dark:bg-indigo-900/25" : " dark:bg-purple-950/20"
       }`}
     >
       <p className="text-xs text-gray-800 dark:text-gray-300 font-light">
@@ -47,7 +46,10 @@ const ConverterCurrencySelector = ({
               innerProps: any;
               children: ReactNode;
             }) => (
-              <div {...innerProps} className="py-2 flex items-center gap-2 text-sm">
+              <div
+                {...innerProps}
+                className="py-2 flex items-center gap-2 text-sm"
+              >
                 {image && (
                   <Image src={image} width={24} height={24} alt="coin" />
                 )}
@@ -56,7 +58,8 @@ const ConverterCurrencySelector = ({
             ),
           }}
           classNames={{
-            menu: () => "bg-violet-200/90 dark:bg-gray-900/80 p-2 rounded min-w-[170px]",
+            menu: () =>
+              "bg-violet-200/90 dark:bg-gray-900/80 p-2 rounded min-w-[170px]",
             menuList: () => "flex flex-col gap-2",
             input: () => "!hidden h-0",
           }}
@@ -72,10 +75,11 @@ const ConverterCurrencySelector = ({
             onChange={(e) => onChangeQuantity(e.target.value)}
             className="w-24 text-right text-sm bg-transparent focus:outline-none"
             placeholder="0"
-            size={2}
           />
         ) : (
-          <p className="text-right text-sm">{quantity ? quantity : "0"}</p>
+          <p className="text-right text-sm">
+            {quantity ? utils.getDisplayNumber(quantity) : "0"}
+          </p>
         )}
       </div>
       {currentPrice && (

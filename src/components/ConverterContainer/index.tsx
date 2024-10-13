@@ -90,7 +90,7 @@ const ConverterContainer = ({ coins }: ConverterContainerProps) => {
         />
         <button
           onClick={handleSwap}
-          className="p-3 bg-white text-sm absolute rounded-full rotate-90 translate-x-1/2 top-1/2 right-1/2 -translate-y-1/2 border-4 border-black active:opacity-50"
+          className="p-3 bg-indigo-800 dark:bg-white text-sm absolute rounded-full rotate-90 translate-x-1/2 top-1/2 right-1/2 -translate-y-1/2 dark:border-4 dark:border-gray-800 active:opacity-50 text-white dark:text-indigo-800"
         >
           <Repeat size={24} />
         </button>

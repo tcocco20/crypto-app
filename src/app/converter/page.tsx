@@ -12,7 +12,7 @@ const Converter = async () => {
           Online Currency Converter
         </h1>
         <p className="text-gray-800 dark:text-gray-400 font-light text-sm">
-          09/29/2023 14:15
+          {new Date().toLocaleString()}
         </p>
       </div>
       <ConverterContainer coins={coinsList} />
