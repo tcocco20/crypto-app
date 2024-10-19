@@ -1,4 +1,4 @@
-import Dropdown from "../UI/Dropdown";
+import ConverterDropdown from "./ConverterDropdown";
 
 interface ConverterCurrencySelectorProps {
   isFromCurrency?: boolean;
@@ -20,7 +20,7 @@ const ConverterCurrencySelector = ({
         {isFromCurrency ? "You sell" : "You buy"}
       </p>
       <div className="flex justify-between items-center border-b border-b-white py-3">
-        <Dropdown />
+        <ConverterDropdown />
         <input
           type="number"
           className="bg-transparent outline-none text-right w-2/5"
