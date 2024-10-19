@@ -2,12 +2,23 @@
 import { useState, type ReactNode } from "react";
 import Portal from "./Portal";
 
-interface DropdownProps {
+interface DropdownProps<T> {
   containerClassName?: string;
+  menuClassName?: string;
   children: ReactNode;
+  data?: T[];
+  renderItem?: (item: T) => ReactNode;
+  keyExtractor?: (item: T) => string;
 }
 
-const Dropdown = ({ containerClassName, children }: DropdownProps) => {
+function Dropdown<C>({
+  containerClassName,
+  children,
+  menuClassName,
+  data,
+  renderItem,
+  keyExtractor,
+}: DropdownProps<C>) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleBackgroundClick = () => {
@@ -16,6 +27,15 @@ const Dropdown = ({ containerClassName, children }: DropdownProps) => {
 
   const handleInputClick = () => {
     setIsOpen((prev) => !prev);
+  };
+
+  const renderDropdownItems = () => {
+    if (!data || !renderItem) return null;
+    return data.map((item) => (
+      <div key={keyExtractor ? keyExtractor(item) : Math.random()}>
+        {renderItem(item)}
+      </div>
+    ));
   };
   return (
     <>
@@ -33,13 +53,13 @@ const Dropdown = ({ containerClassName, children }: DropdownProps) => {
       >
         {children}
         {isOpen && (
-          <div className="absolute top-full w-full bg-black/30 mt-1">
-            Dropdown content
+          <div className={`absolute ${menuClassName}`}>
+            {renderDropdownItems()}
           </div>
         )}
       </div>
     </>
   );
-};
+}
 
 export default Dropdown;

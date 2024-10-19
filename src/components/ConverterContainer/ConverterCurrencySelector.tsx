@@ -1,11 +1,14 @@
+import { CoinData } from "@/actions/getCoinsList";
 import ConverterDropdown from "./ConverterDropdown";
 
 interface ConverterCurrencySelectorProps {
   isFromCurrency?: boolean;
+  coins: CoinData[];
 }
 
 const ConverterCurrencySelector = ({
   isFromCurrency = false,
+  coins,
 }: ConverterCurrencySelectorProps) => {
   const test = false;
   return (
@@ -20,7 +23,7 @@ const ConverterCurrencySelector = ({
         {isFromCurrency ? "You sell" : "You buy"}
       </p>
       <div className="flex justify-between items-center border-b border-b-white py-3">
-        <ConverterDropdown />
+        <ConverterDropdown coins={coins} />
         <input
           type="number"
           className="bg-transparent outline-none text-right w-2/5"
