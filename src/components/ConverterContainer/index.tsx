@@ -10,6 +10,7 @@ interface ConverterContainerProps {
 const ConverterContainer = ({ coins }: ConverterContainerProps) => {
   return (
     <section className="w-full flex flex-col gap-5">
+      <p className="text-transparent">{coins.length}</p>
       <div className="flex flex-col gap-5 relative">
         <ConverterCurrencySelector isFromCurrency />
         <ConverterCurrencySelector />
