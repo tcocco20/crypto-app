@@ -7,7 +7,7 @@ interface ConverterCurrencySelectorProps {
 const ConverterCurrencySelector = ({
   isFromCurrency = false,
 }: ConverterCurrencySelectorProps) => {
-  const test = true;
+  const test = false;
   return (
     <p
       className={`text-white rounded-md p-3 ${

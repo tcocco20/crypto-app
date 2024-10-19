@@ -6,7 +6,7 @@ const ConverterDropdown = () => {
   const placeholder = "Select Currency to begin";
   return (
     <>
-      <Dropdown containerClassName="flex flex-1 text-xs items-center gap-2 relative">
+      <Dropdown containerClassName="flex flex-1 text-xs items-center gap-2">
         {placeholder && (
           <p className="text-gray-400 font-thin">{placeholder}</p>
         )}
