@@ -5,8 +5,11 @@ interface ConverterCurrencySelectorProps {
   isFromCurrency?: boolean;
   coins: CoinData[];
   selectedCurrency?: CoinData;
+  quantity?: number | string;
   // eslint-disable-next-line no-unused-vars
   onSelectCurrency: (coin: CoinData) => void;
+  // eslint-disable-next-line no-unused-vars
+  setQuantity?: (quantity: number) => void;
 }
 
 const ConverterCurrencySelector = ({
@@ -14,8 +17,9 @@ const ConverterCurrencySelector = ({
   coins,
   onSelectCurrency,
   selectedCurrency,
+  quantity,
+  setQuantity,
 }: ConverterCurrencySelectorProps) => {
-  const test = false;
   return (
     <div
       className={`text-white rounded-md p-3 ${
@@ -28,16 +32,29 @@ const ConverterCurrencySelector = ({
         {isFromCurrency ? "You sell" : "You buy"}
       </p>
       <div className="flex justify-between items-center border-b border-b-white py-3">
-        <ConverterDropdown onSelect={onSelectCurrency} coins={coins} selectedCurrency={selectedCurrency} />
-        <input
-          type="number"
-          className="bg-transparent outline-none text-right w-2/5"
-          placeholder="Quantity"
+        <ConverterDropdown
+          onSelect={onSelectCurrency}
+          coins={coins}
+          selectedCurrency={selectedCurrency}
         />
+        {isFromCurrency ? (
+          <input
+            type="number"
+            className="bg-transparent outline-none text-right w-2/5"
+            placeholder="Quantity"
+            value={quantity && quantity}
+            onChange={(e) => setQuantity!(+e.target.value)}
+          />
+        ) : (
+          <p className="text-right w-2/5">{quantity || "Quantity"}</p>
+        )}
       </div>
-      {test ? (
+      {selectedCurrency ? (
         <p className="text-xs font-thin my-2">
-          <span className="text-gray-300">1 BTC = </span>$26,250.15
+          <span className="text-gray-300">
+            1 {selectedCurrency.symbol.toUpperCase()} ={" "}
+          </span>
+          ${selectedCurrency.current_price}
         </p>
       ) : (
         <p className="my-2 text-transparent text-xs" aria-hidden>
