@@ -10,7 +10,6 @@ interface ConverterContainerProps {
 
 const ConverterContainer = ({ coins }: ConverterContainerProps) => {
   const [fromCurrency, setFromCurrency] = useState<CoinData | undefined>();
-  const [toQuantity, setToQuantity] = useState<number | undefined>();
   const [toCurrency, setToCurrency] = useState<CoinData | undefined>();
 
   const handleSwitchCurrency = () => {

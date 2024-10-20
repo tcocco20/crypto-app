@@ -6,6 +6,7 @@ import Image from "next/image";
 
 interface ConverterDropdownProps {
   coins: CoinData[];
+  // eslint-disable-next-line no-unused-vars
   onSelect: (coin: CoinData) => void;
   selectedCurrency?: CoinData;
 }
