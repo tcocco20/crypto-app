@@ -9,7 +9,7 @@ interface DropdownProps<T> {
   data?: T[];
   // eslint-disable-next-line no-unused-vars
   renderItem?: (item: T) => ReactNode;
-  // eslint-disable-next-line no-unused-vars
+  //   eslint-disable-next-line no-unused-vars
   keyExtractor?: (item: T) => string;
 }
 
@@ -44,13 +44,13 @@ function Dropdown<C>({
       {isOpen && (
         <Portal>
           <div
-            className="absolute top-0 left-0 right-0 bottom-0 z-40"
+            className="absolute top-0 left-0 right-0 bottom-0 z-30"
             onClick={handleBackgroundClick}
           ></div>
         </Portal>
       )}
       <div
-        className={`relative z-50 active:opacity-50 ${containerClassName}`}
+        className={`relative z-30 active:opacity-50 ${containerClassName}`}
         onClick={handleInputClick}
       >
         {children}

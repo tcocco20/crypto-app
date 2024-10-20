@@ -4,15 +4,19 @@ import ConverterDropdown from "./ConverterDropdown";
 interface ConverterCurrencySelectorProps {
   isFromCurrency?: boolean;
   coins: CoinData[];
+  selectedCurrency?: CoinData;
+  onSelectCurrency: (coin: CoinData) => void;
 }
 
 const ConverterCurrencySelector = ({
   isFromCurrency = false,
   coins,
+  onSelectCurrency,
+  selectedCurrency,
 }: ConverterCurrencySelectorProps) => {
   const test = false;
   return (
-    <p
+    <div
       className={`text-white rounded-md p-3 ${
         isFromCurrency
           ? "bg-indigo-900/35 md:bg-indigo-900/25"
@@ -23,7 +27,7 @@ const ConverterCurrencySelector = ({
         {isFromCurrency ? "You sell" : "You buy"}
       </p>
       <div className="flex justify-between items-center border-b border-b-white py-3">
-        <ConverterDropdown coins={coins} />
+        <ConverterDropdown onSelect={onSelectCurrency} coins={coins} selectedCurrency={selectedCurrency} />
         <input
           type="number"
           className="bg-transparent outline-none text-right w-2/5"
@@ -40,7 +44,7 @@ const ConverterCurrencySelector = ({
           Invisible text for formatting{" "}
         </p>
       )}
-    </p>
+    </div>
   );
 };
 
