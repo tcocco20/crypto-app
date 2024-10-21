@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
 interface TestComponentProps {
   apiMessage?: string;
+  responseTest?: any;
 }
 
 const TestComponent = ({ apiMessage }: TestComponentProps) => {

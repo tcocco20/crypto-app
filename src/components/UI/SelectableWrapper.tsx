@@ -5,6 +5,7 @@ interface SelectableWrapperProps {
   children: ReactNode;
   py?: string;
   shadowSize?: string;
+  widthClasses?: string;
 }
 
 const SelectableWrapper = ({
@@ -12,12 +13,13 @@ const SelectableWrapper = ({
   children,
   py,
   shadowSize,
+  widthClasses,
 }: SelectableWrapperProps) => {
   return (
     <div
-      className={`p-[1px] ${
+      className={`p-[1px]${widthClasses ? " " + widthClasses : ""}${
         selected
-          ? `relative bg-gradient-to-b from-indigo-600 to-indigo-500 dark:from-indigo-300 dark:to-indigo-600 rounded-md shadow-indigo-500 ${
+          ? ` bg-gradient-to-b from-indigo-600 to-indigo-500 dark:from-indigo-300 dark:to-indigo-600 rounded-md shadow-indigo-500 ${
               shadowSize ? shadowSize : ""
             } text-white`
           : ""
@@ -25,8 +27,8 @@ const SelectableWrapper = ({
     >
       <div
         className={`${
-          selected ? "bg-indigo-400 dark:bg-indigo-700/90 " : ""
-        } rounded-md ${py ? py : ""}`}
+          selected ? "bg-indigo-400 dark:bg-indigo-700/90 " : " "
+        }rounded-md${py ? " " + py : ""}`}
       >
         {children}
       </div>
