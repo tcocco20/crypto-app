@@ -28,6 +28,7 @@ export default function RootLayout({
           <DesktopHeader />
           {children}
           <MobileNavbar />
+          <div id="portal-root"></div>
         </Providers>
       </body>
     </html>
