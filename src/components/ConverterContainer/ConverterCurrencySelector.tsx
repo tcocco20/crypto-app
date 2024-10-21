@@ -1,5 +1,6 @@
 import { CoinData } from "@/actions/getCoinsList";
 import ConverterDropdown from "./ConverterDropdown";
+import { type ChangeEvent } from "react";
 
 interface ConverterCurrencySelectorProps {
   isFromCurrency?: boolean;
@@ -20,18 +21,22 @@ const ConverterCurrencySelector = ({
   quantity,
   setQuantity,
 }: ConverterCurrencySelectorProps) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setQuantity!(+e.target.value);
+  };
+
   return (
     <div
-      className={`text-white rounded-md p-3 ${
+      className={`text-indigo-900 dark:text-white bg-white rounded-md p-3 ${
         isFromCurrency
-          ? "bg-indigo-900/35 md:bg-indigo-900/25"
-          : "bg-purple-900/20"
+          ? "dark:bg-indigo-900/35 dark:md:bg-indigo-900/25"
+          : "dark:bg-purple-900/20"
       }`}
     >
-      <p className="text-xs font-thin text-gray-100">
+      <p className="text-xs font-thin text-indigo-800 dark:text-gray-100">
         {isFromCurrency ? "You sell" : "You buy"}
       </p>
-      <div className="flex justify-between items-center border-b border-b-white py-3">
+      <div className="flex justify-between items-center border-b border-b-indigo-900 dark:border-b-white py-3">
         <ConverterDropdown
           onSelect={onSelectCurrency}
           coins={coins}
@@ -43,7 +48,7 @@ const ConverterCurrencySelector = ({
             className="bg-transparent outline-none text-right w-2/5"
             placeholder="Quantity"
             value={quantity && quantity}
-            onChange={(e) => setQuantity!(+e.target.value)}
+            onChange={handleChange}
           />
         ) : (
           <p className="text-right w-2/5">{quantity || "Quantity"}</p>
@@ -51,7 +56,7 @@ const ConverterCurrencySelector = ({
       </div>
       {selectedCurrency ? (
         <p className="text-xs font-thin my-2">
-          <span className="text-gray-300">
+          <span className="text-indigo-700 dark:text-gray-300">
             1 {selectedCurrency.symbol.toUpperCase()} ={" "}
           </span>
           ${selectedCurrency.current_price}

@@ -2,7 +2,7 @@
 import { type CoinData } from "@/actions/getCoinsList";
 import ConverterCurrencySelector from "./ConverterCurrencySelector";
 import { Repeat } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import utils from "@/utils";
 
 interface ConverterContainerProps {
@@ -13,8 +13,13 @@ const ConverterContainer = ({ coins }: ConverterContainerProps) => {
   const [fromCurrency, setFromCurrency] = useState<CoinData | undefined>();
   const [fromQuantity, setFromQuantity] = useState<number | undefined>();
   const [toCurrency, setToCurrency] = useState<CoinData | undefined>();
+  const [hasError, setHasError] = useState(false);
 
   const handleSwitchCurrency = () => {
+    if (!fromCurrency || !toCurrency) {
+      setHasError(true);
+      return;
+    }
     const temp = fromCurrency;
     setFromCurrency(toCurrency);
     setToCurrency(temp);
@@ -30,6 +35,12 @@ const ConverterContainer = ({ coins }: ConverterContainerProps) => {
       )
     );
   };
+
+  useEffect(() => {
+    if (fromCurrency && toCurrency) {
+      setHasError(false);
+    }
+  }, [fromCurrency, toCurrency]);
 
   return (
     <section className="w-full flex flex-col gap-5">
@@ -55,6 +66,11 @@ const ConverterContainer = ({ coins }: ConverterContainerProps) => {
           <Repeat size={24} />
         </button>
       </div>
+      {hasError && (
+        <p className="text-red-500 text-xs">
+          Please select both currencies before trying to switch
+        </p>
+      )}
     </section>
   );
 };

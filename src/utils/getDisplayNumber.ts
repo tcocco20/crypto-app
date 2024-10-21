@@ -1,5 +1,6 @@
 export const getDisplayNumber = (num: number): string => {
   let numString = "0";
+  if (Number.isInteger(num) && num <= 10000000000000) return num.toString();
   if (num < 1000) {
     numString = num.toFixed(8);
   }
