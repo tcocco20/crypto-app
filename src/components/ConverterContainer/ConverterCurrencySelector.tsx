@@ -7,9 +7,7 @@ interface ConverterCurrencySelectorProps {
   coins: CoinData[];
   selectedCurrency?: CoinData;
   quantity?: number | string;
-  // eslint-disable-next-line no-unused-vars
   onSelectCurrency: (coin: CoinData) => void;
-  // eslint-disable-next-line no-unused-vars
   setQuantity?: (quantity: number) => void;
 }
 

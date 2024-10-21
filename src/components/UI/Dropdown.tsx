@@ -7,9 +7,7 @@ interface DropdownProps<T> {
   menuClassName?: string;
   children: ReactNode;
   data?: T[];
-  // eslint-disable-next-line no-unused-vars
   renderItem?: (item: T) => ReactNode;
-  //   eslint-disable-next-line no-unused-vars
   keyExtractor?: (item: T) => string;
 }
 
