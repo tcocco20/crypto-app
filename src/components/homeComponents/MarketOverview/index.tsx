@@ -13,8 +13,11 @@ const MarketOverview = ({ coins }: MarketOverviewProps) => {
       return <MobileCoinOverview key={coin.id} coin={coin} />;
     });
   };
+
   return (
-    <div className="text-white flex flex-col gap-1 pb-16 mb-2">{renderCoins()}</div>
+    <div className="text-white flex flex-col gap-1 pb-16 mb-2">
+      {renderCoins()}
+    </div>
   );
 };
 
