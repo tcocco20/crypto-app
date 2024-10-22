@@ -1,3 +1,4 @@
+"use client";
 import { CoinData } from "@/actions/getCoinsList";
 import React from "react";
 import MobileCoinOverview from "./MobileCoinOverview";
@@ -9,10 +10,12 @@ interface MarketOverviewProps {
 const MarketOverview = ({ coins }: MarketOverviewProps) => {
   const renderCoins = () => {
     return coins.map((coin) => {
-      return <MobileCoinOverview key={coin.id} />;
+      return <MobileCoinOverview key={coin.id} coin={coin} />;
     });
   };
-  return <div>{renderCoins()}</div>;
+  return (
+    <div className="text-white flex flex-col gap-1 pb-16 mb-2">{renderCoins()}</div>
+  );
 };
 
 export default MarketOverview;
