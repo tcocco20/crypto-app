@@ -26,7 +26,9 @@ export default function RootLayout({
         <Providers>
           <MobileHeader />
           <DesktopHeader />
-          {children}
+          <main className="flex min-h-screen flex-col px-3 md:px-24">
+            {children}
+          </main>
           <MobileNavbar />
           <div id="portal-root"></div>
         </Providers>
