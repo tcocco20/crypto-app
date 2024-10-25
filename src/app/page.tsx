@@ -9,7 +9,7 @@ export default async function Home() {
     <>
       <HomeNav />
       <CompareBar coins={coins} />
-      <MarketOverview />
+      <MarketOverview startingCoins={coins} />
     </>
   );
 }

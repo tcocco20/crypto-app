@@ -20,7 +20,9 @@ const MobileCoinOverview = ({ coin }: MobileCoinOverviewProps) => {
         <p className="text-xs font-light text-gray-400">{coin.name}</p>
       </div>
       <div className="flex-1 text-right">
-        <p className="font-medium">${coin.current_price}</p>
+        <p className="font-medium">
+          {coin.current_price ? "$" + coin.current_price : "No data"}
+        </p>
         <p
           className={`text-xs ${
             coin.price_change_percentage_24h > 0
@@ -28,7 +30,9 @@ const MobileCoinOverview = ({ coin }: MobileCoinOverviewProps) => {
               : "text-red-400"
           }`}
         >
-          {coin.price_change_percentage_24h.toFixed(2)}%
+          {coin.price_change_percentage_24h
+            ? coin.price_change_percentage_24h.toFixed(2) + "%"
+            : "No data"}
         </p>
       </div>
     </div>
