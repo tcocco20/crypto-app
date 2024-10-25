@@ -9,9 +9,8 @@ export interface CoinData {
   price_change_percentage_24h: number;
 }
 
-export async function getCoinsList() {
-  const url =
-    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&category=layer-1&order=market_cap_desc&per_page=50&page=1";
+export async function getCoinsList(currency = "usd", page = 1) {
+  const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&category=layer-1&order=market_cap_desc&per_page=50&page=${page}`;
   const options: RequestInit = {
     method: "GET",
     headers: {
