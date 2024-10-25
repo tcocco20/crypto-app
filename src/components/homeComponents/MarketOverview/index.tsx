@@ -17,7 +17,6 @@ const MarketOverview = () => {
   useEffect(() => {
     const fetchCoins = async () => {
       const data = (await getCoinsList("usd", currentPage)) as CoinData[];
-      console.log(data);
       setCoins(data);
     };
     fetchCoins();
