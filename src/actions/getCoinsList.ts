@@ -1,13 +1,6 @@
 "use server";
 
-export interface CoinData {
-  id: string;
-  image: string;
-  name: string;
-  symbol: string;
-  current_price: number;
-  price_change_percentage_24h: number;
-}
+import { type ListCoin } from "@/lib/types/ListCoin";
 
 export async function getCoinsList(currency = "usd", page = 1) {
   const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&category=layer-1&order=market_cap_desc&per_page=50&page=${page}`;
@@ -23,5 +16,5 @@ export async function getCoinsList(currency = "usd", page = 1) {
   if (!response.ok) {
     throw new Error("Failed to connect to CoinGecko API");
   }
-  return (await response.json()) as Promise<CoinData[]>;
+  return (await response.json()) as Promise<ListCoin[]>;
 }

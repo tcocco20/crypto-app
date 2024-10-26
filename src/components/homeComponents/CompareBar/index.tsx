@@ -1,11 +1,11 @@
 "use client";
 import { ChartLine, X } from "lucide-react";
 import CoinSelector from "./CoinSelector";
-import { CoinData } from "@/actions/getCoinsList";
 import { useState } from "react";
+import { type ListCoin } from "@/lib/types/ListCoin";
 
 interface CompareBarProps {
-  coins: CoinData[];
+  coins: ListCoin[];
 }
 
 const CompareBar = ({ coins }: CompareBarProps) => {

@@ -1,12 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import MobileCoinOverview from "./MobileCoinOverview";
-import { CoinData, getCoinsList } from "@/actions/getCoinsList";
+import { getCoinsList } from "@/actions/getCoinsList";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useAppSelector } from "@/lib/hooks";
+import { type ListCoin } from "@/lib/types/ListCoin";
 
 interface MarketOverviewProps {
-  startingCoins: CoinData[];
+  startingCoins: ListCoin[];
 }
 
 const MarketOverview = ({ startingCoins }: MarketOverviewProps) => {
@@ -28,7 +29,7 @@ const MarketOverview = ({ startingCoins }: MarketOverviewProps) => {
     const data = (await getCoinsList(
       selectedCurrency,
       currentPage + 1
-    )) as CoinData[];
+    )) as ListCoin[];
     if (!data.length || data.length === 0) {
       setHasMore(false);
       return;

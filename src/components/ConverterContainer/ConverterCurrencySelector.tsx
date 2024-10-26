@@ -1,13 +1,13 @@
-import { CoinData } from "@/actions/getCoinsList";
 import ConverterDropdown from "./ConverterDropdown";
 import { type ChangeEvent } from "react";
+import { type ListCoin } from "@/lib/types/ListCoin";
 
 interface ConverterCurrencySelectorProps {
   isFromCurrency?: boolean;
-  coins: CoinData[];
-  selectedCurrency?: CoinData;
+  coins: ListCoin[];
+  selectedCurrency?: ListCoin;
   quantity?: number | string;
-  onSelectCurrency: (coin: CoinData) => void;
+  onSelectCurrency: (coin: ListCoin) => void;
   setQuantity?: (quantity: number) => void;
 }
 

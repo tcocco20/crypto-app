@@ -1,18 +1,18 @@
 "use client";
-import { type CoinData } from "@/actions/getCoinsList";
 import ConverterCurrencySelector from "./ConverterCurrencySelector";
 import { Repeat } from "lucide-react";
 import { useEffect, useState } from "react";
 import utils from "@/utils";
+import { type ListCoin } from "@/lib/types/ListCoin";
 
 interface ConverterContainerProps {
-  coins: CoinData[];
+  coins: ListCoin[];
 }
 
 const ConverterContainer = ({ coins }: ConverterContainerProps) => {
-  const [fromCurrency, setFromCurrency] = useState<CoinData | undefined>();
+  const [fromCurrency, setFromCurrency] = useState<ListCoin | undefined>();
   const [fromQuantity, setFromQuantity] = useState<number | undefined>();
-  const [toCurrency, setToCurrency] = useState<CoinData | undefined>();
+  const [toCurrency, setToCurrency] = useState<ListCoin | undefined>();
   const [hasError, setHasError] = useState(false);
 
   const handleSwitchCurrency = () => {
