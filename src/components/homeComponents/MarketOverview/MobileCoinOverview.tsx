@@ -1,5 +1,6 @@
 import { type ListCoin } from "@/lib/types/ListCoin";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 interface MobileCoinOverviewProps {
@@ -15,7 +16,10 @@ const MobileCoinOverview = ({ coin }: MobileCoinOverviewProps) => {
     ? coin.price_change_percentage_24h.toFixed(2) + "%"
     : "No data";
   return (
-    <div className="flex gap-4 items-center bg-violet-950/90 rounded-md p-3">
+    <Link
+      href={`/coin/${coin.id}`}
+      className="flex gap-4 items-center bg-violet-950/90 rounded-md p-3"
+    >
       <Image
         src={coin.image}
         alt={"logo for " + coin.name}
@@ -40,7 +44,7 @@ const MobileCoinOverview = ({ coin }: MobileCoinOverviewProps) => {
           {displayPriceChange}
         </p>
       </div>
-    </div>
+    </Link>
   );
 };
 
