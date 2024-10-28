@@ -11,7 +11,7 @@ const CoinBrand = ({ name, symbol, imageUrl }: CoinBrandProps) => {
   return (
     <Card className="flex flex-col items-center justify-center dark:text-white">
       <Image
-        className="bg-violet-900/30 p-4 rounded-md"
+        className="bg-violet-900/30 p-4 rounded-md mb-6"
         src={imageUrl}
         alt={name}
         width={70}
