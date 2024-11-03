@@ -5,11 +5,16 @@ interface CoinBrandProps {
   name: string;
   symbol: string;
   imageUrl: string;
+  className?: string;
 }
 
-const CoinBrand = ({ name, symbol, imageUrl }: CoinBrandProps) => {
+const CoinBrand = ({ name, symbol, imageUrl, className }: CoinBrandProps) => {
   return (
-    <Card className="flex flex-col items-center justify-center dark:text-white">
+    <Card
+      className={`flex flex-col items-center justify-center dark:text-white${
+        className ? " " + className : ""
+      }`}
+    >
       <Image
         className="bg-violet-900/30 p-4 rounded-md mb-6"
         src={imageUrl}

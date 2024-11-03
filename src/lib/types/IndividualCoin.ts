@@ -3,15 +3,15 @@ export interface IndividualCoin {
   symbol: string;
   name: string;
   web_slug: string;
-  asset_platform_id: any;
+  asset_platform_id: any | undefined;
   platforms: Platforms;
   detail_platforms: Detailplatforms;
   block_time_in_minutes: number;
   hashing_algorithm: string;
   categories: string[];
   preview_listing: boolean;
-  public_notice: any;
-  additional_notices: any[];
+  public_notice: any | undefined;
+  additional_notices: any[] | undefined;
   description: Description;
   links: Links;
   image: Image;
@@ -24,7 +24,7 @@ export interface IndividualCoin {
   market_data: Marketdata;
   community_data: Communitydata;
   developer_data: Developerdata;
-  status_updates: any[];
+  status_updates: any[] | undefined;
   last_updated: string;
 }
 
@@ -38,7 +38,7 @@ interface Developerdata {
   pull_request_contributors: number;
   code_additions_deletions_4_weeks: Codeadditionsdeletions4weeks;
   commit_count_4_weeks: number;
-  last_4_weeks_commit_activity_series: any[];
+  last_4_weeks_commit_activity_series: any[] | undefined;
 }
 
 interface Codeadditionsdeletions4weeks {
@@ -47,21 +47,21 @@ interface Codeadditionsdeletions4weeks {
 }
 
 interface Communitydata {
-  facebook_likes: any;
+  facebook_likes: any | undefined;
   twitter_followers: number;
   reddit_average_posts_48h: number;
   reddit_average_comments_48h: number;
   reddit_subscribers: number;
   reddit_accounts_active_48h: number;
-  telegram_channel_user_count: any;
+  telegram_channel_user_count: any | undefined;
 }
 
 interface Marketdata {
   current_price: Currentprice;
-  total_value_locked: any;
-  mcap_to_tvl_ratio: any;
-  fdv_to_tvl_ratio: any;
-  roi: any;
+  total_value_locked: any | undefined;
+  mcap_to_tvl_ratio: any | undefined;
+  fdv_to_tvl_ratio: any | undefined;
+  roi: any | undefined;
   ath: Currentprice;
   ath_change_percentage: Currentprice;
   ath_date: Athdate;
@@ -97,7 +97,7 @@ interface Marketdata {
   market_cap_change_24h_in_currency: Currentprice;
   market_cap_change_percentage_24h_in_currency: Currentprice;
   total_supply: number;
-  max_supply: number;
+  max_supply: number | null;
   circulating_supply: number;
   last_updated: string;
 }
@@ -247,7 +247,7 @@ interface Links {
   announcement_url: string[];
   twitter_screen_name: string;
   facebook_username: string;
-  bitcointalk_thread_identifier: any;
+  bitcointalk_thread_identifier: any | undefined;
   telegram_channel_identifier: string;
   subreddit_url: string;
   repos_url: Reposurl;
@@ -255,7 +255,7 @@ interface Links {
 
 interface Reposurl {
   github: string[];
-  bitbucket: any[];
+  bitbucket: any[] | undefined;
 }
 
 interface Description {
@@ -267,7 +267,7 @@ interface Detailplatforms {
 }
 
 interface _ {
-  decimal_place: any;
+  decimal_place: any | undefined;
   contract_address: string;
 }
 
