@@ -28,6 +28,10 @@ export interface IndividualCoin {
   last_updated: string;
 }
 
+export interface IndividualCoinWith24hVolume extends IndividualCoin {
+  volume_24h: number | null;
+}
+
 interface Developerdata {
   forks: number;
   stars: number;

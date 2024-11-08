@@ -10,6 +10,8 @@ interface CoinDetailsPageProps {
 
 const CoinDetailsPage = async ({ params }: CoinDetailsPageProps) => {
   const coin = await actions.getCoinById(params.coinId);
+  const volumeChange = await actions.get24hVolumeInCurrency(params.coinId);
+
   return (
     <>
       <section className="grid grid-cols-7 gap-4 dark:text-white">
