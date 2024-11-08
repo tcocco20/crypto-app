@@ -1,7 +1,6 @@
 import { type IndividualCoin } from "@/lib/types/IndividualCoin";
 import Card from "../UI/Card";
-import SelectableWrapper from "../UI/SelectableWrapper";
-import { Plus } from "lucide-react";
+import DataPoint from "./DataPoint";
 
 interface MarketDataProps {
   coin: IndividualCoin;
@@ -10,81 +9,52 @@ interface MarketDataProps {
 const MarketData = ({ coin }: MarketDataProps) => {
   return (
     <Card className="p-16 flex flex-col gap-4 col-span-3">
-      <div className="flex items-center">
-        <div className="flex items-center w-1/2 gap-3">
-          <SelectableWrapper selected rounded shadowSize="shadow-[0_0_20px]">
-            <Plus size={24} strokeWidth={3} className="p-1" />
-          </SelectableWrapper>
-          <p>Market Cap</p>
-        </div>
-        <p className="text-xl w-1/2">
-          ${coin.market_data.market_cap.usd.toLocaleString()}
-        </p>
-      </div>
-      <div className="flex items-center">
-        <div className="flex items-center w-1/2 gap-3">
-          <SelectableWrapper selected rounded shadowSize="shadow-[0_0_20px]">
-            <Plus size={24} strokeWidth={3} className="p-1" />
-          </SelectableWrapper>
-          <p>Fully Diluted Valuation</p>
-        </div>
-        <p className="text-xl w-1/2">
-          ${coin.market_data.fully_diluted_valuation.usd.toLocaleString()}
-        </p>
-      </div>
-      <div className="flex items-center">
-        <div className="flex items-center w-1/2 gap-3">
-          <SelectableWrapper selected rounded shadowSize="shadow-[0_0_20px]">
-            <Plus size={24} strokeWidth={3} className="p-1" />
-          </SelectableWrapper>
-          <p>Volume 24h</p>
-        </div>
-        <p className="text-xl w-1/2">
-          ${coin.market_data.total_volume.usd.toLocaleString()}
-        </p>
-      </div>
-      <div className="flex items-center">
-        <div className="flex items-center w-1/2 gap-3">
-          <SelectableWrapper selected rounded shadowSize="shadow-[0_0_20px]">
-            <Plus size={24} strokeWidth={3} className="p-1" />
-          </SelectableWrapper>
-          <p>Volume/Market</p>
-        </div>
-        <p className="text-xl w-1/2">{coin.market_data.market_cap_fdv_ratio}</p>
-      </div>
-      <div className="flex items-center">
-        <div className="flex items-center w-1/2 gap-3">
-          <SelectableWrapper selected rounded shadowSize="shadow-[0_0_20px]">
-            <Plus size={24} strokeWidth={3} className="p-1" />
-          </SelectableWrapper>
-          <p>Total Volume</p>
-        </div>
-        <p className="text-xl w-1/2">
-          {coin.market_data.total_volume.btc.toLocaleString()} BTC
-        </p>
-      </div>
-      <div className="flex items-center">
-        <div className="flex items-center w-1/2 gap-3">
-          <SelectableWrapper selected rounded shadowSize="shadow-[0_0_20px]">
-            <Plus size={24} strokeWidth={3} className="p-1" />
-          </SelectableWrapper>
-          <p>Circulating Supply</p>
-        </div>
-        <p className="text-xl w-1/2">
-          {coin.market_data.circulating_supply.toLocaleString()} BTC
-        </p>
-      </div>
-      {/* <div className="flex items-center">
-        <div className="flex items-center w-1/2 gap-3">
-          <SelectableWrapper selected rounded shadowSize="shadow-[0_0_20px]">
-            <Plus size={24} strokeWidth={3} className="p-1" />
-          </SelectableWrapper>
-          <p>Max Supply</p>
-        </div>
-        <p className="text-xl w-1/2">
-          {coin.market_data.max_supply.toLocaleString()} BTC
-        </p>
-      </div> */}
+      <DataPoint
+        title="Market Cap"
+        dataObject={coin.market_data.market_cap}
+        property={"usd"}
+        currencyToDisplay="$"
+        currencyDisplay
+      />
+      <DataPoint
+        title="Fully Diluted Valuation"
+        dataObject={coin.market_data.fully_diluted_valuation}
+        property={"usd"}
+        currencyToDisplay="$"
+        currencyDisplay
+      />
+      <DataPoint
+        title="Volume 24h"
+        dataObject={coin.market_data.total_volume}
+        property={"usd"}
+        currencyToDisplay="$"
+        currencyDisplay
+      />
+      <DataPoint
+        title="Volume/Market"
+        dataPoint={coin.market_data.market_cap_fdv_ratio}
+      />
+      <DataPoint
+        title="Total Volume"
+        dataObject={coin.market_data.total_volume}
+        property={"usd"}
+        currencyToDisplay={"$"}
+        currencyDisplay
+      />
+      <DataPoint
+        title="Circulating Supply"
+        dataPoint={coin.market_data.circulating_supply}
+        currencyToDisplay={coin.symbol.toUpperCase()}
+        currencyDisplay
+        currencyLocation="right"
+      />
+      <DataPoint
+        title="Max Supply"
+        dataPoint={coin.market_data.max_supply}
+        currencyToDisplay={coin.symbol.toUpperCase()}
+        currencyDisplay
+        currencyLocation="right"
+      />
     </Card>
   );
 };
