@@ -10,7 +10,7 @@ interface CoinDetailsPageProps {
 
 const CoinDetailsPage = async ({ params }: CoinDetailsPageProps) => {
   const coin = await actions.getCoinById(params.coinId);
-  const volumeChange = await actions.get24hVolumeInCurrency(params.coinId);
+  // const volumeChange = await actions.get24hVolumeInCurrency(params.coinId);
 
   return (
     <>
