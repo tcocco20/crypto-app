@@ -13,6 +13,10 @@ export async function get24hVolumeInCurrency(id: string, currency = "usd") {
   if (!response.ok) {
     throw new Error("Failed to connect to CoinGecko API");
   }
-
-  return await response.json();
+  const responseObj = await response.json();
+  const priceObj = responseObj[id];
+  if (priceObj[`${currency}_24h_vol`]) {
+    return priceObj[`${currency}_24h_vol`] as number;
+  }
+  return null;
 }

@@ -2,6 +2,7 @@ import actions from "@/actions";
 import InvestmentDetails from "@/components/coinPageComponents/InvestmentDetails";
 import MarketData from "@/components/coinPageComponents/MarketData";
 import CoinBrand from "@/components/UI/CoinBrand";
+import { type IndividualCoinWith24hVolume } from "@/lib/types/IndividualCoin";
 interface CoinDetailsPageProps {
   params: {
     coinId: string;
@@ -9,8 +10,12 @@ interface CoinDetailsPageProps {
 }
 
 const CoinDetailsPage = async ({ params }: CoinDetailsPageProps) => {
-  const coin = await actions.getCoinById(params.coinId);
-  // const volumeChange = await actions.get24hVolumeInCurrency(params.coinId);
+  const coinData = await actions.getCoinById(params.coinId);
+  const volumeChange = await actions.get24hVolumeInCurrency(params.coinId);
+  const coin = {
+    ...coinData,
+    volume_24h: volumeChange,
+  } as IndividualCoinWith24hVolume;
 
   return (
     <>
@@ -21,7 +26,11 @@ const CoinDetailsPage = async ({ params }: CoinDetailsPageProps) => {
           imageUrl={coin.image.large}
           className="col-span-2"
         />
-        <InvestmentDetails coin={coin} />
+        <InvestmentDetails
+          coin={coin}
+          selectedCurrency="usd"
+          currencyToDisplay="$"
+        />
         <MarketData coin={coin} />
       </section>
     </>

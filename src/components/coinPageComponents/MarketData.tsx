@@ -1,12 +1,23 @@
-import { type IndividualCoin } from "@/lib/types/IndividualCoin";
+import { type IndividualCoinWith24hVolume } from "@/lib/types/IndividualCoin";
 import Card from "../UI/Card";
 import DataPoint from "./DataPoint";
+import utils from "@/utils";
 
 interface MarketDataProps {
-  coin: IndividualCoin;
+  coin: IndividualCoinWith24hVolume;
 }
 
 const MarketData = ({ coin }: MarketDataProps) => {
+  let volumeOverMarket: number | null = null;
+
+  if (
+    utils.isPropertyType(coin.market_data.total_volume, "usd") &&
+    utils.isPropertyType(coin.market_data.market_cap, "usd")
+  ) {
+    volumeOverMarket = +(
+      coin.market_data.total_volume.usd / coin.market_data.market_cap.usd
+    ).toFixed(5);
+  }
   return (
     <Card className="p-16 flex flex-col gap-4 col-span-3">
       <DataPoint
@@ -25,15 +36,11 @@ const MarketData = ({ coin }: MarketDataProps) => {
       />
       <DataPoint
         title="Volume 24h"
-        dataObject={coin.market_data.total_volume}
-        property={"usd"}
+        dataPoint={coin.volume_24h}
         currencyToDisplay="$"
         currencyDisplay
       />
-      <DataPoint
-        title="Volume/Market"
-        dataPoint={coin.market_data.market_cap_fdv_ratio}
-      />
+      <DataPoint title="Volume/Market" dataPoint={volumeOverMarket} />
       <DataPoint
         title="Total Volume"
         dataObject={coin.market_data.total_volume}
