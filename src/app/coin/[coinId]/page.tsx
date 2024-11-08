@@ -1,11 +1,7 @@
 import actions from "@/actions";
 import InvestmentDetails from "@/components/coinPageComponents/InvestmentDetails";
 import MarketData from "@/components/coinPageComponents/MarketData";
-import Card from "@/components/UI/Card";
 import CoinBrand from "@/components/UI/CoinBrand";
-import SelectableWrapper from "@/components/UI/SelectableWrapper";
-import { Plus } from "lucide-react";
-
 interface CoinDetailsPageProps {
   params: {
     coinId: string;
