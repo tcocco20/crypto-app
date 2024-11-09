@@ -4,7 +4,8 @@ import MarketData from "@/components/coinPageComponents/MarketData";
 import Card from "@/components/UI/Card";
 import CoinBrand from "@/components/UI/CoinBrand";
 import { type IndividualCoinWith24hVolume } from "@/lib/types/IndividualCoin";
-import { Copy, Link } from "lucide-react";
+import { Copy, Link as LinkIcon } from "lucide-react";
+import Link from "next/link";
 interface CoinDetailsPageProps {
   params: {
     coinId: string;
@@ -30,8 +31,10 @@ const CoinDetailsPage = async ({ params }: CoinDetailsPageProps) => {
             className="flex-1"
           />
           <Card className="flex justify-center gap-4 py-4">
-            <Link size={24} />
-            <p>{coin.links.homepage}</p>
+            <Link href={coin.links.homepage[0]} target="_blank">
+              <LinkIcon size={24} />
+            </Link>
+            <p>{coin.links.homepage[0]}</p>
             <Copy size={24} />
           </Card>
         </div>

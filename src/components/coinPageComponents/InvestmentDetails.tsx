@@ -18,48 +18,15 @@ const InvestmentDetails = ({
   coin,
   selectedCurrency,
 }: InvestmentDetailsProps) => {
-  let priceUp: boolean = false;
-  let displayPrice: string = "";
-  let allTimeHigh: string = "";
-  let allTimeHighDate: string = "";
-  let allTimeLow: string = "";
-  let allTimeLowDate: string = "";
-  if (
-    coin.market_data.price_change_percentage_24h &&
-    coin.market_data.price_change_percentage_24h > 0
-  ) {
-    priceUp = true;
-  }
-
-  if (utils.isPropertyType(coin.market_data.current_price, selectedCurrency)) {
-    displayPrice = "$" + coin.market_data.current_price.usd.toLocaleString();
-  } else {
-    displayPrice = "No price data available";
-  }
-
-  if (utils.isPropertyType(coin.market_data.ath, selectedCurrency)) {
-    allTimeHigh = coin.market_data.ath.usd.toLocaleString();
-  } else {
-    allTimeHigh = "No data available";
-  }
-
-  if (utils.isPropertyType(coin.market_data.ath_date, selectedCurrency)) {
-    allTimeHighDate = new Date(coin.market_data.ath_date.usd).toUTCString();
-  } else {
-    allTimeHighDate = "No data available";
-  }
-
-  if (utils.isPropertyType(coin.market_data.atl, selectedCurrency)) {
-    allTimeLow = coin.market_data.atl.usd.toLocaleString();
-  } else {
-    allTimeLow = "No data available";
-  }
-
-  if (utils.isPropertyType(coin.market_data.atl_date, selectedCurrency)) {
-    allTimeLowDate = new Date(coin.market_data.atl_date.usd).toUTCString();
-  } else {
-    allTimeLowDate = "No data available";
-  }
+  const {
+    priceUp,
+    priceDataAvailable,
+    displayPrice,
+    allTimeHigh,
+    allTimeHighDate,
+    allTimeLow,
+    allTimeLowDate,
+  } = utils.getPriceDetails(coin, selectedCurrency);
 
   function displayPriceChange() {
     if (coin.market_data.price_change_percentage_24h) {
@@ -97,7 +64,13 @@ const InvestmentDetails = ({
   return (
     <Card className="py-12 px-16 flex flex-col gap-4 col-span-2">
       <div className="flex gap-1 items-end">
-        <h2 className="text-4xl font-semibold">{displayPrice}</h2>
+        <h2
+          className={`${
+            priceDataAvailable ? "text-4xl" : "text-2xl"
+          } font-semibold`}
+        >
+          {displayPrice}
+        </h2>
         {displayPriceChange()}
       </div>
       <Layers size={24} className="mx-auto" />
