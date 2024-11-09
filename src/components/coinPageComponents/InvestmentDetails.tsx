@@ -16,9 +16,7 @@ interface InvestmentDetailsProps {
 
 const InvestmentDetails = ({
   coin,
-  currencyToDisplay,
   selectedCurrency,
-  symbolPlacement = "left",
 }: InvestmentDetailsProps) => {
   let priceUp: boolean = false;
   let displayPrice: string = "";
@@ -34,14 +32,7 @@ const InvestmentDetails = ({
   }
 
   if (utils.isPropertyType(coin.market_data.current_price, selectedCurrency)) {
-    displayPrice = coin.market_data.current_price.usd.toLocaleString();
-    if (currencyToDisplay) {
-      if (symbolPlacement === "left") {
-        displayPrice = `${currencyToDisplay}${displayPrice}`;
-      } else {
-        displayPrice = `${displayPrice}${currencyToDisplay}`;
-      }
-    }
+    displayPrice = "$" + coin.market_data.current_price.usd.toLocaleString();
   } else {
     displayPrice = "No price data available";
   }
@@ -52,16 +43,16 @@ const InvestmentDetails = ({
     allTimeHigh = "No data available";
   }
 
-  if (utils.isPropertyType(coin.market_data.atl, selectedCurrency)) {
-    allTimeLow = coin.market_data.atl.usd.toLocaleString();
-  } else {
-    allTimeLow = "No data available";
-  }
-
   if (utils.isPropertyType(coin.market_data.ath_date, selectedCurrency)) {
     allTimeHighDate = new Date(coin.market_data.ath_date.usd).toUTCString();
   } else {
     allTimeHighDate = "No data available";
+  }
+
+  if (utils.isPropertyType(coin.market_data.atl, selectedCurrency)) {
+    allTimeLow = coin.market_data.atl.usd.toLocaleString();
+  } else {
+    allTimeLow = "No data available";
   }
 
   if (utils.isPropertyType(coin.market_data.atl_date, selectedCurrency)) {
@@ -69,26 +60,45 @@ const InvestmentDetails = ({
   } else {
     allTimeLowDate = "No data available";
   }
+
+  function displayPriceChange() {
+    if (coin.market_data.price_change_percentage_24h) {
+      if (priceUp) {
+        return (
+          <>
+            <ChevronUp
+              strokeWidth={4}
+              size={20}
+              className="text-cyan-600 ml-2"
+            />
+            <p className="text-xl text-cyan-600">
+              {coin.market_data.price_change_percentage_24h.toPrecision(3)}%
+            </p>
+          </>
+        );
+      } else {
+        return (
+          <>
+            <ChevronDown
+              strokeWidth={4}
+              size={20}
+              className="text-pink-600 ml-2"
+            />
+            <p className="text-xl text-pink-600">
+              {coin.market_data.price_change_percentage_24h.toPrecision(3)}%
+            </p>
+          </>
+        );
+      }
+    }
+    return null;
+  }
+
   return (
     <Card className="py-12 px-16 flex flex-col gap-4 col-span-2">
       <div className="flex gap-1 items-end">
         <h2 className="text-4xl font-semibold">{displayPrice}</h2>
-        {priceUp ? (
-          <ChevronUp strokeWidth={4} size={20} className="text-cyan-600 ml-2" />
-        ) : (
-          <ChevronDown
-            strokeWidth={4}
-            size={20}
-            className="text-pink-600 ml-2"
-          />
-        )}
-        {coin.market_data.price_change_percentage_24h && (
-          <p
-            className={`text-xl ${priceUp ? "text-cyan-600" : "text-pink-600"}`}
-          >
-            {coin.market_data.price_change_percentage_24h.toPrecision(3)}%
-          </p>
-        )}
+        {displayPriceChange()}
       </div>
       <Layers size={24} className="mx-auto" />
       <div>

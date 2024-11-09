@@ -1,3 +1,5 @@
+"use server";
+
 import { type IndividualCoin } from "@/lib/types/IndividualCoin";
 
 export async function getCoinById(id: string) {

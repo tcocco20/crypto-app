@@ -1,3 +1,4 @@
+"use server";
 export async function get24hVolumeInCurrency(id: string, currency = "usd") {
   const url = `https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=${currency}&include_24hr_vol=true`;
   const options: RequestInit = {
