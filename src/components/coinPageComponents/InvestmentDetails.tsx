@@ -9,9 +9,7 @@ import utils from "@/utils";
 
 interface InvestmentDetailsProps {
   coin: IndividualCoinWith24hVolume;
-  currencyToDisplay?: string;
   selectedCurrency: keyof Currentprice;
-  symbolPlacement?: "left" | "right";
 }
 
 const InvestmentDetails = ({
