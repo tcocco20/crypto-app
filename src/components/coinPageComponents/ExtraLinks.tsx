@@ -1,5 +1,4 @@
 import React from "react";
-import Card from "../UI/Card";
 import CoinLink from "./CoinLink";
 
 interface ExtraLinksProps {
