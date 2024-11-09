@@ -8,7 +8,9 @@ const Card = ({
   children: ReactNode;
 }) => {
   return (
-    <div className={`bg-indigo-900/30 rounded-md ${className}`}>{children}</div>
+    <div className={`bg-white dark:bg-indigo-900/30 rounded-md ${className}`}>
+      {children}
+    </div>
   );
 };
 

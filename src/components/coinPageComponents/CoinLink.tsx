@@ -8,11 +8,11 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAppSelector } from "@/lib/hooks";
 
-interface MainLinkProps {
+interface CoinLinkProps {
   url: string;
 }
 
-const MainLink = ({ url }: MainLinkProps) => {
+const CoinLink = ({ url }: CoinLinkProps) => {
   const darkMode = useAppSelector((state) => state.preferences.darkMode);
 
   const handleCopyClick = async () => {
@@ -57,4 +57,4 @@ const MainLink = ({ url }: MainLinkProps) => {
   );
 };
 
-export default MainLink;
+export default CoinLink;

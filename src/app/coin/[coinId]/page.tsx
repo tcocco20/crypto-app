@@ -1,6 +1,8 @@
 import actions from "@/actions";
+import CoinDescription from "@/components/coinPageComponents/CoinDescription";
+import ExtraLinks from "@/components/coinPageComponents/ExtraLinks";
 import InvestmentDetails from "@/components/coinPageComponents/InvestmentDetails";
-import MainLink from "@/components/coinPageComponents/MainLink";
+import CoinLink from "@/components/coinPageComponents/CoinLink";
 import MarketData from "@/components/coinPageComponents/MarketData";
 import CoinBrand from "@/components/UI/CoinBrand";
 import { type IndividualCoinWith24hVolume } from "@/lib/types/IndividualCoin";
@@ -28,10 +30,16 @@ const CoinDetailsPage = async ({ params }: CoinDetailsPageProps) => {
             imageUrl={coin.image.large}
             className="flex-1"
           />
-          <MainLink url={coin.links.homepage[0]} />
+          <CoinLink url={coin.links.homepage[0]} />
         </div>
         <InvestmentDetails coin={coin} selectedCurrency="usd" />
         <MarketData coin={coin} />
+        <CoinDescription description={coin.description.en} />
+        <ExtraLinks
+          homepage={coin.links.homepage[0]}
+          blockchainSite={coin.links.blockchain_site[0]}
+          blockchainSite2={coin.links.blockchain_site[1]}
+        />
       </section>
     </>
   );

@@ -16,7 +16,7 @@ const CoinBrand = ({ name, symbol, imageUrl, className }: CoinBrandProps) => {
       }`}
     >
       <Image
-        className="bg-violet-900/30 p-4 rounded-md mb-6"
+        className="bg-indigo-400/30 dark:bg-violet-900/30 p-4 rounded-md mb-6 shadow-inner shadow-indigo-400 dark:shadow-none"
         src={imageUrl}
         alt={name}
         width={70}
