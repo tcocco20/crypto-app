@@ -14,6 +14,9 @@ const CoinDescription = ({ description }: CoinDescriptionProps) => {
   };
 
   const renderDescription = () => {
+    if (description.length === 0) {
+      return "No description available.";
+    }
     if (isExpanded) {
       return description;
     }
