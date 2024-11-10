@@ -13,7 +13,7 @@ const ExtraLinks = ({
   blockchainSite2,
 }: ExtraLinksProps) => {
   return (
-    <div className="col-span-3 flex flex-col justify-center gap-4">
+    <div className="col-span-3 flex flex-col justify-start gap-4 pt-4">
       {homepage && <CoinLink url={homepage} />}
       {blockchainSite && <CoinLink url={blockchainSite} />}
       {blockchainSite2 && <CoinLink url={blockchainSite2} />}
