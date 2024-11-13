@@ -18,7 +18,7 @@ const MobileCoinOverview = ({ coin }: MobileCoinOverviewProps) => {
   return (
     <Link
       href={`/coin/${coin.id}`}
-      className="flex gap-4 items-center bg-violet-950/90 rounded-md p-3"
+      className="flex gap-4 items-center bg-white dark:bg-violet-950/90 rounded-md p-3 text-black dark:text-white"
     >
       <Image
         src={coin.image}
