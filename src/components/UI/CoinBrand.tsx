@@ -11,8 +11,8 @@ interface CoinBrandProps {
 const CoinBrand = ({ name, symbol, imageUrl, className }: CoinBrandProps) => {
   return (
     <Card
-      className={`flex flex-col items-center justify-center dark:text-white${
-        className ? " " + className : ""
+      className={`flex flex-col items-center justify-center dark:text-white ${
+        className || ""
       }`}
     >
       <Image

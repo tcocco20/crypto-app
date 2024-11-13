@@ -22,7 +22,7 @@ const SelectableWrapper = ({
       className={`p-[1px]${widthClasses ? " " + widthClasses : ""}${
         selected
           ? ` bg-gradient-to-b from-indigo-600 to-indigo-500 dark:from-indigo-300 dark:to-indigo-600 shadow-indigo-500 ${
-              shadowSize ? shadowSize : ""
+              shadowSize || ""
             } text-white`
           : ""
       }${rounded ? " rounded-full" : " rounded-md"}`}
