@@ -1,4 +1,4 @@
-import { UserCoin } from "@/lib/types/user-coin";
+import { UserCoin } from "@/lib/types/UserCoin";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface PortfolioState {

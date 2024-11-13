@@ -1,14 +1,14 @@
 import React from "react";
 import Dropdown from "../UI/Dropdown";
 import { ChevronDown } from "lucide-react";
-import { CoinData } from "@/actions/getCoinsList";
 import Image from "next/image";
 import utils from "@/utils";
+import { type ListCoin } from "@/lib/types/ListCoin";
 
 interface ConverterDropdownProps {
-  coins: CoinData[];
-  onSelect: (coin: CoinData) => void;
-  selectedCurrency?: CoinData;
+  coins: ListCoin[];
+  onSelect: (coin: ListCoin) => void;
+  selectedCurrency?: ListCoin;
 }
 
 const ConverterDropdown = ({
@@ -18,12 +18,12 @@ const ConverterDropdown = ({
 }: ConverterDropdownProps) => {
   const placeholder = "Select Currency to begin";
 
-  const renderDropdownItem = (item: CoinData) => {
+  const renderDropdownItem = (item: ListCoin) => {
     return <button onClick={() => onSelect(item)}>{item.name}</button>;
   };
   return (
     <>
-      <Dropdown<CoinData>
+      <Dropdown<ListCoin>
         containerClassName="flex flex-1 text-xs items-center gap-2"
         menuClassName="top-full mt-1 bg-violet-100/90 shadow-md dark:shadow-0 dark:bg-indigo-950/70 w-full p-2 rounded-md overflow-y-auto max-h-60 z-50"
         data={coins}

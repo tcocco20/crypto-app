@@ -5,6 +5,7 @@ import DesktopHeader from "@/components/DesktopHeader";
 import MobileNavbar from "@/components/MobileNavbar";
 import MobileHeader from "@/components/MobileHeader";
 import Providers from "@/app/Providers";
+import { ToastContainer } from "react-toastify";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,6 +32,7 @@ export default function RootLayout({
           </main>
           <MobileNavbar />
           <div id="portal-root"></div>
+          <ToastContainer />
         </Providers>
       </body>
     </html>

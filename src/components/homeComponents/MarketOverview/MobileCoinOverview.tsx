@@ -1,10 +1,10 @@
-import { type CoinData } from "@/actions/getCoinsList";
+import { type ListCoin } from "@/lib/types/ListCoin";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 interface MobileCoinOverviewProps {
-  coin: CoinData;
+  coin: ListCoin;
 }
 
 const MobileCoinOverview = ({ coin }: MobileCoinOverviewProps) => {

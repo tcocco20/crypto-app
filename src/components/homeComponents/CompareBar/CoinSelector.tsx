@@ -3,12 +3,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
 import CoinButton from "./CoinButton";
-import { type CoinData } from "@/actions/getCoinsList";
 import { FreeMode } from "swiper/modules";
 import { useEffect, useState } from "react";
+import { type ListCoin } from "@/lib/types/ListCoin";
 
 interface CoinSelectorProps {
-  coinsList: CoinData[];
+  coinsList: ListCoin[];
   compareModeSelected: boolean;
 }
 
@@ -52,7 +52,9 @@ const CoinSelector = ({
           <CoinButton
             name={coin.symbol}
             image={coin.image}
-            selected={selectedCoin === coin.symbol || secondSelectedCoin === coin.symbol}
+            selected={
+              selectedCoin === coin.symbol || secondSelectedCoin === coin.symbol
+            }
             onClick={() => handleCoinClick(coin.symbol)}
           />
         </SwiperSlide>
