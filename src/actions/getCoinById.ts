@@ -1,9 +1,9 @@
 "use server";
 
-import { type ListCoin } from "@/lib/types/ListCoin";
+import { type IndividualCoin } from "@/lib/types/IndividualCoin";
 
-export async function getCoinsList(currency = "usd", page = 1) {
-  const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&category=layer-1&order=market_cap_desc&per_page=50&page=${page}`;
+export async function getCoinById(id: string) {
+  const url = `https://api.coingecko.com/api/v3/coins/${id}?localization=false&tickers=false`;
   const options: RequestInit = {
     method: "GET",
     headers: {
@@ -16,5 +16,5 @@ export async function getCoinsList(currency = "usd", page = 1) {
   if (!response.ok) {
     throw new Error("Failed to connect to CoinGecko API");
   }
-  return (await response.json()) as Promise<ListCoin[]>;
+  return (await response.json()) as Promise<IndividualCoin>;
 }
