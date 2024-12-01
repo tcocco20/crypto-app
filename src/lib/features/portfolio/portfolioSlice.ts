@@ -1,5 +1,5 @@
 import { UserCoin } from "@/lib/types/UserCoin";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 export interface PortfolioState {
   coins: UserCoin[];
