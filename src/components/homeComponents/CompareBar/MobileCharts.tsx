@@ -9,7 +9,11 @@ const MobileCharts = () => {
   const [selectedChart, setSelectedChart] = useState("price");
 
   const displayChart =
-    selectedChart === "price" ? <PriceChart /> : <VolumeChart />;
+    selectedChart === "price" ? (
+      <PriceChart title="Bitcoin (BTC)" price={13.41} date="Today" />
+    ) : (
+      <VolumeChart />
+    );
 
   const disabledClasses =
     "bg-gray-700 opacity-45 border rounded-full pointer-events-none";
