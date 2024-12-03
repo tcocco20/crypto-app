@@ -12,6 +12,7 @@ interface CompareBarProps {
 const CompareBar = ({ coins }: CompareBarProps) => {
   const [compareModeSelected, setCompareModeSelected] =
     useState<boolean>(false);
+
   return (
     <section className="my-5 dark:text-white flex flex-col gap-4">
       <div className="flex justify-between items-center text-xs font-light">
