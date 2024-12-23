@@ -4,21 +4,26 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import CoinButton from "./CoinButton";
 import { FreeMode } from "swiper/modules";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { type ListCoin } from "@/lib/types/ListCoin";
 
 interface CoinSelectorProps {
   coinsList: ListCoin[];
   compareModeSelected: boolean;
+  selectedCoin: string;
+  setSelectedCoin: (coin: string) => void;
+  secondSelectedCoin: string;
+  setSecondSelectedCoin: (coin: string) => void;
 }
 
 const CoinSelector = ({
   coinsList,
   compareModeSelected,
+  selectedCoin,
+  setSelectedCoin,
+  secondSelectedCoin,
+  setSecondSelectedCoin,
 }: CoinSelectorProps) => {
-  const [selectedCoin, setSelectedCoin] = useState<string>("btc");
-  const [secondSelectedCoin, setSecondSelectedCoin] = useState<string>("");
-
   const handleCoinClick = (coin: string) => {
     if (!compareModeSelected) {
       setSelectedCoin(coin);
@@ -35,7 +40,7 @@ const CoinSelector = ({
     if (!compareModeSelected) {
       setSecondSelectedCoin("");
     }
-  }, [compareModeSelected]);
+  }, [compareModeSelected, setSecondSelectedCoin]);
 
   return (
     <Swiper

@@ -12,6 +12,8 @@ interface CompareBarProps {
 const CompareBar = ({ coins }: CompareBarProps) => {
   const [compareModeSelected, setCompareModeSelected] =
     useState<boolean>(false);
+  const [selectedCoin, setSelectedCoin] = useState<string>("btc");
+  const [secondSelectedCoin, setSecondSelectedCoin] = useState<string>("");
 
   return (
     <section className="my-5 dark:text-white flex flex-col gap-4">
@@ -28,6 +30,10 @@ const CompareBar = ({ coins }: CompareBarProps) => {
       <CoinSelector
         coinsList={coins}
         compareModeSelected={compareModeSelected}
+        selectedCoin={selectedCoin}
+        setSelectedCoin={setSelectedCoin}
+        secondSelectedCoin={secondSelectedCoin}
+        setSecondSelectedCoin={setSecondSelectedCoin}
       />
       <CompareCharts />
     </section>
