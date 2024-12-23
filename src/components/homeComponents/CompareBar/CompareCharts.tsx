@@ -1,10 +1,14 @@
 import MobileCharts from "./MobileCharts";
 import DesktopCharts from "./DesktopCharts";
 
-const CompareCharts = () => {
+interface CompareChartsProps {
+  coinId: string;
+}
+
+const CompareCharts = ({ coinId }: CompareChartsProps) => {
   return (
     <>
-      <MobileCharts />
+      <MobileCharts selectedCoinId={coinId} />
       <DesktopCharts />
     </>
   );

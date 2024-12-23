@@ -1,16 +1,46 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PriceChart from "./PriceChart";
 import VolumeChart from "./VolumeChart";
 import SelectableWrapper from "@/components/UI/SelectableWrapper";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import actions from "@/actions";
+import { type IndividualCoin } from "@/lib/types/IndividualCoin";
+import utils from "@/utils";
 
-const MobileCharts = () => {
+interface MobileChartsProps {
+  selectedCoinId: string;
+}
+
+const MobileCharts = ({ selectedCoinId }: MobileChartsProps) => {
   const [selectedChart, setSelectedChart] = useState("price");
+  const [selectedCoin, setSelectedCoin] = useState<
+    IndividualCoin | undefined
+  >();
+  let coinPrice = 0;
+  if (
+    selectedCoin &&
+    utils.isPropertyType(selectedCoin.market_data.current_price, "usd")
+  ) {
+    coinPrice = selectedCoin?.market_data.current_price.usd;
+  }
+
+  useEffect(() => {
+    const fetchCoin = async () => {
+      const coin = await actions.getCoinById(selectedCoinId);
+      setSelectedCoin(coin);
+    };
+
+    fetchCoin();
+  }, [selectedCoinId]);
 
   const displayChart =
     selectedChart === "price" ? (
-      <PriceChart title="Bitcoin (BTC)" price={13.41} date="Today" />
+      <PriceChart
+        title="Bitcoin (BTC)"
+        price={coinPrice}
+        date={new Date().toDateString()}
+      />
     ) : (
       <VolumeChart />
     );

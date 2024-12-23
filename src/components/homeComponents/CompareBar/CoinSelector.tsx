@@ -58,9 +58,9 @@ const CoinSelector = ({
             name={coin.symbol}
             image={coin.image}
             selected={
-              selectedCoin === coin.symbol || secondSelectedCoin === coin.symbol
+              selectedCoin === coin.id || secondSelectedCoin === coin.id
             }
-            onClick={() => handleCoinClick(coin.symbol)}
+            onClick={() => handleCoinClick(coin.id)}
           />
         </SwiperSlide>
       ))}
