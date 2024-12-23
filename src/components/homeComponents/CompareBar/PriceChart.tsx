@@ -16,6 +16,10 @@ interface PriceChartProps {
   title: string;
   price: number;
   date: string;
+  priceData: {
+    date: Date;
+    price: number;
+  }[];
 }
 
 ChartJS.register(
@@ -28,7 +32,9 @@ ChartJS.register(
   Legend
 );
 
-const PriceChart = ({ title, price, date }: PriceChartProps) => {
+const PriceChart = ({ title, price, date, priceData }: PriceChartProps) => {
+  const labels = priceData.map((data) => data.date.toDateString());
+  const prices = priceData.map((data) => data.price);
   return (
     <Card className="p-4 flex flex-col gap-2">
       <p className="text-sm text-gray-300">{title}</p>
@@ -36,11 +42,11 @@ const PriceChart = ({ title, price, date }: PriceChartProps) => {
       <p className="text-xs text-gray-400">{date}</p>
       <Line
         data={{
-          labels: ["1", "2", "3", "4", "5", "6", "7"],
+          labels: labels,
           datasets: [
             {
               label: "Price",
-              data: [1, 3, 2, 7, 2, 4, 8],
+              data: prices,
               backgroundColor: "rgba(75,192,192,0.2)",
               borderColor: "rgba(75,192,192,1)",
             },

@@ -1,4 +1,5 @@
 import { convertCurrencies } from "./convertCurrencies";
+import { convertHistoricalData } from "./convertHistoricalData";
 import { getDisplayNumber } from "./getDisplayNumber";
 import { getPriceDetails } from "./getPriceDetails";
 import { isPropertyType } from "./isPropertyType";
@@ -10,5 +11,6 @@ const utils = {
   getDisplayNumber,
   isPropertyType,
   getPriceDetails,
+  convertHistoricalData,
 };
 export default utils;

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PriceChart from "./PriceChart";
 import VolumeChart from "./VolumeChart";
 import SelectableWrapper from "@/components/UI/SelectableWrapper";
@@ -17,7 +17,10 @@ const MobileCharts = ({ selectedCoinId }: MobileChartsProps) => {
   const [selectedCoin, setSelectedCoin] = useState<
     IndividualCoin | undefined
   >();
+  const priceData = useRef<{ date: Date; price: number }[]>([]);
+
   let coinPrice = 0;
+
   if (
     selectedCoin &&
     utils.isPropertyType(selectedCoin.market_data.current_price, "usd")
@@ -28,6 +31,12 @@ const MobileCharts = ({ selectedCoinId }: MobileChartsProps) => {
   useEffect(() => {
     const fetchCoin = async () => {
       const coin = await actions.getCoinById(selectedCoinId);
+      const fetchedPriceData = await actions.getCoinHistoricalPriceData(
+        selectedCoinId
+      );
+
+      priceData.current = utils.convertHistoricalData(fetchedPriceData);
+
       setSelectedCoin(coin);
     };
 
@@ -37,9 +46,10 @@ const MobileCharts = ({ selectedCoinId }: MobileChartsProps) => {
   const displayChart =
     selectedChart === "price" ? (
       <PriceChart
-        title="Bitcoin (BTC)"
+        title={`${selectedCoin?.name} (${selectedCoin?.symbol.toUpperCase()})`}
         price={coinPrice}
         date={new Date().toDateString()}
+        priceData={priceData.current}
       />
     ) : (
       <VolumeChart />

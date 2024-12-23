@@ -1,8 +1,13 @@
 "use server";
 
-export const getCoinHistoricalPriceData = async () => {
-  const url =
-    "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=1";
+import { type HistoricalPriceDataResponse } from "@/lib/types/HistoricalPriceDataResponse";
+
+export const getCoinHistoricalPriceData = async (
+  id: string,
+  currency = "usd",
+  days = 1
+) => {
+  const url = `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=${currency}&days=${days}&precision=5`;
   const options: RequestInit = {
     method: "GET",
     headers: {
@@ -12,5 +17,12 @@ export const getCoinHistoricalPriceData = async () => {
   };
 
   const response = await fetch(url, options);
-  return response;
+
+  if (!response.ok) {
+    throw new Error("Failed to connect to CoinGecko API");
+  }
+
+  const data: HistoricalPriceDataResponse = await response.json();
+
+  return data;
 };
