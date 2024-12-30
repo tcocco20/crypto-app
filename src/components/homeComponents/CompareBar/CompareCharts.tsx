@@ -13,7 +13,7 @@ const CompareCharts = ({ coinId }: CompareChartsProps) => {
   const [selectedCoin, setSelectedCoin] = useState<
     IndividualCoin | undefined
   >();
-  const priceData = useRef<{ date: Date; price: number }[]>([]);
+  const priceData = useRef<{ date: Date; price: number; volume: number }[]>([]);
 
   let coinPrice = 0;
 
@@ -22,7 +22,7 @@ const CompareCharts = ({ coinId }: CompareChartsProps) => {
       const coin = await actions.getCoinById(coinId);
       const fetchedPriceData = await actions.getCoinHistoricalPriceData(coinId);
 
-      priceData.current = utils.convertHistoricalData(fetchedPriceData);
+      priceData.current = utils.convertHistoricalData(fetchedPriceData, true);
 
       setSelectedCoin(coin);
     };

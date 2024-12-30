@@ -8,7 +8,7 @@ import { type IndividualCoin } from "@/lib/types/IndividualCoin";
 
 interface MobileChartsProps {
   selectedCoin: IndividualCoin | undefined;
-  priceData: { date: Date; price: number }[];
+  priceData: { date: Date; price: number; volume: number }[];
   coinPrice: number;
 }
 

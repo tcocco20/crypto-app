@@ -7,9 +7,9 @@ import {
   LinearScale,
   PointElement,
   LineElement,
-  // Title,
+  Title,
   Tooltip,
-  // Legend,
+  Legend,
 } from "chart.js/auto";
 
 interface PriceChartProps {
@@ -19,6 +19,7 @@ interface PriceChartProps {
   priceData: {
     date: Date;
     price: number;
+    volume: number;
   }[];
 }
 
@@ -27,13 +28,15 @@ ChartJS.register(
   CategoryScale,
   PointElement,
   LineElement,
-  // Title,
+  Title,
   Tooltip,
-  // Legend
+  Legend
 );
 
 const PriceChart = ({ title, price, date, priceData }: PriceChartProps) => {
-  const labels = priceData.map((data) => data.date.toUTCString());
+  const labels = priceData.map(
+    (data) => data.date.getHours() + ":" + data.date.getMinutes()
+  );
   const prices = priceData.map((data) => data.price);
   return (
     <Card className="p-4 flex flex-col gap-2">
@@ -56,6 +59,11 @@ const PriceChart = ({ title, price, date, priceData }: PriceChartProps) => {
           elements: {
             line: {
               tension: 0.5,
+            },
+          },
+          plugins: {
+            legend: {
+              display: false,
             },
           },
         }}
