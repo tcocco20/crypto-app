@@ -1,47 +1,23 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import PriceChart from "./PriceChart";
 import VolumeChart from "./VolumeChart";
 import SelectableWrapper from "@/components/UI/SelectableWrapper";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import actions from "@/actions";
 import { type IndividualCoin } from "@/lib/types/IndividualCoin";
-import utils from "@/utils";
 
 interface MobileChartsProps {
-  selectedCoinId: string;
+  selectedCoin: IndividualCoin | undefined;
+  priceData: { date: Date; price: number }[];
+  coinPrice: number;
 }
 
-const MobileCharts = ({ selectedCoinId }: MobileChartsProps) => {
+const MobileCharts = ({
+  selectedCoin,
+  priceData,
+  coinPrice,
+}: MobileChartsProps) => {
   const [selectedChart, setSelectedChart] = useState("price");
-  const [selectedCoin, setSelectedCoin] = useState<
-    IndividualCoin | undefined
-  >();
-  const priceData = useRef<{ date: Date; price: number }[]>([]);
-
-  let coinPrice = 0;
-
-  if (
-    selectedCoin &&
-    utils.isPropertyType(selectedCoin.market_data.current_price, "usd")
-  ) {
-    coinPrice = selectedCoin?.market_data.current_price.usd;
-  }
-
-  useEffect(() => {
-    const fetchCoin = async () => {
-      const coin = await actions.getCoinById(selectedCoinId);
-      const fetchedPriceData = await actions.getCoinHistoricalPriceData(
-        selectedCoinId
-      );
-
-      priceData.current = utils.convertHistoricalData(fetchedPriceData);
-
-      setSelectedCoin(coin);
-    };
-
-    fetchCoin();
-  }, [selectedCoinId]);
 
   const displayChart =
     selectedChart === "price" ? (
@@ -49,7 +25,7 @@ const MobileCharts = ({ selectedCoinId }: MobileChartsProps) => {
         title={`${selectedCoin?.name} (${selectedCoin?.symbol.toUpperCase()})`}
         price={coinPrice}
         date={new Date().toDateString()}
-        priceData={priceData.current}
+        priceData={priceData}
       />
     ) : (
       <VolumeChart />
