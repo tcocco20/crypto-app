@@ -3,7 +3,7 @@ import React from "react";
 
 const VolumeChart = () => {
   return (
-    <Card className="p-4">
+    <Card className="p-4 flex flex-col gap-2">
       <p className="font-medium text-lg">Volume 24h</p>
       <p className="text-xs text-gray-400">Today</p>
     </Card>

@@ -22,7 +22,7 @@ const CompareCharts = ({ coinId }: CompareChartsProps) => {
       const coin = await actions.getCoinById(coinId);
       const fetchedPriceData = await actions.getCoinHistoricalPriceData(coinId);
 
-      priceData.current = utils.convertHistoricalData(fetchedPriceData, true);
+      priceData.current = utils.convertHistoricalData(fetchedPriceData);
 
       setSelectedCoin(coin);
     };

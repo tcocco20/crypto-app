@@ -24,7 +24,6 @@ const MobileCharts = ({
       <PriceChart
         title={`${selectedCoin?.name} (${selectedCoin?.symbol.toUpperCase()})`}
         price={coinPrice}
-        date={new Date().toDateString()}
         priceData={priceData}
       />
     ) : (

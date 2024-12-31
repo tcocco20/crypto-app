@@ -5,7 +5,7 @@ import { type HistoricalPriceDataResponse } from "@/lib/types/HistoricalPriceDat
 export const getCoinHistoricalPriceData = async (
   id: string,
   currency = "usd",
-  days = 1
+  days = 2
 ) => {
   const url = `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=${currency}&days=${days}&precision=5`;
   const options: RequestInit = {

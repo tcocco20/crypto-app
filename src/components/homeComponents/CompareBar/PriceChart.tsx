@@ -15,7 +15,6 @@ import {
 interface PriceChartProps {
   title: string;
   price: number;
-  date: string;
   priceData: {
     date: Date;
     price: number;
@@ -33,7 +32,7 @@ ChartJS.register(
   Legend
 );
 
-const PriceChart = ({ title, price, date, priceData }: PriceChartProps) => {
+const PriceChart = ({ title, price, priceData }: PriceChartProps) => {
   const labels = priceData.map(
     (data) => data.date.getHours() + ":" + data.date.getMinutes()
   );
@@ -42,7 +41,7 @@ const PriceChart = ({ title, price, date, priceData }: PriceChartProps) => {
     <Card className="p-4 flex flex-col gap-2">
       <p className="text-sm text-gray-300">{title}</p>
       <p className="font-medium text-lg">${price}</p>
-      <p className="text-xs text-gray-400">{date}</p>
+      <p className="text-xs text-gray-400">{new Date().toDateString()}</p>
       <Line
         data={{
           labels: labels,
