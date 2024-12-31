@@ -13,7 +13,7 @@ const CompareCharts = ({ coinId }: CompareChartsProps) => {
   const [selectedCoin, setSelectedCoin] = useState<
     IndividualCoin | undefined
   >();
-  const priceData = useRef<{ date: Date; price: number; volume: number }[]>([]);
+  const data = useRef<{ date: Date; price: number; volume: number }[]>([]);
 
   let coinPrice = 0;
 
@@ -22,7 +22,7 @@ const CompareCharts = ({ coinId }: CompareChartsProps) => {
       const coin = await actions.getCoinById(coinId);
       const fetchedPriceData = await actions.getCoinHistoricalPriceData(coinId);
 
-      priceData.current = utils.convertHistoricalData(fetchedPriceData);
+      data.current = utils.convertHistoricalData(fetchedPriceData);
 
       setSelectedCoin(coin);
     };
@@ -40,7 +40,7 @@ const CompareCharts = ({ coinId }: CompareChartsProps) => {
   return (
     <>
       <MobileCharts
-        priceData={priceData.current}
+        data={data.current}
         selectedCoin={selectedCoin}
         coinPrice={coinPrice}
       />

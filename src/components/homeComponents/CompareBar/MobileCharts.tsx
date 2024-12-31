@@ -8,13 +8,13 @@ import { type IndividualCoin } from "@/lib/types/IndividualCoin";
 
 interface MobileChartsProps {
   selectedCoin: IndividualCoin | undefined;
-  priceData: { date: Date; price: number; volume: number }[];
+  data: { date: Date; price: number; volume: number }[];
   coinPrice: number;
 }
 
 const MobileCharts = ({
   selectedCoin,
-  priceData,
+  data,
   coinPrice,
 }: MobileChartsProps) => {
   const [selectedChart, setSelectedChart] = useState("price");
@@ -24,10 +24,10 @@ const MobileCharts = ({
       <PriceChart
         title={`${selectedCoin?.name} (${selectedCoin?.symbol.toUpperCase()})`}
         price={coinPrice}
-        priceData={priceData}
+        priceData={data}
       />
     ) : (
-      <VolumeChart />
+      <VolumeChart volumeData={data} />
     );
 
   const disabledClasses =
