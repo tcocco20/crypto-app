@@ -16,7 +16,7 @@ interface PriceChartProps {
   title: string;
   price: number;
   priceData: {
-    date: Date;
+    date: string;
     price: number;
     volume: number;
   }[];
@@ -33,9 +33,7 @@ ChartJS.register(
 );
 
 const PriceChart = ({ title, price, priceData }: PriceChartProps) => {
-  const labels = priceData.map(
-    (data) => data.date.getHours() + ":" + data.date.getMinutes()
-  );
+  const labels = priceData.map((data) => data.date);
   const prices = priceData.map((data) => data.price);
   return (
     <Card className="p-4 flex flex-col gap-2">
@@ -63,6 +61,13 @@ const PriceChart = ({ title, price, priceData }: PriceChartProps) => {
           plugins: {
             legend: {
               display: false,
+            },
+          },
+          scales: {
+            x: {
+              ticks: {
+                display: false,
+              },
             },
           },
         }}

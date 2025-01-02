@@ -22,16 +22,14 @@ ChartJS.register(
 
 interface VolumeChartProps {
   volumeData: {
-    date: Date;
+    date: string;
     price: number;
     volume: number;
   }[];
 }
 
 const VolumeChart = ({ volumeData }: VolumeChartProps) => {
-  const labels = volumeData.map(
-    (data) => data.date.getHours() + ":" + data.date.getMinutes()
-  );
+  const labels = volumeData.map((data) => data.date);
   const volumes = volumeData.map((data) => data.volume);
   return (
     <Card className="p-4 flex flex-col gap-2">
@@ -52,10 +50,12 @@ const VolumeChart = ({ volumeData }: VolumeChartProps) => {
         options={{
           scales: {
             y: {
+              beginAtZero: true,
+            },
+            x: {
               ticks: {
                 display: false,
               },
-              beginAtZero: true,
             },
           },
           plugins: {
