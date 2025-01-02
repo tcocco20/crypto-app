@@ -1,6 +1,7 @@
 "use server";
 
 import { type HistoricalPriceDataResponse } from "@/lib/types/HistoricalPriceDataResponse";
+import utils from "@/utils";
 
 export const getCoinHistoricalPriceData = async (
   id: string,
@@ -24,5 +25,6 @@ export const getCoinHistoricalPriceData = async (
 
   const data: HistoricalPriceDataResponse = await response.json();
 
-  return data;
+  const reshapedData = utils.convertHistoricalData(data);
+  return reshapedData;
 };

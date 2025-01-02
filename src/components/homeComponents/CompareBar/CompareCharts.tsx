@@ -7,6 +7,7 @@ import { type IndividualCoin } from "@/lib/types/IndividualCoin";
 
 interface CompareChartsProps {
   coinId: string;
+  timeFrame: number;
 }
 
 const CompareCharts = ({ coinId }: CompareChartsProps) => {
@@ -21,8 +22,7 @@ const CompareCharts = ({ coinId }: CompareChartsProps) => {
     const fetchCoin = async () => {
       const coin = await actions.getCoinById(coinId);
       const fetchedPriceData = await actions.getCoinHistoricalPriceData(coinId);
-
-      data.current = utils.convertHistoricalData(fetchedPriceData);
+      data.current = fetchedPriceData;
 
       setSelectedCoin(coin);
     };

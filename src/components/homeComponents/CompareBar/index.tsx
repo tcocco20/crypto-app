@@ -4,6 +4,7 @@ import CoinSelector from "./CoinSelector";
 import { useState } from "react";
 import { type ListCoin } from "@/lib/types/ListCoin";
 import CompareCharts from "./CompareCharts";
+import TimeFrameSelector from "./TimeFrameSelector";
 
 interface CompareBarProps {
   coins: ListCoin[];
@@ -14,6 +15,11 @@ const CompareBar = ({ coins }: CompareBarProps) => {
     useState<boolean>(false);
   const [selectedCoin, setSelectedCoin] = useState<string>("bitcoin");
   const [secondSelectedCoin, setSecondSelectedCoin] = useState<string>("");
+  const [timeFrame, setTimeFrame] = useState<number>(2);
+
+  const handleTimeFrameSelect = (timeFrame: number) => {
+    setTimeFrame(timeFrame);
+  };
 
   return (
     <section className="my-5 dark:text-white flex flex-col gap-4">
@@ -35,7 +41,8 @@ const CompareBar = ({ coins }: CompareBarProps) => {
         secondSelectedCoin={secondSelectedCoin}
         setSecondSelectedCoin={setSecondSelectedCoin}
       />
-      <CompareCharts coinId={selectedCoin} />
+      <CompareCharts coinId={selectedCoin} timeFrame={timeFrame} />
+      <TimeFrameSelector onSelect={handleTimeFrameSelect} />
     </section>
   );
 };
