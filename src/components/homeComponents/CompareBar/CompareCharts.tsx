@@ -10,7 +10,7 @@ interface CompareChartsProps {
   timeFrame: number;
 }
 
-const CompareCharts = ({ coinId }: CompareChartsProps) => {
+const CompareCharts = ({ coinId, timeFrame }: CompareChartsProps) => {
   const [selectedCoin, setSelectedCoin] = useState<
     IndividualCoin | undefined
   >();
@@ -21,14 +21,16 @@ const CompareCharts = ({ coinId }: CompareChartsProps) => {
   useEffect(() => {
     const fetchCoin = async () => {
       const coin = await actions.getCoinById(coinId);
-      const fetchedPriceData = await actions.getCoinHistoricalPriceData(coinId);
-      data.current = fetchedPriceData;
-
+      data.current = await actions.getCoinHistoricalPriceData(
+        coinId,
+        "usd",
+        timeFrame
+      );
       setSelectedCoin(coin);
     };
 
     fetchCoin();
-  }, [coinId]);
+  }, [coinId, timeFrame]);
 
   if (
     selectedCoin &&

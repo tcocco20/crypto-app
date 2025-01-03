@@ -6,9 +6,12 @@ import utils from "@/utils";
 export const getCoinHistoricalPriceData = async (
   id: string,
   currency = "usd",
-  days = 2
+  days = 1
 ) => {
-  const url = `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=${currency}&days=${days}&precision=5`;
+  const fromTime = new Date();
+  const toTime = new Date();
+  toTime.setDate(toTime.getDate() - days);
+  const url = `https://api.coingecko.com/api/v3/coins/${id}/market_chart/range?vs_currency=${currency}&from=${fromTime}&to=1712275200&precision=5`;
   const options: RequestInit = {
     method: "GET",
     headers: {
