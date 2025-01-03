@@ -50,10 +50,18 @@ const VolumeChart = ({ volumeData }: VolumeChartProps) => {
         options={{
           scales: {
             y: {
-              beginAtZero: true,
+              ticks: {
+                display: false,
+              },
+              grid: {
+                display: false,
+              },
             },
             x: {
               ticks: {
+                display: false,
+              },
+              grid: {
                 display: false,
               },
             },

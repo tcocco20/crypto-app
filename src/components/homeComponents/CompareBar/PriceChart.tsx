@@ -47,8 +47,11 @@ const PriceChart = ({ title, price, priceData }: PriceChartProps) => {
             {
               label: "Price",
               data: prices,
-              backgroundColor: "rgba(75,192,192,0.2)",
-              borderColor: "rgba(75,192,192,1)",
+              borderColor: "#8e9deb",
+              pointBackgroundColor: "transparent",
+              pointBorderColor: "transparent",
+              pointHoverBackgroundColor: "#8e9deb",
+              fill: true,
             },
           ],
         }}
@@ -66,6 +69,17 @@ const PriceChart = ({ title, price, priceData }: PriceChartProps) => {
           scales: {
             x: {
               ticks: {
+                display: false,
+              },
+              grid: {
+                display: false,
+              },
+            },
+            y: {
+              ticks: {
+                display: false,
+              },
+              grid: {
                 display: false,
               },
             },
