@@ -6,16 +6,16 @@ interface TimeFrameSelectorProps {
 }
 
 const timeFrames = [
-  { label: "1D", value: 2 },
-  { label: "1W", value: 8 },
-  { label: "2W", value: 15 },
-  { label: "1M", value: 31 },
-  { label: "3M", value: 91 },
+  { label: "1D", value: 1 },
+  { label: "1W", value: 7 },
+  { label: "2W", value: 14 },
+  { label: "1M", value: 30 },
+  { label: "3M", value: 90 },
   { label: "1Y", value: 365 },
 ];
 
 const TimeFrameSelector: React.FC<TimeFrameSelectorProps> = ({ onSelect }) => {
-  const [selectedTimeFrame, setSelectedTimeFrame] = useState(2);
+  const [selectedTimeFrame, setSelectedTimeFrame] = useState(1);
 
   const handleSelect = (timeFrame: number) => {
     setSelectedTimeFrame(timeFrame);
