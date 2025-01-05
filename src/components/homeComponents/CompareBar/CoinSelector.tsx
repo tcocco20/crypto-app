@@ -12,8 +12,8 @@ interface CoinSelectorProps {
   compareModeSelected: boolean;
   selectedCoin: string;
   setSelectedCoin: (coin: string) => void;
-  secondSelectedCoin: string;
-  setSecondSelectedCoin: (coin: string) => void;
+  secondSelectedCoin?: string;
+  setSecondSelectedCoin: (coin: string | undefined) => void;
 }
 
 const CoinSelector = ({
@@ -38,7 +38,7 @@ const CoinSelector = ({
 
   useEffect(() => {
     if (!compareModeSelected) {
-      setSecondSelectedCoin("");
+      setSecondSelectedCoin(undefined);
     }
   }, [compareModeSelected, setSecondSelectedCoin]);
 

@@ -9,6 +9,7 @@ import { type IndividualCoin } from "@/lib/types/IndividualCoin";
 interface MobileChartsProps {
   selectedCoin: IndividualCoin | undefined;
   data: { date: string; price: number; volume: number }[];
+  secondCoinData?: { date: string; price: number; volume: number }[];
   coinPrice: number;
 }
 
@@ -16,6 +17,7 @@ const MobileCharts = ({
   selectedCoin,
   data,
   coinPrice,
+  secondCoinData,
 }: MobileChartsProps) => {
   const [selectedChart, setSelectedChart] = useState("price");
 
@@ -25,6 +27,7 @@ const MobileCharts = ({
         title={`${selectedCoin?.name} (${selectedCoin?.symbol.toUpperCase()})`}
         price={coinPrice}
         priceData={data}
+        secondCoinData={secondCoinData}
       />
     ) : (
       <VolumeChart volumeData={data} />

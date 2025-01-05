@@ -19,6 +19,11 @@ interface PriceChartProps {
     price: number;
     volume: number;
   }[];
+  secondCoinData?: {
+    date: string;
+    price: number;
+    volume: number;
+  }[];
 }
 
 ChartJS.register(
@@ -30,10 +35,51 @@ ChartJS.register(
   Tooltip
 );
 
-const PriceChart = ({ title, price, priceData }: PriceChartProps) => {
+const PriceChart = ({
+  title,
+  price,
+  priceData,
+  secondCoinData,
+}: PriceChartProps) => {
   const labels = priceData.map((data) => data.date);
   const prices = priceData.map((data) => data.price);
   const today = new Date();
+
+  let secondCoinPrices: number[] = [];
+  if (secondCoinData) {
+    secondCoinPrices = secondCoinData.map((data) => data.price);
+  }
+
+  const datasets = [
+    {
+      label: "Price",
+      data: prices,
+      borderColor: "#8e9deb",
+      pointBackgroundColor: "transparent",
+      pointBorderColor: "transparent",
+      pointHoverBackgroundColor: "#8e9deb",
+      fill: {
+        target: "origin",
+        above: "#8e9eeb21",
+      },
+    },
+  ];
+
+  if (secondCoinData) {
+    datasets.push({
+      label: "Second Coin Price",
+      data: secondCoinPrices,
+      borderColor: "#ff6465",
+      pointBackgroundColor: "transparent",
+      pointBorderColor: "transparent",
+      pointHoverBackgroundColor: "#ff6465",
+      fill: {
+        target: "origin",
+        above: "#ff646521",
+      },
+    });
+  }
+
   return (
     <Card className="p-4 flex flex-col gap-2">
       <p className="text-sm text-gray-300">{title}</p>
@@ -43,20 +89,7 @@ const PriceChart = ({ title, price, priceData }: PriceChartProps) => {
         <Line
           data={{
             labels: labels,
-            datasets: [
-              {
-                label: "Price",
-                data: prices,
-                borderColor: "#8e9deb",
-                pointBackgroundColor: "transparent",
-                pointBorderColor: "transparent",
-                pointHoverBackgroundColor: "#8e9deb",
-                fill: {
-                  target: "origin",
-                  above: "#8e9eeb21",
-                },
-              },
-            ],
+            datasets: datasets,
           }}
           options={{
             elements: {
@@ -89,7 +122,10 @@ const PriceChart = ({ title, price, priceData }: PriceChartProps) => {
             },
           }}
         />
-        <div className="flex justify-between px-2"></div>
+        <div className="flex justify-between">
+          <p className="text-xs">{labels[0]}</p>
+          <p className="text-xs">{labels[labels.length - 1]}</p>
+        </div>
       </div>
     </Card>
   );

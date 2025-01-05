@@ -8,29 +8,60 @@ import { type IndividualCoin } from "@/lib/types/IndividualCoin";
 interface CompareChartsProps {
   coinId: string;
   timeFrame: number;
+  secondCoinId?: string;
 }
 
-const CompareCharts = ({ coinId, timeFrame }: CompareChartsProps) => {
+const CompareCharts = ({
+  coinId,
+  timeFrame,
+  secondCoinId,
+}: CompareChartsProps) => {
   const [selectedCoin, setSelectedCoin] = useState<
     IndividualCoin | undefined
   >();
-  const data = useRef<{ date: string; price: number; volume: number }[]>([]);
+  const coinData = useRef<{ date: string; price: number; volume: number }[]>(
+    []
+  );
+  const secondCoinData = useRef<
+    { date: string; price: number; volume: number }[] | undefined
+  >([]);
 
   let coinPrice = 0;
 
   useEffect(() => {
-    const fetchCoin = async () => {
-      const coin = await actions.getCoinById(coinId);
-      data.current = await actions.getCoinHistoricalPriceData(
+    const fetchCoinData = async () => {
+      coinData.current = await actions.getCoinHistoricalPriceData(
         coinId,
         "usd",
         timeFrame
       );
-      setSelectedCoin(coin);
+
+      if (secondCoinId) {
+        secondCoinData.current = await actions.getCoinHistoricalPriceData(
+          secondCoinId,
+          "usd",
+          timeFrame
+        );
+      }
+
+      if (secondCoinId === undefined) {
+        secondCoinData.current = undefined;
+      }
     };
 
-    fetchCoin();
-  }, [coinId, timeFrame]);
+    fetchCoinData();
+  }, [coinId, timeFrame, secondCoinId]);
+
+  useEffect(() => {
+    const fetchSelectedCoin = async () => {
+      if (!secondCoinId) {
+        const coin = await actions.getCoinById(coinId);
+        setSelectedCoin(coin);
+      }
+    };
+
+    fetchSelectedCoin();
+  }, [coinId]);
 
   if (
     selectedCoin &&
@@ -42,9 +73,10 @@ const CompareCharts = ({ coinId, timeFrame }: CompareChartsProps) => {
   return (
     <>
       <MobileCharts
-        data={data.current}
+        data={coinData.current}
         selectedCoin={selectedCoin}
         coinPrice={coinPrice}
+        secondCoinData={secondCoinData.current}
       />
       <DesktopCharts />
     </>
