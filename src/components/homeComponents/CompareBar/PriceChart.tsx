@@ -9,7 +9,6 @@ import {
   LineElement,
   Title,
   Tooltip,
-  Legend,
 } from "chart.js/auto";
 
 interface PriceChartProps {
@@ -28,64 +27,70 @@ ChartJS.register(
   PointElement,
   LineElement,
   Title,
-  Tooltip,
-  Legend
+  Tooltip
 );
 
 const PriceChart = ({ title, price, priceData }: PriceChartProps) => {
   const labels = priceData.map((data) => data.date);
   const prices = priceData.map((data) => data.price);
+  const today = new Date();
   return (
     <Card className="p-4 flex flex-col gap-2">
       <p className="text-sm text-gray-300">{title}</p>
       <p className="font-medium text-lg">${price}</p>
-      <p className="text-xs text-gray-400">{new Date().toDateString()}</p>
-      <Line
-        data={{
-          labels: labels,
-          datasets: [
-            {
-              label: "Price",
-              data: prices,
-              borderColor: "#8e9deb",
-              pointBackgroundColor: "transparent",
-              pointBorderColor: "transparent",
-              pointHoverBackgroundColor: "#8e9deb",
-              fill: true,
-            },
-          ],
-        }}
-        options={{
-          elements: {
-            line: {
-              tension: 0.5,
-            },
-          },
-          plugins: {
-            legend: {
-              display: false,
-            },
-          },
-          scales: {
-            x: {
-              ticks: {
-                display: false,
+      <p className="text-xs text-gray-400">{today.toDateString()}</p>
+      <div>
+        <Line
+          data={{
+            labels: labels,
+            datasets: [
+              {
+                label: "Price",
+                data: prices,
+                borderColor: "#8e9deb",
+                pointBackgroundColor: "transparent",
+                pointBorderColor: "transparent",
+                pointHoverBackgroundColor: "#8e9deb",
+                fill: {
+                  target: "origin",
+                  above: "#8e9eeb21",
+                },
               },
-              grid: {
+            ],
+          }}
+          options={{
+            elements: {
+              line: {
+                tension: 0.5,
+              },
+            },
+            plugins: {
+              legend: {
                 display: false,
               },
             },
-            y: {
-              ticks: {
-                display: false,
+            scales: {
+              x: {
+                ticks: {
+                  display: false,
+                },
+                grid: {
+                  display: false,
+                },
               },
-              grid: {
-                display: false,
+              y: {
+                ticks: {
+                  display: false,
+                },
+                grid: {
+                  display: false,
+                },
               },
             },
-          },
-        }}
-      />
+          }}
+        />
+        <div className="flex justify-between px-2"></div>
+      </div>
     </Card>
   );
 };

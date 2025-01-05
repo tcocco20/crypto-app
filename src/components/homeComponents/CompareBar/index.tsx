@@ -15,7 +15,7 @@ const CompareBar = ({ coins }: CompareBarProps) => {
     useState<boolean>(false);
   const [selectedCoin, setSelectedCoin] = useState<string>("bitcoin");
   const [secondSelectedCoin, setSecondSelectedCoin] = useState<string>("");
-  const [timeFrame, setTimeFrame] = useState<number>(2);
+  const [timeFrame, setTimeFrame] = useState<number>(1);
 
   const handleTimeFrameSelect = (timeFrame: number) => {
     setTimeFrame(timeFrame);
