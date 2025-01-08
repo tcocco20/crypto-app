@@ -44,11 +44,7 @@ const PriceChart = ({
   const labels = priceData.map((data) => data.date);
   const prices = priceData.map((data) => data.price);
   const today = new Date();
-
-  let secondCoinPrices: number[] = [];
-  if (secondCoinData) {
-    secondCoinPrices = secondCoinData.map((data) => data.price);
-  }
+  const secondCoinPrices = secondCoinData.map((data) => data.price);
 
   const datasets = [
     {
@@ -89,7 +85,7 @@ const PriceChart = ({
         <Line
           data={{
             labels: labels,
-            datasets: datasets,
+            datasets,
           }}
           options={{
             elements: {

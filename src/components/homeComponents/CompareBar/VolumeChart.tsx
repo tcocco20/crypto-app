@@ -26,11 +26,36 @@ interface VolumeChartProps {
     price: number;
     volume: number;
   }[];
+  secondCoinData: {
+    date: string;
+    price: number;
+    volume: number;
+  }[];
 }
 
-const VolumeChart = ({ volumeData }: VolumeChartProps) => {
+const VolumeChart = ({ volumeData, secondCoinData }: VolumeChartProps) => {
   const labels = volumeData.map((data) => data.date);
   const volumes = volumeData.map((data) => data.volume);
+  const secondCoinVolumes = secondCoinData.map((data) => data.volume);
+
+  const datasets = [
+    {
+      label: "24h Volume",
+      data: volumes,
+      backgroundColor: "#8e9deb",
+      borderColor: "#8e9deb",
+    },
+  ];
+
+  if (secondCoinData.length > 0) {
+    datasets.push({
+      label: "Second Coin Volume",
+      data: secondCoinVolumes,
+      borderColor: "#c579ff",
+      backgroundColor: "#c579ff",
+    });
+  }
+
   return (
     <Card className="p-4 flex flex-col gap-2">
       <p className="font-medium text-lg">Volume 24h</p>
@@ -38,14 +63,7 @@ const VolumeChart = ({ volumeData }: VolumeChartProps) => {
       <Bar
         data={{
           labels,
-          datasets: [
-            {
-              label: "24h Volume",
-              data: volumes,
-              backgroundColor: "rgba(75,192,192)",
-              borderColor: "rgba(75,192,192,1)",
-            },
-          ],
+          datasets,
         }}
         options={{
           scales: {

@@ -30,7 +30,7 @@ const MobileCharts = ({
         secondCoinData={secondCoinData}
       />
     ) : (
-      <VolumeChart volumeData={data} />
+      <VolumeChart volumeData={data} secondCoinData={secondCoinData} />
     );
 
   const disabledClasses =
