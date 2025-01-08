@@ -19,7 +19,7 @@ interface PriceChartProps {
     price: number;
     volume: number;
   }[];
-  secondCoinData?: {
+  secondCoinData: {
     date: string;
     price: number;
     volume: number;
@@ -65,17 +65,17 @@ const PriceChart = ({
     },
   ];
 
-  if (secondCoinData) {
+  if (secondCoinData.length > 0) {
     datasets.push({
       label: "Second Coin Price",
       data: secondCoinPrices,
-      borderColor: "#ff6465",
+      borderColor: "#c579ff",
       pointBackgroundColor: "transparent",
       pointBorderColor: "transparent",
-      pointHoverBackgroundColor: "#ff6465",
+      pointHoverBackgroundColor: "#c579ff",
       fill: {
         target: "origin",
-        above: "#ff646521",
+        above: "#c579ff21",
       },
     });
   }

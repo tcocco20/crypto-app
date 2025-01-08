@@ -1,6 +1,6 @@
 import MobileCharts from "./MobileCharts";
 import DesktopCharts from "./DesktopCharts";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import actions from "@/actions";
 import utils from "@/utils";
 import { type IndividualCoin } from "@/lib/types/IndividualCoin";
@@ -19,33 +19,35 @@ const CompareCharts = ({
   const [selectedCoin, setSelectedCoin] = useState<
     IndividualCoin | undefined
   >();
-  const coinData = useRef<{ date: string; price: number; volume: number }[]>(
-    []
-  );
-  const secondCoinData = useRef<
-    { date: string; price: number; volume: number }[] | undefined
+  const [coinData, setCoinData] = useState<
+    { date: string; price: number; volume: number }[]
+  >([]);
+  const [secondCoinData, setSecondCoinData] = useState<
+    { date: string; price: number; volume: number }[]
   >([]);
 
   let coinPrice = 0;
 
   useEffect(() => {
     const fetchCoinData = async () => {
-      coinData.current = await actions.getCoinHistoricalPriceData(
+      const firstCoin = await actions.getCoinHistoricalPriceData(
         coinId,
         "usd",
         timeFrame
       );
+      setCoinData(firstCoin);
 
       if (secondCoinId) {
-        secondCoinData.current = await actions.getCoinHistoricalPriceData(
+        const secondCoin = await actions.getCoinHistoricalPriceData(
           secondCoinId,
           "usd",
           timeFrame
         );
+        setSecondCoinData(secondCoin);
       }
 
       if (secondCoinId === undefined) {
-        secondCoinData.current = undefined;
+        setSecondCoinData([]);
       }
     };
 
@@ -73,10 +75,10 @@ const CompareCharts = ({
   return (
     <>
       <MobileCharts
-        data={coinData.current}
+        data={coinData}
         selectedCoin={selectedCoin}
         coinPrice={coinPrice}
-        secondCoinData={secondCoinData.current}
+        secondCoinData={secondCoinData}
       />
       <DesktopCharts />
     </>
