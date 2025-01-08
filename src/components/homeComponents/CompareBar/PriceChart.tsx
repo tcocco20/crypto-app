@@ -1,4 +1,3 @@
-import Card from "@/components/UI/Card";
 import React from "react";
 import { Line } from "react-chartjs-2";
 import {
@@ -13,6 +12,7 @@ import {
 
 interface PriceChartProps {
   title: string;
+  secondTitle?: string;
   price: number;
   priceData: {
     date: string;
@@ -63,7 +63,7 @@ const PriceChart = ({
 
   if (secondCoinData.length > 0) {
     datasets.push({
-      label: "Second Coin Price",
+      label: "Price",
       data: secondCoinPrices,
       borderColor: "#c579ff",
       pointBackgroundColor: "transparent",
@@ -77,7 +77,7 @@ const PriceChart = ({
   }
 
   return (
-    <Card className="p-4 flex flex-col gap-2">
+    <>
       <p className="text-sm text-gray-300">{title}</p>
       <p className="font-medium text-lg">${price}</p>
       <p className="text-xs text-gray-400">{today.toDateString()}</p>
@@ -123,7 +123,7 @@ const PriceChart = ({
           <p className="text-xs">{labels[labels.length - 1]}</p>
         </div>
       </div>
-    </Card>
+    </>
   );
 };
 

@@ -5,9 +5,11 @@ import VolumeChart from "./VolumeChart";
 import SelectableWrapper from "@/components/UI/SelectableWrapper";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { type IndividualCoin } from "@/lib/types/IndividualCoin";
+import Card from "@/components/UI/Card";
 
 interface MobileChartsProps {
   selectedCoin: IndividualCoin | undefined;
+  secondCoin: IndividualCoin | undefined;
   data: { date: string; price: number; volume: number }[];
   secondCoinData: { date: string; price: number; volume: number }[];
   coinPrice: number;
@@ -15,6 +17,7 @@ interface MobileChartsProps {
 
 const MobileCharts = ({
   selectedCoin,
+  secondCoin,
   data,
   coinPrice,
   secondCoinData,
@@ -25,6 +28,11 @@ const MobileCharts = ({
     selectedChart === "price" ? (
       <PriceChart
         title={`${selectedCoin?.name} (${selectedCoin?.symbol.toUpperCase()})`}
+        secondTitle={
+          secondCoin
+            ? `${secondCoin?.name} (${secondCoin?.symbol.toUpperCase()})`
+            : ""
+        }
         price={coinPrice}
         priceData={data}
         secondCoinData={secondCoinData}
@@ -60,7 +68,19 @@ const MobileCharts = ({
           </button>
         </SelectableWrapper>
       </div>
-      {displayChart}
+      <Card className="p-4 flex flex-col gap-2">
+        {displayChart}
+        <div className="flex justify-between">
+          <div className="flex gap-2">
+            <div className="p-2 bg-indigo-400" />
+            <p>{selectedCoin?.name}</p>
+          </div>
+          <div className="flex gap-2">
+            <div className="p-2 bg-purple-400" />
+            <p>{secondCoin?.name}</p>
+          </div>
+        </div>
+      </Card>
     </div>
   );
 };

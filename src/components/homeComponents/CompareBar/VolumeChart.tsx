@@ -1,4 +1,3 @@
-import Card from "@/components/UI/Card";
 import React from "react";
 import { Bar } from "react-chartjs-2";
 import {
@@ -49,7 +48,7 @@ const VolumeChart = ({ volumeData, secondCoinData }: VolumeChartProps) => {
 
   if (secondCoinData.length > 0) {
     datasets.push({
-      label: "Second Coin Volume",
+      label: "24h Volume",
       data: secondCoinVolumes,
       borderColor: "#c579ff",
       backgroundColor: "#c579ff",
@@ -57,7 +56,7 @@ const VolumeChart = ({ volumeData, secondCoinData }: VolumeChartProps) => {
   }
 
   return (
-    <Card className="p-4 flex flex-col gap-2">
+    <>
       <p className="font-medium text-lg">Volume 24h</p>
       <p className="text-xs text-gray-400">{new Date().toDateString()}</p>
       <Bar
@@ -91,7 +90,7 @@ const VolumeChart = ({ volumeData, secondCoinData }: VolumeChartProps) => {
           },
         }}
       />
-    </Card>
+    </>
   );
 };
 

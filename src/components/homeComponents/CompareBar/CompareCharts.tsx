@@ -19,6 +19,9 @@ const CompareCharts = ({
   const [selectedCoin, setSelectedCoin] = useState<
     IndividualCoin | undefined
   >();
+  const [secondCoin, setSecondCoin] = useState<
+    IndividualCoin | undefined
+  >();
   const [coinData, setCoinData] = useState<
     { date: string; price: number; volume: number }[]
   >([]);
@@ -59,6 +62,9 @@ const CompareCharts = ({
       if (!secondCoinId) {
         const coin = await actions.getCoinById(coinId);
         setSelectedCoin(coin);
+      } else {
+        const coin = await actions.getCoinById(secondCoinId);
+        setSecondCoin(coin);
       }
     };
 
@@ -77,6 +83,7 @@ const CompareCharts = ({
       <MobileCharts
         data={coinData}
         selectedCoin={selectedCoin}
+        secondCoin={secondCoin}
         coinPrice={coinPrice}
         secondCoinData={secondCoinData}
       />
