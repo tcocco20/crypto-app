@@ -23,7 +23,7 @@ const TimeFrameSelector: React.FC<TimeFrameSelectorProps> = ({ onSelect }) => {
   };
 
   return (
-    <div className="flex justify-between dark:bg-violet-950 p-1 rounded-sm">
+    <div className="flex justify-between bg-white dark:bg-violet-950 p-1 rounded">
       {timeFrames.map((timeFrame) => (
         <SelectableWrapper
           key={timeFrame.value}
@@ -33,8 +33,8 @@ const TimeFrameSelector: React.FC<TimeFrameSelectorProps> = ({ onSelect }) => {
           <button
             className={`text-sm font-light ${
               selectedTimeFrame === timeFrame.value
-                ? "text-white"
-                : "text-violet-300"
+                ? "dark:text-white"
+                : "text-violet-900 dark:text-violet-300"
             }`}
             onClick={() => handleSelect(timeFrame.value)}
           >

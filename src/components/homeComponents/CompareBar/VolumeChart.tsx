@@ -60,13 +60,17 @@ const VolumeChart = ({ volumeData, secondCoinData }: VolumeChartProps) => {
     secondCoinData.length > 0 ? (
       <>
         <p className="font-medium text-lg">Volume 24h</p>
-        <p className="text-xs text-gray-400">{latestVolume}</p>
+        <p className="text-xs text-gray-800 dark:text-gray-400">
+          {latestVolume}
+        </p>
       </>
     ) : (
       <>
-        <p className="text-sm text-gray-300">Volume 24h</p>
+        <p className="text-sm text-gray-700 dark:text-gray-300">Volume 24h</p>
         <p className="font-medium text-lg">${volumes[volumes.length - 1]}</p>
-        <p className="text-xs text-gray-400">{latestVolume}</p>
+        <p className="text-xs text-gray-800 dark:text-gray-400">
+          {latestVolume}
+        </p>
       </>
     );
 

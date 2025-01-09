@@ -42,7 +42,7 @@ const MobileCharts = ({
     );
 
   const disabledClasses =
-    "bg-gray-700 opacity-45 border rounded-full pointer-events-none";
+    "bg-gray-400 dark:bg-gray-700 opacity-45 border border-gray-700 dark:border-gray-400 rounded-full pointer-events-none";
 
   const handleChartChange = () => {
     setSelectedChart(selectedChart === "price" ? "volume" : "price");

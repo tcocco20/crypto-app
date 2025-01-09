@@ -60,6 +60,10 @@ const CompareCharts = ({
       if (!secondCoinId) {
         const coin = await actions.getCoinById(coinId);
         setSelectedCoin(coin);
+
+        if (secondCoin) {
+          setSecondCoin(undefined);
+        }
       } else {
         const coin = await actions.getCoinById(secondCoinId);
         setSecondCoin(coin);
