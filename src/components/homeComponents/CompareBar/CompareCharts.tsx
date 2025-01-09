@@ -19,9 +19,7 @@ const CompareCharts = ({
   const [selectedCoin, setSelectedCoin] = useState<
     IndividualCoin | undefined
   >();
-  const [secondCoin, setSecondCoin] = useState<
-    IndividualCoin | undefined
-  >();
+  const [secondCoin, setSecondCoin] = useState<IndividualCoin | undefined>();
   const [coinData, setCoinData] = useState<
     { date: string; price: number; volume: number }[]
   >([]);
@@ -69,7 +67,7 @@ const CompareCharts = ({
     };
 
     fetchSelectedCoin();
-  }, [coinId]);
+  }, [coinId, secondCoinId]);
 
   if (
     selectedCoin &&

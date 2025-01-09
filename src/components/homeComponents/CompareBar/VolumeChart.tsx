@@ -36,6 +36,7 @@ const VolumeChart = ({ volumeData, secondCoinData }: VolumeChartProps) => {
   const labels = volumeData.map((data) => data.date);
   const volumes = volumeData.map((data) => data.volume);
   const secondCoinVolumes = secondCoinData.map((data) => data.volume);
+  const latestVolume = labels[labels.length - 1];
 
   const datasets = [
     {
@@ -55,10 +56,23 @@ const VolumeChart = ({ volumeData, secondCoinData }: VolumeChartProps) => {
     });
   }
 
+  const headerData =
+    secondCoinData.length > 0 ? (
+      <>
+        <p className="font-medium text-lg">Volume 24h</p>
+        <p className="text-xs text-gray-400">{latestVolume}</p>
+      </>
+    ) : (
+      <>
+        <p className="text-sm text-gray-300">Volume 24h</p>
+        <p className="font-medium text-lg">${volumes[volumes.length - 1]}</p>
+        <p className="text-xs text-gray-400">{latestVolume}</p>
+      </>
+    );
+
   return (
     <>
-      <p className="font-medium text-lg">Volume 24h</p>
-      <p className="text-xs text-gray-400">{new Date().toDateString()}</p>
+      {headerData}
       <Bar
         data={{
           labels,

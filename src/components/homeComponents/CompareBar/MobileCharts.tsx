@@ -70,16 +70,18 @@ const MobileCharts = ({
       </div>
       <Card className="p-4 flex flex-col gap-2">
         {displayChart}
-        <div className="flex justify-between">
-          <div className="flex gap-2">
-            <div className="p-2 bg-indigo-400" />
-            <p>{selectedCoin?.name}</p>
+        {secondCoin && (
+          <div className="flex justify-between">
+            <div className="flex gap-2">
+              <div className="py-1 px-3 bg-indigo-400 rounded-sm" />
+              <p>{selectedCoin!.name}</p>
+            </div>
+            <div className="flex gap-2">
+              <div className="py-1 px-3 bg-purple-400 rounded-sm" />
+              <p>{secondCoin.name}</p>
+            </div>
           </div>
-          <div className="flex gap-2">
-            <div className="p-2 bg-purple-400" />
-            <p>{secondCoin?.name}</p>
-          </div>
-        </div>
+        )}
       </Card>
     </div>
   );

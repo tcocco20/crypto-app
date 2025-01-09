@@ -43,7 +43,7 @@ const PriceChart = ({
 }: PriceChartProps) => {
   const labels = priceData.map((data) => data.date);
   const prices = priceData.map((data) => data.price);
-  const today = new Date();
+  const latestPrice = labels[labels.length - 1];
   const secondCoinPrices = secondCoinData.map((data) => data.price);
 
   const datasets = [
@@ -76,11 +76,23 @@ const PriceChart = ({
     });
   }
 
+  const headerData =
+    secondCoinData.length > 0 ? (
+      <>
+        <p className="font-medium text-lg">Price</p>
+        <p className="text-xs text-gray-400">{latestPrice}</p>
+      </>
+    ) : (
+      <>
+        <p className="text-sm text-gray-300">{title}</p>
+        <p className="font-medium text-lg">${price}</p>
+        <p className="text-xs text-gray-400">{latestPrice}</p>
+      </>
+    );
+
   return (
     <>
-      <p className="text-sm text-gray-300">{title}</p>
-      <p className="font-medium text-lg">${price}</p>
-      <p className="text-xs text-gray-400">{today.toDateString()}</p>
+      {headerData}
       <div>
         <Line
           data={{
