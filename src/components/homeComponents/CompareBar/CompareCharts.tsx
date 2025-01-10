@@ -45,9 +45,7 @@ const CompareCharts = ({
           timeFrame
         );
         setSecondCoinData(secondCoin);
-      }
-
-      if (secondCoinId === undefined) {
+      } else {
         setSecondCoinData([]);
       }
     };

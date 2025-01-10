@@ -1,8 +1,11 @@
+"use client";
+
 import SelectableWrapper from "@/components/UI/SelectableWrapper";
-import React, { useState } from "react";
+import React from "react";
 
 interface TimeFrameSelectorProps {
   onSelect: (timeFrame: number) => void;
+  selectedTimeFrame: number;
 }
 
 const timeFrames = [
@@ -14,11 +17,8 @@ const timeFrames = [
   { label: "1Y", value: 365 },
 ];
 
-const TimeFrameSelector: React.FC<TimeFrameSelectorProps> = ({ onSelect }) => {
-  const [selectedTimeFrame, setSelectedTimeFrame] = useState(1);
-
+const TimeFrameSelector = ({ onSelect, selectedTimeFrame }: TimeFrameSelectorProps) => {
   const handleSelect = (timeFrame: number) => {
-    setSelectedTimeFrame(timeFrame);
     onSelect(timeFrame);
   };
 

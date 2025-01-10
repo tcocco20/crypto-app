@@ -11,11 +11,12 @@ interface CompareBarProps {
 }
 
 const CompareBar = ({ coins }: CompareBarProps) => {
-  const [compareModeSelected, setCompareModeSelected] =
-    useState<boolean>(false);
-  const [selectedCoin, setSelectedCoin] = useState<string>("bitcoin");
-  const [secondSelectedCoin, setSecondSelectedCoin] = useState<string | undefined>();
-  const [timeFrame, setTimeFrame] = useState<number>(1);
+  const [compareModeSelected, setCompareModeSelected] = useState(false);
+  const [selectedCoin, setSelectedCoin] = useState("bitcoin");
+  const [secondSelectedCoin, setSecondSelectedCoin] = useState<
+    string | undefined
+  >();
+  const [timeFrame, setTimeFrame] = useState(1);
 
   const handleTimeFrameSelect = (timeFrame: number) => {
     setTimeFrame(timeFrame);
@@ -41,8 +42,15 @@ const CompareBar = ({ coins }: CompareBarProps) => {
         secondSelectedCoin={secondSelectedCoin}
         setSecondSelectedCoin={setSecondSelectedCoin}
       />
-      <CompareCharts coinId={selectedCoin} timeFrame={timeFrame} secondCoinId={secondSelectedCoin} />
-      <TimeFrameSelector onSelect={handleTimeFrameSelect} />
+      <CompareCharts
+        coinId={selectedCoin}
+        timeFrame={timeFrame}
+        secondCoinId={secondSelectedCoin}
+      />
+      <TimeFrameSelector
+        onSelect={handleTimeFrameSelect}
+        selectedTimeFrame={timeFrame}
+      />
     </section>
   );
 };
