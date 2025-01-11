@@ -3,17 +3,28 @@ import { ChartLine, X } from "lucide-react";
 import CoinSelector from "./CoinSelector";
 import { useState } from "react";
 import { type ListCoin } from "@/lib/types/ListCoin";
+import CompareCharts from "./CompareCharts";
+import TimeFrameSelector from "./TimeFrameSelector";
 
 interface CompareBarProps {
   coins: ListCoin[];
 }
 
 const CompareBar = ({ coins }: CompareBarProps) => {
-  const [compareModeSelected, setCompareModeSelected] =
-    useState<boolean>(false);
+  const [compareModeSelected, setCompareModeSelected] = useState(false);
+  const [selectedCoin, setSelectedCoin] = useState("bitcoin");
+  const [secondSelectedCoin, setSecondSelectedCoin] = useState<
+    string | undefined
+  >();
+  const [timeFrame, setTimeFrame] = useState(1);
+
+  const handleTimeFrameSelect = (timeFrame: number) => {
+    setTimeFrame(timeFrame);
+  };
+
   return (
-    <section className="my-5 dark:text-white">
-      <div className="flex justify-between items-center text-xs font-light mb-5">
+    <section className="my-5 dark:text-white flex flex-col gap-4">
+      <div className="flex justify-between items-center text-xs font-light">
         <p>Select the currency to view statistics</p>
         <button
           onClick={() => setCompareModeSelected((prev) => !prev)}
@@ -26,6 +37,19 @@ const CompareBar = ({ coins }: CompareBarProps) => {
       <CoinSelector
         coinsList={coins}
         compareModeSelected={compareModeSelected}
+        selectedCoin={selectedCoin}
+        setSelectedCoin={setSelectedCoin}
+        secondSelectedCoin={secondSelectedCoin}
+        setSecondSelectedCoin={setSecondSelectedCoin}
+      />
+      <CompareCharts
+        coinId={selectedCoin}
+        timeFrame={timeFrame}
+        secondCoinId={secondSelectedCoin}
+      />
+      <TimeFrameSelector
+        onSelect={handleTimeFrameSelect}
+        selectedTimeFrame={timeFrame}
       />
     </section>
   );
