@@ -25,27 +25,32 @@ ChartJS.register(
 );
 
 const CoinOverviewChart = ({ coin }: CoinOverviewChartProps) => {
-  const datasets = [
-    {
-      label: "Price",
-      data: coin.sparkline_in_7d.price,
-      borderColor: "#8e9deb",
-      pointBackgroundColor: "transparent",
-      pointBorderColor: "transparent",
-      pointHoverBackgroundColor: "#8e9deb",
-      fill: {
-        target: "origin",
-        above: "#8e9eeb21",
-      },
-    },
-  ];
+  const labels = coin.sparkline_in_7d.price.map((_, i) => i);
+  const priceUp = coin.price_change_percentage_24h > 0;
+  const priceUpColor = "#28f625";
+  const priceDownColor = "#ff6465";
 
   return (
-    <div>
+    <div className="w-1/3 pointer-events-none">
       <Line
         data={{
-          labels: Array.from({ length: coin.sparkline_in_7d.price.length }),
-          datasets,
+          labels: labels,
+          datasets: [
+            {
+              label: "Price",
+              data: coin.sparkline_in_7d.price,
+              borderColor: priceUp ? priceUpColor : priceDownColor,
+              pointBackgroundColor: "transparent",
+              pointBorderColor: "transparent",
+              pointHoverBackgroundColor: priceUp
+                ? priceUpColor
+                : priceDownColor,
+              fill: {
+                target: "origin",
+                above: (priceUp ? priceUpColor : priceDownColor) + "21",
+              },
+            },
+          ],
         }}
         options={{
           elements: {
