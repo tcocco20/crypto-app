@@ -15,6 +15,9 @@ export interface ListCoin {
   market_cap_change_24h: number;
   market_cap_change_percentage_24h: number;
   circulating_supply: number;
+  sparkline_in_7d: {
+    price: number[];
+  };
   total_supply: number;
   max_supply: number;
   ath: number;

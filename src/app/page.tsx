@@ -4,7 +4,7 @@ import HomeNav from "@/components/homeComponents/HomeNav";
 import MarketOverview from "@/components/homeComponents/MarketOverview";
 
 export default async function Home() {
-  const coins = await actions.getCoinsList();
+  const coins = await actions.getCoinsList("usd", 1, true);
   return (
     <>
       <HomeNav />

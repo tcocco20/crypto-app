@@ -2,6 +2,7 @@ import { type ListCoin } from "@/lib/types/ListCoin";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import CoinOverviewChart from "./CoinOverviewChart";
 
 interface MobileCoinOverviewProps {
   coin: ListCoin;
@@ -32,6 +33,7 @@ const MobileCoinOverview = ({ coin }: MobileCoinOverviewProps) => {
         )}
         <p className="text-xs font-light text-gray-400">{coin.name}</p>
       </div>
+      <CoinOverviewChart coin={coin} />
       <div className="flex-1 text-right">
         <p className="font-medium">{displayPrice}</p>
         <p
