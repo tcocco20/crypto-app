@@ -2,8 +2,14 @@
 
 import { type ListCoin } from "@/lib/types/ListCoin";
 
-export async function getCoinsList(currency = "usd", page = 1) {
-  const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&category=layer-1&order=market_cap_desc&per_page=50&page=${page}`;
+export async function getCoinsList(
+  currency = "usd",
+  page = 1,
+  sparkline = false
+) {
+  const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&category=layer-1&order=market_cap_desc&per_page=50&page=${page}${
+    sparkline ? "&sparkline=true" : ""
+  }`;
   const options: RequestInit = {
     method: "GET",
     headers: {

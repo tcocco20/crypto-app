@@ -28,7 +28,8 @@ const MarketOverview = ({ startingCoins }: MarketOverviewProps) => {
   const fetchCoins = async () => {
     const data = (await getCoinsList(
       selectedCurrency,
-      currentPage + 1
+      currentPage + 1,
+      true
     )) as ListCoin[];
     if (!data.length || data.length === 0) {
       setHasMore(false);
