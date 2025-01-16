@@ -14,6 +14,7 @@ export const coingeckoFetch = async <T>({
   baseUrl: string;
   variables?: ExtractVariables<T>;
 }): Promise<{ status: number; body: T } | never> => {
+  const url = composeUrl(baseUrl, variables);
   const options: RequestInit = {
     method: "GET",
     headers: {
@@ -23,8 +24,6 @@ export const coingeckoFetch = async <T>({
     } as HeadersInit,
     cache,
   };
-
-  const url = composeUrl(baseUrl, variables);
 
   const response = await fetch(url, options);
   if (!response.ok) {
