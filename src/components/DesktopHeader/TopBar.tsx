@@ -4,6 +4,8 @@ import config from "../../../tailwind.config";
 import TopBarText from "./TopBarText";
 import { ChevronUp, SendToBack, Zap } from "lucide-react";
 import actions from "@/actions";
+import utils from "@/utils";
+import Image from "next/image";
 
 const TopBar = async () => {
   const marketData = await actions.getGlobalMarketData();
@@ -33,33 +35,45 @@ const TopBar = async () => {
           icon={<SendToBack fill="#fff" size={18} />}
         />
         <TopBarText
-          value={marketData.totalMarketCap.usd}
+          value={utils.getDisplayNumber(marketData.totalMarketCap.usd)}
           icon={<ChevronUp className="text-cyan-500" size={16} />}
         />
-        <MarketCapMeter
-          label={marketData.totalVolume.usd.toString()}
-          value={20}
-          max={100}
-          height="7px"
-          barContainerClassName="bg-gray-300/80"
-          color="#fff"
+        <TopBarText
+          text="Volume"
+          value={utils.getDisplayNumber(marketData.totalVolume.usd)}
         />
-        <MarketCapMeter
-          label={marketData.bitcoinMarketCapPercentage.toFixed(0) + "%"}
-          value={marketData.bitcoinMarketCapPercentage}
-          max={100}
-          height="7px"
-          barContainerClassName="bg-gray-300/80"
-          color={colors.yellow[400]}
-        />
-        <MarketCapMeter
-          label={marketData.ethereumMarketCapPercentage.toFixed(0) + "%"}
-          value={marketData.ethereumMarketCapPercentage}
-          max={100}
-          height="7px"
-          color={colors.indigo[400]}
-          barContainerClassName="bg-gray-300/80"
-        />
+        <div className="flex gap-2 items-center w-full">
+          <Image
+            src="/icons/bitcoin.svg"
+            width={20}
+            height={20}
+            alt="Bitcoin logo"
+          />
+          <MarketCapMeter
+            label={marketData.bitcoinMarketCapPercentage.toFixed(0) + "%"}
+            value={marketData.bitcoinMarketCapPercentage}
+            max={100}
+            height="7px"
+            barContainerClassName="bg-gray-300/80"
+            color={colors.yellow[400]}
+          />
+        </div>
+        <div className="flex gap-2 items-center w-full">
+          <Image
+            src="/icons/ethereum.svg"
+            width={20}
+            height={20}
+            alt="Ethereum logo"
+          />
+          <MarketCapMeter
+            label={marketData.ethereumMarketCapPercentage.toFixed(0) + "%"}
+            value={marketData.ethereumMarketCapPercentage}
+            max={100}
+            height="7px"
+            color={colors.indigo[400]}
+            barContainerClassName="bg-gray-300/80"
+          />
+        </div>
       </div>
     </div>
   );

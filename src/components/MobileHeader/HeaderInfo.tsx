@@ -1,6 +1,7 @@
 import React from "react";
 import MarketCapMeter from "../UI/MarketCapMeter";
 import config from "../../../tailwind.config";
+import Image from "next/image";
 
 const HeaderInfo = () => {
   let colors: any;
@@ -18,22 +19,38 @@ const HeaderInfo = () => {
         barContainerClassName="bg-gray-300/80"
         color="#fff"
       />
-      <MarketCapMeter
-        label="44%"
-        max={100}
-        value={44}
-        height="7px"
-        barContainerClassName="bg-gray-300/80"
-        color={colors.yellow[400]}
-      />
-      <MarketCapMeter
-        label="21%"
-        max={100}
-        value={21}
-        height="7px"
-        color={colors.indigo[400]}
-        barContainerClassName="bg-gray-300/80"
-      />
+      <div className="flex w-full gap-2 item-center">
+        <Image
+          src="/icons/bitcoin.svg"
+          width={20}
+          height={20}
+          alt="Bitcoin logo"
+        />
+        <MarketCapMeter
+          label="44%"
+          max={100}
+          value={44}
+          height="7px"
+          barContainerClassName="bg-gray-300/80"
+          color={colors.yellow[400]}
+        />
+      </div>
+      <div className="flex w-full gap-2 items-center">
+        <Image
+          src="/icons/ethereum.svg"
+          width={20}
+          height={20}
+          alt="Ethereum logo"
+        />
+        <MarketCapMeter
+          label="21%"
+          max={100}
+          value={21}
+          height="7px"
+          color={colors.indigo[400]}
+          barContainerClassName="bg-gray-300/80"
+        />
+      </div>
     </div>
   );
 };
