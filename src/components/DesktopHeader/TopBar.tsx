@@ -3,8 +3,10 @@ import MarketCapMeter from "../UI/MarketCapMeter";
 import config from "../../../tailwind.config";
 import TopBarText from "./TopBarText";
 import { ChevronUp, SendToBack, Zap } from "lucide-react";
+import actions from "@/actions";
 
-const TopBar = () => {
+const TopBar = async () => {
+  const marketData = await actions.getGlobalMarketData();
   let colors: any;
   if (config.theme?.colors) {
     colors = config.theme.colors;
@@ -15,7 +17,7 @@ const TopBar = () => {
       <div className="max-w-4xl mx-auto flex gap-11 justify-center text-sm">
         <TopBarText
           text="Coins"
-          value={7884}
+          value={marketData.coins}
           icon={
             <Zap
               fill="#000"
@@ -27,15 +29,15 @@ const TopBar = () => {
         />
         <TopBarText
           text="Exchange"
-          value={622}
+          value={marketData.markets}
           icon={<SendToBack fill="#fff" size={18} />}
         />
         <TopBarText
-          value={"1.68 T"}
+          value={marketData.totalMarketCap.usd}
           icon={<ChevronUp className="text-cyan-500" size={16} />}
         />
         <MarketCapMeter
-          label="$124.45B"
+          label={marketData.totalVolume.usd.toString()}
           value={20}
           max={100}
           height="7px"
@@ -43,16 +45,16 @@ const TopBar = () => {
           color="#fff"
         />
         <MarketCapMeter
-          label="44%"
-          value={44}
+          label={marketData.bitcoinMarketCapPercentage + "%"}
+          value={marketData.bitcoinMarketCapPercentage}
           max={100}
           height="7px"
           barContainerClassName="bg-gray-300/80"
           color={colors.yellow[400]}
         />
         <MarketCapMeter
-          label="21%"
-          value={21}
+          label={marketData.ethereumMarketCapPercentage + "%"}
+          value={marketData.ethereumMarketCapPercentage}
           max={100}
           height="7px"
           color={colors.indigo[400]}

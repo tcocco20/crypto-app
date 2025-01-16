@@ -1,6 +1,7 @@
 "use server";
 
 import { coingeckoFetch } from "@/utils/coingeckoFetch";
+import { parseGlobalMarketData } from "@/utils/parseGlobalMarketData";
 import { GlobalMarketDataRequest } from "@/utils/types/GlobalMarketDataRequest";
 
 export const getGlobalMarketData = async () => {
@@ -8,7 +9,5 @@ export const getGlobalMarketData = async () => {
     baseUrl: "https://api.coingecko.com/api/v3/global",
   });
 
-  console.log(response);
-
-  return undefined;
+  return parseGlobalMarketData(response.body.data);
 };

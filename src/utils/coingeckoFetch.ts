@@ -29,5 +29,7 @@ export const coingeckoFetch = async <T>({
   if (!response.ok) {
     throw new Error("Failed to connect to CoinGecko API");
   }
-  return await response.json();
+  const body = await response.json();
+  
+  return { status: response.status, body };
 };
