@@ -45,7 +45,7 @@ const TopBar = async () => {
           color="#fff"
         />
         <MarketCapMeter
-          label={marketData.bitcoinMarketCapPercentage + "%"}
+          label={marketData.bitcoinMarketCapPercentage.toFixed(0) + "%"}
           value={marketData.bitcoinMarketCapPercentage}
           max={100}
           height="7px"
@@ -53,7 +53,7 @@ const TopBar = async () => {
           color={colors.yellow[400]}
         />
         <MarketCapMeter
-          label={marketData.ethereumMarketCapPercentage + "%"}
+          label={marketData.ethereumMarketCapPercentage.toFixed(0) + "%"}
           value={marketData.ethereumMarketCapPercentage}
           max={100}
           height="7px"

@@ -9,7 +9,7 @@ export function parseGlobalMarketData(
     markets: data.markets,
     totalMarketCap: data.total_market_cap,
     totalVolume: data.total_volume,
-    bitcoinMarketCapPercentage: data.market_cap_percentage.bitcoin,
-    ethereumMarketCapPercentage: data.market_cap_percentage.ethereum,
+    bitcoinMarketCapPercentage: data.market_cap_percentage.btc,
+    ethereumMarketCapPercentage: data.market_cap_percentage.eth,
   };
 }
