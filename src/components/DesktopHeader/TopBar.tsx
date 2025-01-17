@@ -3,12 +3,15 @@ import MarketCapMeter from "../UI/MarketCapMeter";
 import config from "../../../tailwind.config";
 import TopBarText from "./TopBarText";
 import { ChevronUp, SendToBack, Zap } from "lucide-react";
-import actions from "@/actions";
 import utils from "@/utils";
 import Image from "next/image";
+import { GlobalMarketData } from "@/lib/types/GlobalMarketData";
 
-const TopBar = async () => {
-  const marketData = await actions.getGlobalMarketData();
+interface TopBarProps {
+  marketData: GlobalMarketData;
+}
+
+const TopBar = ({ marketData }: TopBarProps) => {
   let colors: any;
   if (config.theme?.colors) {
     colors = config.theme.colors;

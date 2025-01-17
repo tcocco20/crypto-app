@@ -1,10 +1,15 @@
+import { GlobalMarketData } from "@/lib/types/GlobalMarketData";
 import DesktopNav from "./DesktopNav";
 import TopBar from "./TopBar";
 
-const DesktopHeader = () => {
+interface DesktopHeaderProps {
+  data: GlobalMarketData;
+}
+
+const DesktopHeader = ({ data }: DesktopHeaderProps) => {
   return (
     <header className="hidden md:block">
-      <TopBar />
+      <TopBar marketData={data} />
       <DesktopNav />
     </header>
   );
