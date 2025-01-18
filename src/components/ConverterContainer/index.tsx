@@ -37,10 +37,10 @@ const ConverterContainer = ({ coins }: ConverterContainerProps) => {
   };
 
   useEffect(() => {
-    if (fromCurrency && toCurrency) {
+    if (fromCurrency && toCurrency && hasError) {
       setHasError(false);
     }
-  }, [fromCurrency, toCurrency]);
+  }, [fromCurrency, toCurrency, hasError]);
 
   return (
     <section className="w-full flex flex-col gap-5">
