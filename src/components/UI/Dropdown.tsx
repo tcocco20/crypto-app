@@ -5,6 +5,7 @@ import Portal from "./Portal";
 interface DropdownProps<T> {
   containerClassName?: string;
   menuClassName?: string;
+  parentClassName?: string;
   children: ReactNode;
   data?: T[];
   renderItem?: (item: T) => ReactNode;
@@ -15,6 +16,7 @@ function Dropdown<C>({
   containerClassName,
   children,
   menuClassName,
+  parentClassName,
   data,
   renderItem,
   keyExtractor,
@@ -26,7 +28,9 @@ function Dropdown<C>({
   };
 
   const handleInputClick = () => {
-    setIsOpen((prev) => !prev);
+    if (!isOpen) {
+      setIsOpen(true);
+    }
   };
 
   const renderDropdownItems = () => {
@@ -37,6 +41,7 @@ function Dropdown<C>({
       </div>
     ));
   };
+
   return (
     <>
       {isOpen && (
@@ -47,15 +52,17 @@ function Dropdown<C>({
           ></div>
         </Portal>
       )}
-      <div
-        className={`relative ${
-          isOpen ? "z-50" : "z-40"
-        } active:opacity-50 ${containerClassName}`}
-        onClick={handleInputClick}
-      >
-        {children}
+      <div className={`relative ${parentClassName}`}>
+        <div
+          className={`${
+            isOpen ? "z-50" : "z-40"
+          } ${containerClassName} active:opacity-50`}
+          onClick={handleInputClick}
+        >
+          {children}
+        </div>
         {isOpen && (
-          <div className={`absolute ${menuClassName}`}>
+          <div className={`absolute min-w-36 ${menuClassName}`}>
             {renderDropdownItems()}
           </div>
         )}

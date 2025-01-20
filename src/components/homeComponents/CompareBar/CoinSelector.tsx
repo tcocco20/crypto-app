@@ -43,28 +43,30 @@ const CoinSelector = ({
   }, [compareModeSelected, setSecondSelectedCoin]);
 
   return (
-    <Swiper
-      spaceBetween={10}
-      modules={[FreeMode]}
-      freeMode
-      slidesPerView={"auto"}
-      loop
-      observer
-      observeSlideChildren
-    >
-      {coinsList.map((coin) => (
-        <SwiperSlide key={coin.id} style={{ width: "fit-content" }}>
-          <CoinButton
-            name={coin.symbol}
-            image={coin.image}
-            selected={
-              selectedCoin === coin.id || secondSelectedCoin === coin.id
-            }
-            onClick={() => handleCoinClick(coin.id)}
-          />
-        </SwiperSlide>
-      ))}
-    </Swiper>
+    <div className="w-full">
+      <Swiper
+        spaceBetween={10}
+        modules={[FreeMode]}
+        freeMode
+        slidesPerView={"auto"}
+        loop
+        observer
+        observeSlideChildren
+      >
+        {coinsList.map((coin) => (
+          <SwiperSlide key={coin.id} style={{ width: "fit-content" }}>
+            <CoinButton
+              name={coin.symbol}
+              image={coin.image}
+              selected={
+                selectedCoin === coin.id || secondSelectedCoin === coin.id
+              }
+              onClick={() => handleCoinClick(coin.id)}
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
   );
 };
 

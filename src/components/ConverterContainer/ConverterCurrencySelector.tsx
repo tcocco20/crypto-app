@@ -31,7 +31,7 @@ const ConverterCurrencySelector = ({
           : "dark:bg-purple-900/20"
       }`}
     >
-      <p className="text-xs font-thin text-indigo-800 dark:text-gray-100">
+      <p className="text-xs font-extralight text-indigo-800 dark:text-gray-100">
         {isFromCurrency ? "You sell" : "You buy"}
       </p>
       <div className="flex justify-between items-center border-b border-b-indigo-900 dark:border-b-white py-3">
@@ -53,7 +53,7 @@ const ConverterCurrencySelector = ({
         )}
       </div>
       {selectedCurrency ? (
-        <p className="text-xs font-thin my-2">
+        <p className="text-xs font-light my-2">
           <span className="text-indigo-700 dark:text-gray-300">
             1 {selectedCurrency.symbol.toUpperCase()} ={" "}
           </span>

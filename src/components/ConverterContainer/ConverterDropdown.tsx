@@ -24,7 +24,8 @@ const ConverterDropdown = ({
   return (
     <>
       <Dropdown<ListCoin>
-        containerClassName="flex flex-1 text-xs items-center gap-2"
+        containerClassName="flex flex-1 items-center gap-2"
+        parentClassName="text-xs"
         menuClassName="top-full mt-1 bg-violet-100/90 shadow-md dark:shadow-0 dark:bg-indigo-950/70 w-full p-2 rounded-md overflow-y-auto max-h-60 z-50"
         data={coins}
         renderItem={renderDropdownItem}
