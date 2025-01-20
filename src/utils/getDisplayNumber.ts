@@ -13,5 +13,8 @@ export const getDisplayNumber = (num: number): string => {
   if (num >= 1000000000) {
     numString = (num / 1000000000).toFixed(2) + "B";
   }
+  if (num >= 1000000000000) {
+    numString = (num / 1000000000000).toFixed(2) + "T";
+  }
   return numString;
 };

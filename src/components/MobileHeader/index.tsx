@@ -1,11 +1,16 @@
+import { GlobalMarketData } from "@/lib/types/GlobalMarketData";
 import HeaderActions from "./HeaderActions";
 import HeaderInfo from "./HeaderInfo";
 
-const MobileHeader = () => {
+interface MobileHeaderProps {
+  data: GlobalMarketData;
+}
+
+const MobileHeader = ({ data }: MobileHeaderProps) => {
   return (
     <header className="block md:hidden">
       <HeaderActions />
-      <HeaderInfo />
+      <HeaderInfo marketData={data} />
     </header>
   );
 };

@@ -3,6 +3,7 @@ import { get24hVolumeInCurrency } from "./get24hVolumeInCurrency";
 import { getCoinsList } from "./getCoinsList";
 import { testConnection } from "./testConnection";
 import { getCoinHistoricalPriceData } from "./getCoinHistoricalPriceData";
+import { getGlobalMarketData } from "./getGlobalMarketData";
 
 const actions = {
   testConnection,
@@ -10,6 +11,7 @@ const actions = {
   getCoinById,
   get24hVolumeInCurrency,
   getCoinHistoricalPriceData,
+  getGlobalMarketData,
 };
 
 export default actions;
