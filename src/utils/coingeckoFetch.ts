@@ -1,21 +1,14 @@
 "use server";
 
-import { composeUrl } from "./composeUrl";
-import { ExtractType } from "./types/ExtractType";
-import { ExtractVariables } from "./types/ExtractVariables";
-
 export const coingeckoFetch = async <T>({
   cache = "force-cache",
   headers,
-  baseUrl,
-  variables,
+  url,
 }: {
   cache?: RequestCache;
   headers?: HeadersInit;
-  baseUrl: string;
-  variables?: ExtractVariables<T>;
-}): Promise<{ status: number; body: ExtractType<T> } | never> => {
-  const url = composeUrl(baseUrl, variables);
+  url: string;
+}): Promise<{ status: number; body: T } | never> => {
   const options: RequestInit = {
     method: "GET",
     headers: {
