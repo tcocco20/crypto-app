@@ -1,10 +1,10 @@
-import { type IndividualCoinWith24hVolume } from "@/lib/types/IndividualCoin";
+import { IndividualCoin } from "@/lib/types/IndividualCoin";
 import Card from "../UI/Card";
 import DataPoint from "./DataPoint";
 import utils from "@/utils";
 
 interface MarketDataProps {
-  coin: IndividualCoinWith24hVolume;
+  coin: IndividualCoin;
 }
 
 const MarketData = ({ coin }: MarketDataProps) => {
@@ -36,7 +36,7 @@ const MarketData = ({ coin }: MarketDataProps) => {
       />
       <DataPoint
         title="Volume 24h"
-        dataPoint={coin.volume_24h}
+        dataPoint={coin.market_data.total_volume.usd}
         currencyToDisplay="$"
         currencyDisplay
       />

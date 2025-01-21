@@ -26,7 +26,7 @@ ChartJS.register(
 
 const CoinOverviewChart = ({ coin }: CoinOverviewChartProps) => {
   const labels = coin.sparkline_in_7d!.price.map((_, i) => i);
-  const priceUp = coin.price_change_percentage_24h > 0;
+  const priceUp = coin.price_change_percentage_7d_in_currency > 0;
   const priceUpColor = "#28f625";
   const priceDownColor = "#ff6465";
 

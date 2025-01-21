@@ -5,7 +5,6 @@ import InvestmentDetails from "@/components/coinPageComponents/InvestmentDetails
 import CoinLink from "@/components/coinPageComponents/CoinLink";
 import MarketData from "@/components/coinPageComponents/MarketData";
 import CoinBrand from "@/components/UI/CoinBrand";
-import { type IndividualCoinWith24hVolume } from "@/lib/types/IndividualCoin";
 interface CoinDetailsPageProps {
   params: {
     coinId: string;
@@ -13,12 +12,7 @@ interface CoinDetailsPageProps {
 }
 
 const CoinDetailsPage = async ({ params }: CoinDetailsPageProps) => {
-  const coinData = await actions.getCoinById(params.coinId);
-  const volumeChange = await actions.get24hVolumeInCurrency(params.coinId);
-  const coin = {
-    ...coinData,
-    volume_24h: volumeChange,
-  } as IndividualCoinWith24hVolume;
+  const coin = await actions.getCoinById(params.coinId);
 
   return (
     <>

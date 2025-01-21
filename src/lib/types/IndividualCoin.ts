@@ -1,3 +1,5 @@
+import { type MarketDataArray } from "@/utils/types/MarketDataArray";
+
 export interface IndividualCoin {
   id: string;
   symbol: string;
@@ -26,10 +28,6 @@ export interface IndividualCoin {
   developer_data: Developerdata;
   status_updates: any[] | null;
   last_updated: string;
-}
-
-export interface IndividualCoinWith24hVolume extends IndividualCoin {
-  volume_24h: number | null;
 }
 
 interface Developerdata {
@@ -61,24 +59,24 @@ interface Communitydata {
 }
 
 interface Marketdata {
-  current_price: Currentprice | {};
+  current_price: MarketDataArray;
   total_value_locked: any | null;
   mcap_to_tvl_ratio: any | null;
   fdv_to_tvl_ratio: any | null;
   roi: any | null;
-  ath: Currentprice | {};
-  ath_change_percentage: Currentprice;
+  ath: MarketDataArray;
+  ath_change_percentage: MarketDataArray;
   ath_date: Athdate | {};
-  atl: Currentprice | {};
-  atl_change_percentage: Currentprice;
+  atl: MarketDataArray;
+  atl_change_percentage: MarketDataArray;
   atl_date: Athdate | {};
-  market_cap: Currentprice | {};
+  market_cap: MarketDataArray;
   market_cap_rank: number | null;
-  fully_diluted_valuation: Currentprice | {};
+  fully_diluted_valuation: MarketDataArray;
   market_cap_fdv_ratio: number | null;
-  total_volume: Currentprice | {};
-  high_24h: Currentprice | EmptyHighLow;
-  low_24h: Currentprice | EmptyHighLow;
+  total_volume: MarketDataArray;
+  high_24h: MarketDataArray | EmptyHighLow;
+  low_24h: MarketDataArray | EmptyHighLow;
   price_change_24h: number | null;
   price_change_percentage_24h: number | null;
   price_change_percentage_7d: number;
@@ -89,17 +87,17 @@ interface Marketdata {
   price_change_percentage_1y: number;
   market_cap_change_24h: number | null;
   market_cap_change_percentage_24h: number | null;
-  price_change_24h_in_currency: Currentprice | {};
-  price_change_percentage_1h_in_currency: Currentprice | {};
-  price_change_percentage_24h_in_currency: Currentprice | {};
-  price_change_percentage_7d_in_currency: Currentprice | {};
-  price_change_percentage_14d_in_currency: Currentprice | {};
-  price_change_percentage_30d_in_currency: Currentprice | {};
-  price_change_percentage_60d_in_currency: Currentprice | {};
-  price_change_percentage_200d_in_currency: Currentprice | {};
-  price_change_percentage_1y_in_currency: Currentprice | {};
-  market_cap_change_24h_in_currency: Currentprice | {};
-  market_cap_change_percentage_24h_in_currency: Currentprice | {};
+  price_change_24h_in_currency: MarketDataArray;
+  price_change_percentage_1h_in_currency: MarketDataArray;
+  price_change_percentage_24h_in_currency: MarketDataArray;
+  price_change_percentage_7d_in_currency: MarketDataArray;
+  price_change_percentage_14d_in_currency: MarketDataArray;
+  price_change_percentage_30d_in_currency: MarketDataArray;
+  price_change_percentage_60d_in_currency: MarketDataArray;
+  price_change_percentage_200d_in_currency: MarketDataArray;
+  price_change_percentage_1y_in_currency: MarketDataArray;
+  market_cap_change_24h_in_currency: MarketDataArray;
+  market_cap_change_percentage_24h_in_currency: MarketDataArray;
   total_supply: number | null;
   max_supply: number | null;
   circulating_supply: number | null;

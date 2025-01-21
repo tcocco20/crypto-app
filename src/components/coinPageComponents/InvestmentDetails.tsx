@@ -1,6 +1,6 @@
 import {
-  Currentprice,
-  type IndividualCoinWith24hVolume,
+  type Currentprice,
+  type IndividualCoin,
 } from "@/lib/types/IndividualCoin";
 import React from "react";
 import Card from "../UI/Card";
@@ -8,7 +8,7 @@ import { ChevronDown, ChevronUp, Layers } from "lucide-react";
 import utils from "@/utils";
 
 interface InvestmentDetailsProps {
-  coin: IndividualCoinWith24hVolume;
+  coin: IndividualCoin;
   selectedCurrency: keyof Currentprice;
 }
 

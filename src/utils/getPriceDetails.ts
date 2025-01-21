@@ -1,11 +1,8 @@
-import {
-  type Currentprice,
-  type IndividualCoinWith24hVolume,
-} from "@/lib/types/IndividualCoin";
+import { IndividualCoin, type Currentprice } from "@/lib/types/IndividualCoin";
 import utils from ".";
 
 export function getPriceDetails(
-  coin: IndividualCoinWith24hVolume,
+  coin: IndividualCoin,
   currency: keyof Currentprice
 ) {
   let priceUp: boolean = false;
