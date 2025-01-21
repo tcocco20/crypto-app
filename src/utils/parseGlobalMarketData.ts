@@ -1,8 +1,8 @@
 import { GlobalMarketData } from "@/lib/types/GlobalMarketData";
-import { GlobalMarketDataResponse } from "./types/GlobalMarketDataResponse";
+import { type CoinGeckoGlobalMarketData } from "./types/GlobalMarketDataResponse";
 
 export function parseGlobalMarketData(
-  data: GlobalMarketDataResponse
+  data: CoinGeckoGlobalMarketData
 ): GlobalMarketData {
   return {
     coins: data.active_cryptocurrencies,

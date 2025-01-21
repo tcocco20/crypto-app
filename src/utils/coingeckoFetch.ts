@@ -1,6 +1,7 @@
 "use server";
 
 import { composeUrl } from "./composeUrl";
+import { ExtractType } from "./types/ExtractType";
 import { ExtractVariables } from "./types/ExtractVariables";
 
 export const coingeckoFetch = async <T>({
@@ -13,7 +14,7 @@ export const coingeckoFetch = async <T>({
   headers?: HeadersInit;
   baseUrl: string;
   variables?: ExtractVariables<T>;
-}): Promise<{ status: number; body: T } | never> => {
+}): Promise<{ status: number; body: ExtractType<T> } | never> => {
   const url = composeUrl(baseUrl, variables);
   const options: RequestInit = {
     method: "GET",
@@ -30,6 +31,6 @@ export const coingeckoFetch = async <T>({
     throw new Error("Failed to connect to CoinGecko API");
   }
   const body = await response.json();
-  
+
   return { status: response.status, body };
 };

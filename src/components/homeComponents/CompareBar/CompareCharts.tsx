@@ -51,7 +51,7 @@ const CompareCharts = ({
     };
 
     fetchCoinData();
-  }, [coinId, timeFrame, secondCoinId]);
+  }, [coinId, timeFrame, secondCoinId, secondCoin]);
 
   useEffect(() => {
     const fetchSelectedCoin = async () => {

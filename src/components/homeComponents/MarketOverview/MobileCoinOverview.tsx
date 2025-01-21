@@ -36,7 +36,7 @@ const MobileCoinOverview = ({ coin }: MobileCoinOverviewProps) => {
         )}
         <p className="text-xs font-light text-gray-400">{coin.name}</p>
       </div>
-      {coin.sparkline_in_7d.price.length > 0 && (
+      {coin.sparkline_in_7d!.price.length > 0 && (
         <CoinOverviewChart coin={coin} />
       )}
       <div className="text-right flex-1">
