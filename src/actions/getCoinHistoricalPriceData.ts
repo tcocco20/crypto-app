@@ -9,12 +9,9 @@ export const getCoinHistoricalPriceData = async (
   currency = "usd",
   days = 1
 ) => {
-  const today = new Date();
-  const fromTime = Math.floor(
-    new Date().setDate(today.getDate() - days) / 1000
-  );
-  const toTime = Math.floor(today.getTime() / 1000);
-  const url = `https://api.coingecko.com/api/v3/coins/${id}/market_chart/range?vs_currency=${currency}&from=${fromTime}&to=${toTime}&precision=5`;
+  const url = `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=${currency}&days=${days}${
+    days > 15 && "&interval=daily"
+  }&precision=5`;
 
   const response = await coingeckoFetch<CoinHistoricalDataResponse>({ url });
 
