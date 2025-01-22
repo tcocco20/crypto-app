@@ -18,15 +18,13 @@ const MarketData = ({ coin }: MarketDataProps) => {
     <Card className="p-16 flex flex-col gap-4 col-span-3">
       <DataPoint
         title="Market Cap"
-        dataObject={coin.market_cap}
-        property={"usd"}
+        dataPoint={coin.market_cap.usd}
         currencyToDisplay="$"
         currencyDisplay
       />
       <DataPoint
         title="Fully Diluted Valuation"
-        dataObject={coin.fully_diluted_valuation}
-        property={"usd"}
+        dataPoint={coin.fully_diluted_valuation.usd}
         currencyToDisplay="$"
         currencyDisplay
       />
@@ -39,8 +37,7 @@ const MarketData = ({ coin }: MarketDataProps) => {
       <DataPoint title="Volume/Market" dataPoint={volumeOverMarket} />
       <DataPoint
         title="Total Volume"
-        dataObject={coin.total_volume[coin.symbol]}
-        property={"usd"}
+        dataPoint={coin.total_volume[coin.symbol]}
         currencyToDisplay={"$"}
         currencyDisplay
       />
