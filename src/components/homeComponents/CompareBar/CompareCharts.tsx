@@ -69,13 +69,10 @@ const CompareCharts = ({
     };
 
     fetchSelectedCoin();
-  }, [coinId, secondCoinId]);
+  }, [coinId, secondCoinId, secondCoin]);
 
-  if (
-    selectedCoin &&
-    utils.isPropertyType(selectedCoin.market_data.current_price, "usd")
-  ) {
-    coinPrice = selectedCoin?.market_data.current_price.usd;
+  if (selectedCoin && utils.isPropertyType(selectedCoin.current_price, "usd")) {
+    coinPrice = selectedCoin?.current_price.usd;
   }
 
   return (

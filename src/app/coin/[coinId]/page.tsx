@@ -24,13 +24,13 @@ const CoinDetailsPage = async ({ params }: CoinDetailsPageProps) => {
             imageUrl={coin.image.large}
             className="flex-1"
           />
-          <CoinLink url={coin.links.homepage[0]} />
+          <CoinLink url={coin.links.homepage} />
         </div>
         <InvestmentDetails coin={coin} selectedCurrency="usd" />
         <MarketData coin={coin} />
-        <CoinDescription description={coin.description.en} />
+        <CoinDescription description={coin.description} />
         <ExtraLinks
-          homepage={coin.links.homepage[0]}
+          homepage={coin.links.homepage}
           blockchainSite={coin.links.blockchain_site[0]}
           blockchainSite2={coin.links.blockchain_site[1]}
         />
