@@ -69,7 +69,7 @@ const CompareCharts = ({
     };
 
     fetchSelectedCoin();
-  }, [coinId, secondCoinId]);
+  }, [coinId, secondCoinId, secondCoin]);
 
   if (
     selectedCoin &&
