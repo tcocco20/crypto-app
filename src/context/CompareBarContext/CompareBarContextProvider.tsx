@@ -1,8 +1,8 @@
 "use client";
 
 import actions from "@/actions";
-import { CoinHistoricalData } from "@/lib/types/CoinHistoricalData";
-import { IndividualCoin } from "@/lib/types/IndividualCoin";
+import { type CoinHistoricalData } from "@/lib/types/CoinHistoricalData";
+import { type IndividualCoin } from "@/lib/types/IndividualCoin";
 import React, { createContext, useState, ReactNode, useEffect } from "react";
 
 interface CompareBarContextState {
