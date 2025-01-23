@@ -13,16 +13,6 @@ interface CompareBarProps {
 const CompareBar = ({ coins }: CompareBarProps) => {
   const { compareModeSelected, updateCompareModeSelected } =
     useCompareBarContext();
-  // const [compareModeSelected, setCompareModeSelected] = useState(false);
-  // const [selectedCoin, setSelectedCoin] = useState("bitcoin");
-  // const [secondSelectedCoin, setSecondSelectedCoin] = useState<
-  //   string | undefined
-  // >();
-  // const [timeFrame, setTimeFrame] = useState(1);
-
-  // const handleTimeFrameSelect = (timeFrame: number) => {
-  //   setTimeFrame(timeFrame);
-  // };
 
   return (
     <section className="my-5 dark:text-white flex flex-col gap-4">

@@ -9,21 +9,11 @@ import {
   Title,
   Tooltip,
 } from "chart.js/auto";
+import { useCompareBarContext } from "@/context/CompareBarContext/useCompareBarContext";
 
 interface PriceChartProps {
   title: string;
-  secondTitle?: string;
   price: number;
-  priceData: {
-    date: string;
-    price: number;
-    volume: number;
-  }[];
-  secondCoinData: {
-    date: string;
-    price: number;
-    volume: number;
-  }[];
 }
 
 ChartJS.register(
@@ -35,14 +25,11 @@ ChartJS.register(
   Tooltip
 );
 
-const PriceChart = ({
-  title,
-  price,
-  priceData,
-  secondCoinData,
-}: PriceChartProps) => {
-  const labels = priceData.map((data) => data.date);
-  const prices = priceData.map((data) => data.price);
+const PriceChart = ({ title, price }: PriceChartProps) => {
+  const { firstCoinData, secondCoinData } = useCompareBarContext();
+
+  const labels = firstCoinData.map((data) => data.date);
+  const prices = firstCoinData.map((data) => data.price);
   const latestPrice = labels[labels.length - 1];
   const secondCoinPrices = secondCoinData.map((data) => data.price);
 
@@ -80,13 +67,17 @@ const PriceChart = ({
     secondCoinData.length > 0 ? (
       <>
         <p className="font-medium text-lg">Price</p>
-        <p className="text-xs text-gray-800 dark:text-gray-400">{latestPrice}</p>
+        <p className="text-xs text-gray-800 dark:text-gray-400">
+          {latestPrice}
+        </p>
       </>
     ) : (
       <>
         <p className="text-sm text-gray-700 dark:text-gray-300">{title}</p>
         <p className="font-medium text-lg">${price}</p>
-        <p className="text-xs text-gray-800 dark:text-gray-400">{latestPrice}</p>
+        <p className="text-xs text-gray-800 dark:text-gray-400">
+          {latestPrice}
+        </p>
       </>
     );
 

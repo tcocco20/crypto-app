@@ -4,7 +4,6 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import CoinButton from "./CoinButton";
 import { FreeMode } from "swiper/modules";
-import { useEffect } from "react";
 import { type ListCoin } from "@/lib/types/ListCoin";
 import { useCompareBarContext } from "@/context/CompareBarContext/useCompareBarContext";
 
@@ -32,12 +31,6 @@ const CoinSelector = ({ coinsList }: CoinSelectorProps) => {
       }
     }
   };
-
-  useEffect(() => {
-    if (!compareModeSelected) {
-      updateSecondCoinId(undefined);
-    }
-  }, [compareModeSelected, updateSecondCoinId]);
 
   return (
     <div className="w-full">

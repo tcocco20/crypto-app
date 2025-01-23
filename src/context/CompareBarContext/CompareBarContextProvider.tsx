@@ -1,8 +1,9 @@
 "use client";
 
+import actions from "@/actions";
 import { CoinHistoricalData } from "@/lib/types/CoinHistoricalData";
 import { IndividualCoin } from "@/lib/types/IndividualCoin";
-import React, { createContext, useState, ReactNode } from "react";
+import React, { createContext, useState, ReactNode, useEffect } from "react";
 
 interface CompareBarContextState {
   compareModeSelected: boolean;
@@ -40,6 +41,54 @@ export const CompareBarContextProvider = ({
   const [secondCoin, setSecondCoin] = useState<IndividualCoin | undefined>();
   const [firstCoinData, setFirstCoinData] = useState<CoinHistoricalData>([]);
   const [secondCoinData, setSecondCoinData] = useState<CoinHistoricalData>([]);
+
+  useEffect(() => {
+    const fetchCoinData = async () => {
+      const firstCoinResponse = await actions.getCoinHistoricalPriceData(
+        firstCoinId,
+        "usd",
+        selectedTimeFrame
+      );
+      setFirstCoinData(firstCoinResponse);
+
+      if (secondCoinId) {
+        const secondCoinResponse = await actions.getCoinHistoricalPriceData(
+          secondCoinId,
+          "usd",
+          selectedTimeFrame
+        );
+        setSecondCoinData(secondCoinResponse);
+      } else {
+        setSecondCoinData([]);
+      }
+    };
+
+    fetchCoinData();
+  }, [firstCoinId, selectedTimeFrame, secondCoinId]);
+
+  useEffect(() => {
+    const fetchSelectedCoin = async () => {
+      if (!secondCoinId) {
+        const coin = await actions.getCoinById(firstCoinId);
+        setFirstCoin(coin);
+
+        if (secondCoin) {
+          setSecondCoin(undefined);
+        }
+      } else {
+        const coin = await actions.getCoinById(secondCoinId);
+        setSecondCoin(coin);
+      }
+    };
+
+    fetchSelectedCoin();
+  }, [firstCoinId, secondCoinId, secondCoin]);
+
+  useEffect(() => {
+    if (!compareModeSelected) {
+      setSecondCoinId(undefined);
+    }
+  }, [compareModeSelected]);
 
   return (
     <CompareBarContext.Provider

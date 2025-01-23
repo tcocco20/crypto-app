@@ -4,41 +4,26 @@ import PriceChart from "./PriceChart";
 import VolumeChart from "./VolumeChart";
 import SelectableWrapper from "@/components/UI/SelectableWrapper";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { type IndividualCoin } from "@/lib/types/IndividualCoin";
 import Card from "@/components/UI/Card";
+import { useCompareBarContext } from "@/context/CompareBarContext/useCompareBarContext";
 
 interface MobileChartsProps {
-  selectedCoin: IndividualCoin | undefined;
-  secondCoin: IndividualCoin | undefined;
-  data: { date: string; price: number; volume: number }[];
-  secondCoinData: { date: string; price: number; volume: number }[];
   coinPrice: number;
 }
 
-const MobileCharts = ({
-  selectedCoin,
-  secondCoin,
-  data,
-  coinPrice,
-  secondCoinData,
-}: MobileChartsProps) => {
+const MobileCharts = ({ coinPrice }: MobileChartsProps) => {
   const [selectedChart, setSelectedChart] = useState("price");
+
+  const { firstCoin, secondCoin } = useCompareBarContext();
 
   const displayChart =
     selectedChart === "price" ? (
       <PriceChart
-        title={`${selectedCoin?.name} (${selectedCoin?.symbol.toUpperCase()})`}
-        secondTitle={
-          secondCoin
-            ? `${secondCoin?.name} (${secondCoin?.symbol.toUpperCase()})`
-            : ""
-        }
+        title={`${firstCoin?.name} (${firstCoin?.symbol.toUpperCase()})`}
         price={coinPrice}
-        priceData={data}
-        secondCoinData={secondCoinData}
       />
     ) : (
-      <VolumeChart volumeData={data} secondCoinData={secondCoinData} />
+      <VolumeChart />
     );
 
   const disabledClasses =
@@ -74,7 +59,7 @@ const MobileCharts = ({
           <div className="flex justify-between">
             <div className="flex gap-2">
               <div className="py-1 px-3 bg-indigo-400 rounded-sm" />
-              <p>{selectedCoin!.name}</p>
+              <p>{firstCoin!.name}</p>
             </div>
             <div className="flex gap-2">
               <div className="py-1 px-3 bg-purple-400 rounded-sm" />

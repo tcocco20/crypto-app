@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js/auto";
+import { useCompareBarContext } from "@/context/CompareBarContext/useCompareBarContext";
 
 ChartJS.register(
   LinearScale,
@@ -19,22 +20,11 @@ ChartJS.register(
   Legend
 );
 
-interface VolumeChartProps {
-  volumeData: {
-    date: string;
-    price: number;
-    volume: number;
-  }[];
-  secondCoinData: {
-    date: string;
-    price: number;
-    volume: number;
-  }[];
-}
+const VolumeChart = () => {
+  const { firstCoinData, secondCoinData } = useCompareBarContext();
 
-const VolumeChart = ({ volumeData, secondCoinData }: VolumeChartProps) => {
-  const labels = volumeData.map((data) => data.date);
-  const volumes = volumeData.map((data) => data.volume);
+  const labels = firstCoinData.map((data) => data.date);
+  const volumes = firstCoinData.map((data) => data.volume);
   const secondCoinVolumes = secondCoinData.map((data) => data.volume);
   const latestVolume = labels[labels.length - 1];
 
