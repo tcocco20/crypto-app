@@ -7,24 +7,13 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Card from "@/components/UI/Card";
 import { useCompareBarContext } from "@/context/CompareBarContext/useCompareBarContext";
 
-interface MobileChartsProps {
-  coinPrice: number;
-}
-
-const MobileCharts = ({ coinPrice }: MobileChartsProps) => {
+const MobileCharts = () => {
   const [selectedChart, setSelectedChart] = useState("price");
 
   const { firstCoin, secondCoin } = useCompareBarContext();
 
   const displayChart =
-    selectedChart === "price" ? (
-      <PriceChart
-        title={`${firstCoin?.name} (${firstCoin?.symbol.toUpperCase()})`}
-        price={coinPrice}
-      />
-    ) : (
-      <VolumeChart />
-    );
+    selectedChart === "price" ? <PriceChart /> : <VolumeChart />;
 
   const disabledClasses =
     "bg-gray-400 dark:bg-gray-700 opacity-45 border border-gray-700 dark:border-gray-400 rounded-full pointer-events-none";

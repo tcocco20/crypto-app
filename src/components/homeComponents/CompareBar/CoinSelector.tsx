@@ -18,16 +18,20 @@ const CoinSelector = ({ coinsList }: CoinSelectorProps) => {
     updateFirstCoinId,
     secondCoinId,
     updateSecondCoinId,
+    updateFirstCoin,
+    updateSecondCoin,
   } = useCompareBarContext();
 
   const handleCoinClick = (coinId: string) => {
     if (!compareModeSelected) {
       updateFirstCoinId(coinId);
+      updateFirstCoin(coinsList.find((coin) => coin.id === coinId)!);
     } else {
       if (coinId === firstCoinId) {
         return;
       } else {
         updateSecondCoinId(coinId);
+        updateSecondCoin(coinsList.find((coin) => coin.id === coinId)!);
       }
     }
   };

@@ -5,14 +5,19 @@ import { type ListCoin } from "@/lib/types/ListCoin";
 import CompareCharts from "./CompareCharts";
 import TimeFrameSelector from "./TimeFrameSelector";
 import { useCompareBarContext } from "@/context/CompareBarContext/useCompareBarContext";
+import { useEffect } from "react";
 
 interface CompareBarProps {
   coins: ListCoin[];
 }
 
 const CompareBar = ({ coins }: CompareBarProps) => {
-  const { compareModeSelected, updateCompareModeSelected } =
+  const { compareModeSelected, updateCompareModeSelected, updateFirstCoin } =
     useCompareBarContext();
+
+  useEffect(() => {
+    updateFirstCoin(coins[0]);
+  }, [coins, updateFirstCoin]);
 
   return (
     <section className="my-5 dark:text-white flex flex-col gap-4">
