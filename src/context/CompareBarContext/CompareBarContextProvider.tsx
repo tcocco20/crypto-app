@@ -1,3 +1,6 @@
+"use client";
+
+import { CoinHistoricalData } from "@/lib/types/CoinHistoricalData";
 import { IndividualCoin } from "@/lib/types/IndividualCoin";
 import React, { createContext, useState, ReactNode } from "react";
 
@@ -14,21 +17,17 @@ interface CompareBarContextState {
   updateFirstCoin: (coin: IndividualCoin) => void;
   secondCoin: IndividualCoin | undefined;
   updateSecondCoin: (coin: IndividualCoin) => void;
-  firstCoinData: { date: string; price: number; volume: number }[];
-  updateFirstCoinData: (
-    data: { date: string; price: number; volume: number }[]
-  ) => void;
-  secondCoinData: { date: string; price: number; volume: number }[];
-  updateSecondCoinData: (
-    data: { date: string; price: number; volume: number }[]
-  ) => void;
+  firstCoinData: CoinHistoricalData;
+  updateFirstCoinData: (data: CoinHistoricalData) => void;
+  secondCoinData: CoinHistoricalData;
+  updateSecondCoinData: (data: CoinHistoricalData) => void;
 }
 
 const CompareBarContext = createContext<CompareBarContextState | undefined>(
   undefined
 );
 
-export const ComponentGroupProvider = ({
+export const CompareBarContextProvider = ({
   children,
 }: {
   children: ReactNode;
@@ -39,12 +38,8 @@ export const ComponentGroupProvider = ({
   const [selectedTimeFrame, setSelectedTimeFrame] = useState(1);
   const [firstCoin, setFirstCoin] = useState<IndividualCoin | undefined>();
   const [secondCoin, setSecondCoin] = useState<IndividualCoin | undefined>();
-  const [firstCoinData, setFirstCoinData] = useState<
-    { date: string; price: number; volume: number }[]
-  >([]);
-  const [secondCoinData, setSecondCoinData] = useState<
-    { date: string; price: number; volume: number }[]
-  >([]);
+  const [firstCoinData, setFirstCoinData] = useState<CoinHistoricalData>([]);
+  const [secondCoinData, setSecondCoinData] = useState<CoinHistoricalData>([]);
 
   return (
     <CompareBarContext.Provider

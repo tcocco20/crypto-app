@@ -4,18 +4,11 @@ import { useEffect, useState } from "react";
 import actions from "@/actions";
 import utils from "@/utils";
 import { type IndividualCoin } from "@/lib/types/IndividualCoin";
+import { useCompareBarContext } from "@/context/CompareBarContext/useCompareBarContext";
 
-interface CompareChartsProps {
-  coinId: string;
-  timeFrame: number;
-  secondCoinId?: string;
-}
-
-const CompareCharts = ({
-  coinId,
-  timeFrame,
-  secondCoinId,
-}: CompareChartsProps) => {
+const CompareCharts = () => {
+  const { firstCoinId, selectedTimeFrame, secondCoinId } =
+    useCompareBarContext();
   const [selectedCoin, setSelectedCoin] = useState<
     IndividualCoin | undefined
   >();
@@ -32,9 +25,9 @@ const CompareCharts = ({
   useEffect(() => {
     const fetchCoinData = async () => {
       const firstCoin = await actions.getCoinHistoricalPriceData(
-        coinId,
+        firstCoinId,
         "usd",
-        timeFrame
+        selectedTimeFrame
       );
       setCoinData(firstCoin);
 
@@ -42,7 +35,7 @@ const CompareCharts = ({
         const secondCoin = await actions.getCoinHistoricalPriceData(
           secondCoinId,
           "usd",
-          timeFrame
+          selectedTimeFrame
         );
         setSecondCoinData(secondCoin);
       } else {
@@ -51,12 +44,12 @@ const CompareCharts = ({
     };
 
     fetchCoinData();
-  }, [coinId, timeFrame, secondCoinId]);
+  }, [firstCoinId, selectedTimeFrame, secondCoinId]);
 
   useEffect(() => {
     const fetchSelectedCoin = async () => {
       if (!secondCoinId) {
-        const coin = await actions.getCoinById(coinId);
+        const coin = await actions.getCoinById(firstCoinId);
         setSelectedCoin(coin);
 
         if (secondCoin) {
@@ -69,7 +62,7 @@ const CompareCharts = ({
     };
 
     fetchSelectedCoin();
-  }, [coinId, secondCoinId, secondCoin]);
+  }, [firstCoinId, secondCoinId, secondCoin]);
 
   if (
     selectedCoin &&

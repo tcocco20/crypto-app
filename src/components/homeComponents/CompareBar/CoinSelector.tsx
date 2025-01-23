@@ -6,41 +6,38 @@ import CoinButton from "./CoinButton";
 import { FreeMode } from "swiper/modules";
 import { useEffect } from "react";
 import { type ListCoin } from "@/lib/types/ListCoin";
+import { useCompareBarContext } from "@/context/CompareBarContext/useCompareBarContext";
 
 interface CoinSelectorProps {
   coinsList: ListCoin[];
-  compareModeSelected: boolean;
-  selectedCoin: string;
-  setSelectedCoin: (coin: string) => void;
-  secondSelectedCoin?: string;
-  setSecondSelectedCoin: (coin: string | undefined) => void;
 }
 
-const CoinSelector = ({
-  coinsList,
-  compareModeSelected,
-  selectedCoin,
-  setSelectedCoin,
-  secondSelectedCoin,
-  setSecondSelectedCoin,
-}: CoinSelectorProps) => {
-  const handleCoinClick = (coin: string) => {
+const CoinSelector = ({ coinsList }: CoinSelectorProps) => {
+  const {
+    compareModeSelected,
+    firstCoinId,
+    updateFirstCoinId,
+    secondCoinId,
+    updateSecondCoinId,
+  } = useCompareBarContext();
+
+  const handleCoinClick = (coinId: string) => {
     if (!compareModeSelected) {
-      setSelectedCoin(coin);
+      updateFirstCoinId(coinId);
     } else {
-      if (coin === selectedCoin) {
+      if (coinId === firstCoinId) {
         return;
       } else {
-        setSecondSelectedCoin(coin);
+        updateSecondCoinId(coinId);
       }
     }
   };
 
   useEffect(() => {
     if (!compareModeSelected) {
-      setSecondSelectedCoin(undefined);
+      updateSecondCoinId(undefined);
     }
-  }, [compareModeSelected, setSecondSelectedCoin]);
+  }, [compareModeSelected, updateSecondCoinId]);
 
   return (
     <div className="w-full">
@@ -58,9 +55,7 @@ const CoinSelector = ({
             <CoinButton
               name={coin.symbol}
               image={coin.image}
-              selected={
-                selectedCoin === coin.id || secondSelectedCoin === coin.id
-              }
+              selected={firstCoinId === coin.id || secondCoinId === coin.id}
               onClick={() => handleCoinClick(coin.id)}
             />
           </SwiperSlide>

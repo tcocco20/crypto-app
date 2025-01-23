@@ -1,12 +1,8 @@
 "use client";
 
 import SelectableWrapper from "@/components/UI/SelectableWrapper";
+import { useCompareBarContext } from "@/context/CompareBarContext/useCompareBarContext";
 import React from "react";
-
-interface TimeFrameSelectorProps {
-  onSelect: (timeFrame: number) => void;
-  selectedTimeFrame: number;
-}
 
 const timeFrames = [
   { label: "1D", value: 1 },
@@ -17,9 +13,10 @@ const timeFrames = [
   { label: "1Y", value: 365 },
 ];
 
-const TimeFrameSelector = ({ onSelect, selectedTimeFrame }: TimeFrameSelectorProps) => {
+const TimeFrameSelector = () => {
+  const { selectedTimeFrame, updateSelectedTimeFrame } = useCompareBarContext();
   const handleSelect = (timeFrame: number) => {
-    onSelect(timeFrame);
+    updateSelectedTimeFrame(timeFrame);
   };
 
   return (
