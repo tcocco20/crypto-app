@@ -9,15 +9,7 @@ import {
   Title,
   Tooltip,
 } from "chart.js/auto";
-import { CoinHistoricalData } from "@/lib/types/CoinHistoricalData";
-
-interface PriceChartProps {
-  title: string;
-  secondTitle?: string;
-  price: number;
-  priceData: CoinHistoricalData;
-  secondCoinData: CoinHistoricalData;
-}
+import { useCompareBarContext } from "@/context/CompareBarContext/useCompareBarContext";
 
 ChartJS.register(
   LinearScale,
@@ -28,14 +20,11 @@ ChartJS.register(
   Tooltip
 );
 
-const PriceChart = ({
-  title,
-  price,
-  priceData,
-  secondCoinData,
-}: PriceChartProps) => {
-  const labels = priceData.map((data) => data.date);
-  const prices = priceData.map((data) => data.price);
+const PriceChart = () => {
+  const { firstCoinData, secondCoinData, firstCoin } = useCompareBarContext();
+
+  const labels = firstCoinData.map((data) => data.date);
+  const prices = firstCoinData.map((data) => data.price);
   const latestPrice = labels[labels.length - 1];
   const secondCoinPrices = secondCoinData.map((data) => data.price);
 
@@ -79,8 +68,10 @@ const PriceChart = ({
       </>
     ) : (
       <>
-        <p className="text-sm text-gray-700 dark:text-gray-300">{title}</p>
-        <p className="font-medium text-lg">${price}</p>
+        <p className="text-sm text-gray-700 dark:text-gray-300">
+          {firstCoin?.name} ({firstCoin?.symbol.toUpperCase()})
+        </p>
+        <p className="font-medium text-lg">${firstCoin?.current_price}</p>
         <p className="text-xs text-gray-800 dark:text-gray-400">
           {latestPrice}
         </p>
