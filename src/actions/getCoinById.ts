@@ -1,20 +1,12 @@
 "use server";
 
-import { type IndividualCoin } from "@/lib/types/IndividualCoin";
+import { coingeckoFetch } from "@/utils/coingeckoFetch";
+import { parseIndividualCoinData } from "@/utils/parseIndividualCoinData";
+import { IndividualCoinResponse } from "@/utils/types/IndividualCoinResponse";
 
 export async function getCoinById(id: string) {
-  const url = `https://api.coingecko.com/api/v3/coins/${id}?localization=false&tickers=false`;
-  const options: RequestInit = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      "x-cg-demo-api-key": process.env.API_SECRET_KEY,
-    } as HeadersInit,
-  };
+  const url = `https://api.coingecko.com/api/v3/coins/${id}?localization=false&tickers=false&community_data=false&developer_data=false`;
 
-  const response = await fetch(url, options);
-  if (!response.ok) {
-    throw new Error("Failed to connect to CoinGecko API");
-  }
-  return (await response.json()) as Promise<IndividualCoin>;
+  const response = await coingeckoFetch<IndividualCoinResponse>({ url });
+  return parseIndividualCoinData(response.body);
 }

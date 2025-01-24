@@ -1,7 +1,10 @@
-import { HistoricalPriceDataResponse } from "@/lib/types/HistoricalPriceDataResponse";
+import { type CoinHistoricalData } from "@/lib/types/CoinHistoricalData";
 import { formatChartDate } from "./formatChartDate";
+import { type CoinHistoricalDataResponse } from "./types/CoinHistoricalDataResponse";
 
-export const convertHistoricalData = (data: HistoricalPriceDataResponse) => {
+export const convertHistoricalData = (
+  data: CoinHistoricalDataResponse
+): CoinHistoricalData => {
   const reorganizedData = {
     prices: data.prices,
     volumes: data.total_volumes,

@@ -1,6 +1,10 @@
 import { MarketDataArray } from "./MarketDataArray";
 
 export interface GlobalMarketDataResponse {
+  data: CoinGeckoGlobalMarketData;
+}
+
+export interface CoinGeckoGlobalMarketData {
   active_cryptocurrencies: number;
   upcoming_icos: number;
   ongoing_icos: number;

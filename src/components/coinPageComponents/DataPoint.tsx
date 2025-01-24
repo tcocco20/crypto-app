@@ -1,22 +1,13 @@
 import React from "react";
 import SelectableWrapper from "../UI/SelectableWrapper";
 import { Plus } from "lucide-react";
-import utils from "@/utils";
 
 interface DataPointProps {
   title: string;
   currencyDisplay?: boolean;
   currencyToDisplay?: string;
   currencyLocation?: "left" | "right";
-}
-
-interface SingleDataPointProps extends DataPointProps {
   dataPoint: number | null;
-}
-
-interface DataObjectProps extends DataPointProps {
-  dataObject: any;
-  property: keyof any;
 }
 
 const DataPoint = ({
@@ -24,18 +15,9 @@ const DataPoint = ({
   currencyDisplay,
   currencyToDisplay,
   currencyLocation = "left",
-  ...props
-}: SingleDataPointProps | DataObjectProps) => {
-  let dataPointToDisplay = "-"; // Default value if dataPoint is null
-  let dataPoint: number | null = null;
-  if ("dataPoint" in props) {
-    dataPoint = props.dataPoint;
-  } else {
-    if (utils.isPropertyType(props.dataObject, props.property)) {
-      dataPoint = props.dataObject[props.property];
-    }
-  }
-
+  dataPoint,
+}: DataPointProps) => {
+  let dataPointToDisplay = "N/A";
   if (dataPoint) {
     // Allows component to be reused and is used to configure how the data point is displayed
     if (currencyDisplay) {
