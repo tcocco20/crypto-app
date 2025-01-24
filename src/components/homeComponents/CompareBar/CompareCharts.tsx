@@ -2,7 +2,6 @@ import MobileCharts from "./MobileCharts";
 import DesktopCharts from "./DesktopCharts";
 import { useEffect, useState } from "react";
 import actions from "@/actions";
-import utils from "@/utils";
 import { type IndividualCoin } from "@/lib/types/IndividualCoin";
 
 interface CompareChartsProps {
@@ -27,8 +26,6 @@ const CompareCharts = ({
     { date: string; price: number; volume: number }[]
   >([]);
 
-  let coinPrice = 0;
-
   useEffect(() => {
     const fetchCoinData = async () => {
       const firstCoin = await actions.getCoinHistoricalPriceData(
@@ -51,7 +48,7 @@ const CompareCharts = ({
     };
 
     fetchCoinData();
-  }, [coinId, timeFrame, secondCoinId]);
+  }, [coinId, timeFrame, secondCoinId, secondCoin]);
 
   useEffect(() => {
     const fetchSelectedCoin = async () => {
@@ -69,14 +66,7 @@ const CompareCharts = ({
     };
 
     fetchSelectedCoin();
-  }, [coinId, secondCoinId]);
-
-  if (
-    selectedCoin &&
-    utils.isPropertyType(selectedCoin.market_data.current_price, "usd")
-  ) {
-    coinPrice = selectedCoin?.market_data.current_price.usd;
-  }
+  }, [coinId, secondCoinId, secondCoin]);
 
   return (
     <>
@@ -84,7 +74,6 @@ const CompareCharts = ({
         data={coinData}
         selectedCoin={selectedCoin}
         secondCoin={secondCoin}
-        coinPrice={coinPrice}
         secondCoinData={secondCoinData}
       />
       <DesktopCharts />

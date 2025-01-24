@@ -29,9 +29,9 @@ const HeaderInfo = ({ marketData }: HeaderInfoProps) => {
           alt="Bitcoin logo"
         />
         <MarketCapMeter
-          label="44%"
+          label={marketData.bitcoinMarketCapPercentage.toFixed(0) + "%"}
           max={100}
-          value={44}
+          value={marketData.bitcoinMarketCapPercentage}
           height="7px"
           barContainerClassName="bg-gray-300/80"
           color={colors.yellow[400]}
@@ -45,9 +45,9 @@ const HeaderInfo = ({ marketData }: HeaderInfoProps) => {
           alt="Ethereum logo"
         />
         <MarketCapMeter
-          label="21%"
+          label={marketData.ethereumMarketCapPercentage.toFixed(0) + "%"}
           max={100}
-          value={21}
+          value={marketData.ethereumMarketCapPercentage}
           height="7px"
           color={colors.indigo[400]}
           barContainerClassName="bg-gray-300/80"

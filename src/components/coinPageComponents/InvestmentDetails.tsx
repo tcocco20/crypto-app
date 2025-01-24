@@ -1,15 +1,12 @@
-import {
-  Currentprice,
-  type IndividualCoinWith24hVolume,
-} from "@/lib/types/IndividualCoin";
+import { type IndividualCoin } from "@/lib/types/IndividualCoin";
 import React from "react";
 import Card from "../UI/Card";
 import { ChevronDown, ChevronUp, Layers } from "lucide-react";
 import utils from "@/utils";
 
 interface InvestmentDetailsProps {
-  coin: IndividualCoinWith24hVolume;
-  selectedCurrency: keyof Currentprice;
+  coin: IndividualCoin;
+  selectedCurrency: string;
 }
 
 const InvestmentDetails = ({
@@ -27,7 +24,7 @@ const InvestmentDetails = ({
   } = utils.getPriceDetails(coin, selectedCurrency);
 
   function displayPriceChange() {
-    if (coin.market_data.price_change_percentage_24h) {
+    if (coin.price_change_percentage_24h) {
       if (priceUp) {
         return (
           <>
@@ -37,7 +34,7 @@ const InvestmentDetails = ({
               className="text-cyan-600 ml-2"
             />
             <p className="text-xl text-cyan-600">
-              {coin.market_data.price_change_percentage_24h.toPrecision(3)}%
+              {coin.price_change_percentage_24h.toPrecision(3)}%
             </p>
           </>
         );
@@ -50,7 +47,7 @@ const InvestmentDetails = ({
               className="text-pink-600 ml-2"
             />
             <p className="text-xl text-pink-600">
-              {coin.market_data.price_change_percentage_24h.toPrecision(3)}%
+              {coin.price_change_percentage_24h.toPrecision(3)}%
             </p>
           </>
         );

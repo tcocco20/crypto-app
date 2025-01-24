@@ -6,23 +6,23 @@ import SelectableWrapper from "@/components/UI/SelectableWrapper";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { type IndividualCoin } from "@/lib/types/IndividualCoin";
 import Card from "@/components/UI/Card";
+import { CoinHistoricalData } from "@/lib/types/CoinHistoricalData";
 
 interface MobileChartsProps {
   selectedCoin: IndividualCoin | undefined;
   secondCoin: IndividualCoin | undefined;
-  data: { date: string; price: number; volume: number }[];
-  secondCoinData: { date: string; price: number; volume: number }[];
-  coinPrice: number;
+  data: CoinHistoricalData;
+  secondCoinData: CoinHistoricalData;
 }
 
 const MobileCharts = ({
   selectedCoin,
   secondCoin,
   data,
-  coinPrice,
   secondCoinData,
 }: MobileChartsProps) => {
   const [selectedChart, setSelectedChart] = useState("price");
+  const displayPrice = data[data.length - 1] && data[data.length - 1].price;
 
   const displayChart =
     selectedChart === "price" ? (
@@ -33,7 +33,7 @@ const MobileCharts = ({
             ? `${secondCoin?.name} (${secondCoin?.symbol.toUpperCase()})`
             : ""
         }
-        price={coinPrice}
+        price={displayPrice}
         priceData={data}
         secondCoinData={secondCoinData}
       />

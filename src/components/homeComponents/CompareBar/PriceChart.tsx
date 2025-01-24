@@ -9,21 +9,14 @@ import {
   Title,
   Tooltip,
 } from "chart.js/auto";
+import { CoinHistoricalData } from "@/lib/types/CoinHistoricalData";
 
 interface PriceChartProps {
   title: string;
   secondTitle?: string;
   price: number;
-  priceData: {
-    date: string;
-    price: number;
-    volume: number;
-  }[];
-  secondCoinData: {
-    date: string;
-    price: number;
-    volume: number;
-  }[];
+  priceData: CoinHistoricalData;
+  secondCoinData: CoinHistoricalData;
 }
 
 ChartJS.register(
@@ -80,13 +73,17 @@ const PriceChart = ({
     secondCoinData.length > 0 ? (
       <>
         <p className="font-medium text-lg">Price</p>
-        <p className="text-xs text-gray-800 dark:text-gray-400">{latestPrice}</p>
+        <p className="text-xs text-gray-800 dark:text-gray-400">
+          {latestPrice}
+        </p>
       </>
     ) : (
       <>
         <p className="text-sm text-gray-700 dark:text-gray-300">{title}</p>
         <p className="font-medium text-lg">${price}</p>
-        <p className="text-xs text-gray-800 dark:text-gray-400">{latestPrice}</p>
+        <p className="text-xs text-gray-800 dark:text-gray-400">
+          {latestPrice}
+        </p>
       </>
     );
 

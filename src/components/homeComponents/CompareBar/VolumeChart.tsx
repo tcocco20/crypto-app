@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js/auto";
+import { type CoinHistoricalData } from "@/lib/types/CoinHistoricalData";
 
 ChartJS.register(
   LinearScale,
@@ -20,16 +21,8 @@ ChartJS.register(
 );
 
 interface VolumeChartProps {
-  volumeData: {
-    date: string;
-    price: number;
-    volume: number;
-  }[];
-  secondCoinData: {
-    date: string;
-    price: number;
-    volume: number;
-  }[];
+  volumeData: CoinHistoricalData;
+  secondCoinData: CoinHistoricalData;
 }
 
 const VolumeChart = ({ volumeData, secondCoinData }: VolumeChartProps) => {
