@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAppSelector } from "@/lib/hooks";
 import utils from "@/utils";
+import { useIsLg } from "@/hooks/useIsLg";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 interface CoinLinkProps {
   url: string;
@@ -15,6 +17,10 @@ interface CoinLinkProps {
 
 const CoinLink = ({ url }: CoinLinkProps) => {
   const darkMode = useAppSelector((state) => state.preferences.darkMode);
+  const isMobile = useIsMobile();
+  const isLg = useIsLg();
+  const truncNum = isMobile ? 30 : isLg ? 30 : 18;
+  const iconSize = isMobile ? 24 : isLg ? 24 : 18;
 
   const handleCopyClick = async () => {
     try {
@@ -45,14 +51,16 @@ const CoinLink = ({ url }: CoinLinkProps) => {
         target="_blank"
         className="active:opacity-50 hover:opacity-80"
       >
-        <LinkIcon size={24} />
+        <LinkIcon size={iconSize} />
       </Link>
-      <p className="text-sm md:text-base">{utils.truncateString(url, 30)}</p>
+      <p className="text-xs md:text-sm lg:text-base">
+        {utils.truncateString(url, truncNum)}
+      </p>
       <button
         className="active:opacity-50 hover:opacity-80"
         onClick={handleCopyClick}
       >
-        <Copy size={24} />
+        <Copy size={iconSize} />
       </button>
     </Card>
   );
