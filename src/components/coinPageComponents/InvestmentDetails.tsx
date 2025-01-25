@@ -57,7 +57,7 @@ const InvestmentDetails = ({
   }
 
   return (
-    <Card className="py-12 px-16 flex flex-col gap-4 col-span-2">
+    <Card className="md:py-12 md:px-16 flex flex-col gap-4 md:col-span-2">
       <div className="flex gap-1 items-end">
         <h2
           className={`${
