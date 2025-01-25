@@ -7,6 +7,7 @@ import Card from "../UI/Card";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAppSelector } from "@/lib/hooks";
+import utils from "@/utils";
 
 interface CoinLinkProps {
   url: string;
@@ -46,7 +47,7 @@ const CoinLink = ({ url }: CoinLinkProps) => {
       >
         <LinkIcon size={24} />
       </Link>
-      <p>{url}</p>
+      <p className="text-sm md:text-base">{utils.truncateString(url, 30)}</p>
       <button
         className="active:opacity-50 hover:opacity-80"
         onClick={handleCopyClick}

@@ -25,7 +25,7 @@ export default function RootLayout({
       >
         <Providers>
           <Header />
-          <main className="flex min-h-screen flex-col px-3 md:px-24">
+          <main className="flex min-h-screen flex-col px-3 md:px-8 lg:px-12 xl:px-24">
             {children}
           </main>
           <MobileNavbar />

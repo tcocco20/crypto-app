@@ -22,7 +22,7 @@ const CoinBrand = ({ name, symbol, imageUrl, className }: CoinBrandProps) => {
         width={70}
         height={70}
       />
-      <h1 className="text-3xl font-bold">
+      <h1 className="text-xl lg:text-3xl font-bold">
         {name} {symbol && "(" + symbol.toUpperCase() + ")"}
       </h1>
     </Card>

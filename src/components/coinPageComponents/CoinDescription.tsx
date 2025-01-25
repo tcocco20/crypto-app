@@ -1,4 +1,5 @@
 "use client";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import utils from "@/utils";
 import { useState } from "react";
 
@@ -8,6 +9,7 @@ interface CoinDescriptionProps {
 
 const CoinDescription = ({ description }: CoinDescriptionProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const isMobile = useIsMobile();
 
   const handleToggleExpanded = () => {
     setIsExpanded((prev) => !prev);
@@ -19,6 +21,9 @@ const CoinDescription = ({ description }: CoinDescriptionProps) => {
     }
     if (isExpanded) {
       return description;
+    }
+    if (isMobile) {
+      return utils.truncateString(description, 250);
     }
     return utils.truncateString(description, 870);
   };

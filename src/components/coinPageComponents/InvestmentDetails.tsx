@@ -57,11 +57,11 @@ const InvestmentDetails = ({
   }
 
   return (
-    <Card className="md:py-12 md:px-16 flex flex-col gap-4 md:col-span-2">
+    <Card className="py-2 px-4 md:py-12 md:px-16 flex flex-col gap-4 md:col-span-2">
       <div className="flex gap-1 items-end">
         <h2
           className={`${
-            priceDataAvailable ? "text-4xl" : "text-2xl"
+            priceDataAvailable ? "text-xl md:text-2xl lg:text-4xl" : "text-base md:text-xl lg:text-2xl"
           } font-semibold`}
         >
           {displayPrice}
