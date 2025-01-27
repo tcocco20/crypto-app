@@ -17,12 +17,14 @@ const MobileCoinOverview = ({ coin }: MobileCoinOverviewProps) => {
     ? coin.price_change_percentage_7d_in_currency.toFixed(2) + "%"
     : "No data";
 
+  const showCoin = !coin.image.includes("missing");
+
   return (
     <Link
       href={`/coin/${coin.id}`}
       className="flex gap-4 items-center bg-white dark:bg-violet-950/90 rounded-md p-3 text-black dark:text-white"
     >
-      {coin.image !== "missing_large.png" && (
+      {showCoin && (
         <Image
           src={coin.image}
           alt={"logo for " + coin.name}
