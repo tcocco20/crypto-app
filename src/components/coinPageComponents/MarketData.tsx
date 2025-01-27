@@ -15,7 +15,7 @@ const MarketData = ({ coin }: MarketDataProps) => {
     );
   }
   return (
-    <Card className="p-16 flex flex-col gap-4 col-span-3">
+    <Card className="p-4 lg:p-8 xl:p-16 flex flex-col gap-4 md:gap-2 lg:gap-3 xl:gap-4 md:col-span-3">
       <DataPoint
         title="Market Cap"
         dataPoint={coin.market_cap.usd}
@@ -38,8 +38,9 @@ const MarketData = ({ coin }: MarketDataProps) => {
       <DataPoint
         title="Total Volume"
         dataPoint={coin.total_volume[coin.symbol]}
-        currencyToDisplay={"$"}
+        currencyToDisplay={coin.symbol.toUpperCase()}
         currencyDisplay
+        currencyLocation="right"
       />
       <DataPoint
         title="Circulating Supply"

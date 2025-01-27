@@ -19,7 +19,7 @@ const TopBar = ({ marketData }: TopBarProps) => {
 
   return (
     <div className="bg-indigo-900 shadow-black dark:bg-indigo-900/40 p-5 dark:border-b dark:border-gray-600/80 text-white justify-center">
-      <div className="max-w-4xl mx-auto flex gap-11 justify-center text-sm">
+      <div className="max-w-4xl mx-auto flex md:gap-3 lg:gap-5 xl:gap-8 2xl:gap-11 justify-center text-sm">
         <TopBarText
           text="Coins"
           value={marketData.coins}

@@ -1,8 +1,11 @@
+"use client";
 import { type IndividualCoin } from "@/lib/types/IndividualCoin";
 import React from "react";
 import Card from "../UI/Card";
 import { ChevronDown, ChevronUp, Layers } from "lucide-react";
 import utils from "@/utils";
+import { useIsLg } from "@/hooks/useIsLg";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 interface InvestmentDetailsProps {
   coin: IndividualCoin;
@@ -23,6 +26,11 @@ const InvestmentDetails = ({
     allTimeLowDate,
   } = utils.getPriceDetails(coin, selectedCurrency);
 
+  const isLg = useIsLg();
+  const isMobile = useIsMobile();
+
+  const iconSizeMultiplier = isMobile ? 1 : isLg ? 1 : 0.7;
+
   function displayPriceChange() {
     if (coin.price_change_percentage_24h) {
       if (priceUp) {
@@ -30,10 +38,10 @@ const InvestmentDetails = ({
           <>
             <ChevronUp
               strokeWidth={4}
-              size={20}
+              size={20 * iconSizeMultiplier}
               className="text-cyan-600 ml-2"
             />
-            <p className="text-xl text-cyan-600">
+            <p className="text-sm md:text-base lg:text-lg xl:text-xl text-cyan-600">
               {coin.price_change_percentage_24h.toPrecision(3)}%
             </p>
           </>
@@ -43,10 +51,10 @@ const InvestmentDetails = ({
           <>
             <ChevronDown
               strokeWidth={4}
-              size={20}
+              size={20 * iconSizeMultiplier}
               className="text-pink-600 ml-2"
             />
-            <p className="text-xl text-pink-600">
+            <p className="text-sm md:text-base lg:text-lg xl:text-xl text-pink-600">
               {coin.price_change_percentage_24h.toPrecision(3)}%
             </p>
           </>
@@ -57,33 +65,43 @@ const InvestmentDetails = ({
   }
 
   return (
-    <Card className="py-12 px-16 flex flex-col gap-4 col-span-2">
-      <div className="flex gap-1 items-end">
+    <Card className="p-2 md:p-4 lg:p-6 xl:p-8 2xl:py-10 2xl:px-12 flex flex-col gap-4 md:col-span-2">
+      <div className="flex gap-1 items-end justify-center">
         <h2
           className={`${
-            priceDataAvailable ? "text-4xl" : "text-2xl"
+            priceDataAvailable
+              ? "text-lg lg:text-xl xl:text-2xl 2xl:text-4xl"
+              : "text-base md:text-lg lg:text-xl xl:text-2xl"
           } font-semibold`}
         >
           {displayPrice}
         </h2>
         {displayPriceChange()}
       </div>
-      <Layers size={24} className="mx-auto" />
-      <div>
-        <div className="flex gap-4 items-center">
+      <Layers size={24 * iconSizeMultiplier} className="mx-auto" />
+      <div className="max-md:flex max-md:flex-col max-md:items-center">
+        <div className="flex gap-2 lg:gap-4 items-center">
           <ChevronUp strokeWidth={4} size={24} className="text-cyan-600" />
-          <p>All Time High:</p>
-          <p className="text-2xl">{allTimeHigh}</p>
+          <p className="text-xs lg:text-sm xl:text-base">All Time High:</p>
+          <p className="text-sm lg:text-base xl:text-lg 2xl:text-2xl">
+            ${allTimeHigh}
+          </p>
         </div>
-        <p className="dark:text-gray-300/70 text-right">{allTimeHighDate}</p>
+        <p className="dark:text-gray-300/70 md:text-right text-xs lg:text-sm xl:text-base">
+          {allTimeHighDate}
+        </p>
       </div>
-      <div>
-        <div className="flex gap-4 items-center">
+      <div className="max-md:flex max-md:flex-col max-md:items-center">
+        <div className="flex gap-2 lg:gap-4 items-center">
           <ChevronDown strokeWidth={4} size={24} className="text-pink-600" />
-          <p>All Time low:</p>
-          <p className="text-2xl">{allTimeLow}</p>
+          <p className="text-xs lg:text-sm xl:text-base">All Time low:</p>
+          <p className="text-sm lg:text-base xl:text-lg 2xl:text-2xl">
+            ${allTimeLow}
+          </p>
         </div>
-        <p className="dark:text-gray-300/70 text-right">{allTimeLowDate}</p>
+        <p className="dark:text-gray-300/70 md:text-right text-xs lg:text-sm xl:text-base">
+          {allTimeLowDate}
+        </p>
       </div>
     </Card>
   );
