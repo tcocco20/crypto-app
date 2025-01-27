@@ -79,7 +79,7 @@ const InvestmentDetails = ({
         {displayPriceChange()}
       </div>
       <Layers size={24 * iconSizeMultiplier} className="mx-auto" />
-      <div className="flex flex-col">
+      <div className="max-md:flex max-md:flex-col max-md:items-center">
         <div className="flex gap-2 lg:gap-4 items-center">
           <ChevronUp strokeWidth={4} size={24} className="text-cyan-600" />
           <p className="text-xs lg:text-sm xl:text-base">All Time High:</p>
@@ -91,7 +91,7 @@ const InvestmentDetails = ({
           {allTimeHighDate}
         </p>
       </div>
-      <div>
+      <div className="max-md:flex max-md:flex-col max-md:items-center">
         <div className="flex gap-2 lg:gap-4 items-center">
           <ChevronDown strokeWidth={4} size={24} className="text-pink-600" />
           <p className="text-xs lg:text-sm xl:text-base">All Time low:</p>
