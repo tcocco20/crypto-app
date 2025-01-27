@@ -5,6 +5,8 @@ import { getCoinsList } from "@/actions/getCoinsList";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useAppSelector } from "@/lib/hooks";
 import { type ListCoin } from "@/lib/types/ListCoin";
+import { useIsMobile } from "@/hooks/useIsMobile";
+import DesktopCoinOverview from "./DesktopCoinOverview";
 
 interface MarketOverviewProps {
   startingCoins: ListCoin[];
@@ -17,11 +19,16 @@ const MarketOverview = ({ startingCoins }: MarketOverviewProps) => {
   const selectedCurrency = useAppSelector(
     (state) => state.preferences.selectedCurrency
   );
+  const isMobile = useIsMobile();
 
   const renderCoins = () => {
     if (!coins) return null;
     return coins.map((coin) => {
-      return <MobileCoinOverview key={coin.id} coin={coin} />;
+      return isMobile ? (
+        <MobileCoinOverview key={coin.id} coin={coin} />
+      ) : (
+        <DesktopCoinOverview key={coin.id} coin={coin} />
+      );
     });
   };
 
@@ -46,16 +53,18 @@ const MarketOverview = ({ startingCoins }: MarketOverviewProps) => {
   if (!coins) return <p className="text-white">Loading...</p>;
 
   return (
-    <InfiniteScroll
-      dataLength={coins.length}
-      hasMore={hasMore}
-      loader={<p>Loading...</p>}
-      endMessage={<p style={{ textAlign: "center" }}>end of list</p>}
-      next={fetchCoins}
-      className="text-white flex flex-col gap-1 pb-16 mb-2"
-    >
-      {renderCoins()}
-    </InfiniteScroll>
+    <>
+      <InfiniteScroll
+        dataLength={coins.length}
+        hasMore={hasMore}
+        loader={<p>Loading...</p>}
+        endMessage={<p style={{ textAlign: "center" }}>end of list</p>}
+        next={fetchCoins}
+        className="text-white flex flex-col gap-1 md:gap-2 pb-16 mb-2"
+      >
+        {renderCoins()}
+      </InfiniteScroll>
+    </>
   );
 };
 
