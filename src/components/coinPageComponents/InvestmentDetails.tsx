@@ -1,8 +1,11 @@
+"use client";
 import { type IndividualCoin } from "@/lib/types/IndividualCoin";
 import React from "react";
 import Card from "../UI/Card";
 import { ChevronDown, ChevronUp, Layers } from "lucide-react";
 import utils from "@/utils";
+import { useIsLg } from "@/hooks/useIsLg";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 interface InvestmentDetailsProps {
   coin: IndividualCoin;
@@ -23,6 +26,11 @@ const InvestmentDetails = ({
     allTimeLowDate,
   } = utils.getPriceDetails(coin, selectedCurrency);
 
+  const isLg = useIsLg();
+  const isMobile = useIsMobile();
+
+  const iconSizeMultiplier = isMobile ? 1 : isLg ? 1 : 0.7;
+
   function displayPriceChange() {
     if (coin.price_change_percentage_24h) {
       if (priceUp) {
@@ -30,7 +38,7 @@ const InvestmentDetails = ({
           <>
             <ChevronUp
               strokeWidth={4}
-              size={20}
+              size={20 * iconSizeMultiplier}
               className="text-cyan-600 ml-2"
             />
             <p className="text-sm md:text-base lg:text-lg xl:text-xl text-cyan-600">
@@ -43,7 +51,7 @@ const InvestmentDetails = ({
           <>
             <ChevronDown
               strokeWidth={4}
-              size={20}
+              size={20 * iconSizeMultiplier}
               className="text-pink-600 ml-2"
             />
             <p className="text-sm md:text-base lg:text-lg xl:text-xl text-pink-600">
@@ -70,8 +78,8 @@ const InvestmentDetails = ({
         </h2>
         {displayPriceChange()}
       </div>
-      <Layers size={24} className="mx-auto" />
-      <div>
+      <Layers size={24 * iconSizeMultiplier} className="mx-auto" />
+      <div className="flex flex-col">
         <div className="flex gap-2 lg:gap-4 items-center">
           <ChevronUp strokeWidth={4} size={24} className="text-cyan-600" />
           <p className="text-xs lg:text-sm xl:text-base">All Time High:</p>
@@ -79,7 +87,7 @@ const InvestmentDetails = ({
             ${allTimeHigh}
           </p>
         </div>
-        <p className="dark:text-gray-300/70 text-right text-xs lg:text-sm xl:text-base">
+        <p className="dark:text-gray-300/70 md:text-right text-xs lg:text-sm xl:text-base">
           {allTimeHighDate}
         </p>
       </div>
@@ -87,11 +95,11 @@ const InvestmentDetails = ({
         <div className="flex gap-2 lg:gap-4 items-center">
           <ChevronDown strokeWidth={4} size={24} className="text-pink-600" />
           <p className="text-xs lg:text-sm xl:text-base">All Time low:</p>
-          <p className="text-sm md:text-base lg:text-lg xl:text-2xl">
+          <p className="text-sm lg:text-base xl:text-lg 2xl:text-2xl">
             ${allTimeLow}
           </p>
         </div>
-        <p className="dark:text-gray-300/70 text-right text-xs lg:text-sm xl:text-base">
+        <p className="dark:text-gray-300/70 md:text-right text-xs lg:text-sm xl:text-base">
           {allTimeLowDate}
         </p>
       </div>

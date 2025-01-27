@@ -10,6 +10,7 @@ interface CoinDescriptionProps {
 const CoinDescription = ({ description }: CoinDescriptionProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const isMobile = useIsMobile();
+  const shortDescriptionLength = isMobile ? 250 : 870;
 
   const handleToggleExpanded = () => {
     setIsExpanded((prev) => !prev);
@@ -22,16 +23,13 @@ const CoinDescription = ({ description }: CoinDescriptionProps) => {
     if (isExpanded) {
       return description;
     }
-    if (isMobile) {
-      return utils.truncateString(description, 250);
-    }
-    return utils.truncateString(description, 870);
+    return utils.truncateString(description, shortDescriptionLength);
   };
   return (
-    <div className="col-span-4">
-      <h3 className="text-xl mb-4">Description</h3>
+    <div className="col-span-4 md:text-xs lg:text-sm xl:text-base">
+      <h3 className="text-xl md:text-lg xl:text-xl mb-4">Description</h3>
       {renderDescription()}
-      {description.length > 870 && (
+      {description.length > shortDescriptionLength && (
         <button className="text-indigo-500 ml-4" onClick={handleToggleExpanded}>
           {isExpanded ? "Show less" : "Show more"}
         </button>
