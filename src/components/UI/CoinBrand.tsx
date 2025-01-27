@@ -9,19 +9,22 @@ interface CoinBrandProps {
 }
 
 const CoinBrand = ({ name, symbol, imageUrl, className }: CoinBrandProps) => {
+  const showCoin = !imageUrl.includes("missing_large.png");
   return (
     <Card
       className={`flex flex-col items-center justify-center dark:text-white ${
         className || ""
       }`}
     >
-      <Image
-        className="bg-indigo-400/30 dark:bg-violet-900/30 p-4 rounded-md mb-6 shadow-inner shadow-indigo-400 dark:shadow-none"
-        src={imageUrl}
-        alt={name}
-        width={70}
-        height={70}
-      />
+      {showCoin && (
+        <Image
+          className="bg-indigo-400/30 dark:bg-violet-900/30 p-4 rounded-md mb-6 shadow-inner shadow-indigo-400 dark:shadow-none"
+          src={imageUrl}
+          alt={name}
+          width={70}
+          height={70}
+        />
+      )}
       <h1 className="text-3xl font-bold">
         {name} {symbol && "(" + symbol.toUpperCase() + ")"}
       </h1>
