@@ -39,9 +39,9 @@ const DataPoint = ({
         <SelectableWrapper selected rounded shadowSize="shadow-[0_0_20px]">
           <Plus size={24} strokeWidth={3} className="p-1" />
         </SelectableWrapper>
-        <p className="text-xs md:text-base">{title}</p>
+        <p className="text-xs md:text-sm xl:text-base">{title}</p>
       </div>
-      <p className="text-sm md:text-xl w-1/2">{dataPointToDisplay}</p>
+      <p className="text-sm md:text-base lg:text-lg xl:text-xl w-1/2">{dataPointToDisplay}</p>
     </div>
   );
 };

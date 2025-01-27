@@ -15,7 +15,7 @@ const MarketData = ({ coin }: MarketDataProps) => {
     );
   }
   return (
-    <Card className="p-4 md:p-16 flex flex-col gap-4 md:col-span-3">
+    <Card className="p-4 lg:p-8 xl:p-16 flex flex-col gap-4 md:col-span-3">
       <DataPoint
         title="Market Cap"
         dataPoint={coin.market_cap.usd}
