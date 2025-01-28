@@ -1,4 +1,5 @@
 import { type ListCoin } from "@/lib/types/ListCoin";
+import utils from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -8,12 +9,15 @@ interface DesktopCoinOverviewProps {
 }
 
 const DesktopCoinOverview = ({ coin }: DesktopCoinOverviewProps) => {
-  const showCoin = !coin.image.includes("missing");
-  const coinDisplayName =
-    "$" + coin.name + " (" + coin.symbol.toUpperCase() + ")";
-  const displayPrice = coin.current_price
-    ? coin.current_price.toLocaleString()
-    : "N/A";
+  const {
+    showCoin,
+    coinDisplayName,
+    displayPrice,
+    oneDayChange,
+    oneHrChange,
+    oneWeekChange,
+  } = utils.getCoinOverview(coin);
+
   return (
     <Link
       href={`/coin/${coin.id}`}
@@ -29,6 +33,9 @@ const DesktopCoinOverview = ({ coin }: DesktopCoinOverviewProps) => {
       )}
       <p className="text-lg">{coinDisplayName}</p>
       <p className="text-lg">{displayPrice}</p>
+      <p className="text-lg">{oneHrChange}</p>
+      <p className="text-lg">{oneDayChange}</p>
+      <p className="text-lg">{oneWeekChange}</p>
     </Link>
   );
 };
