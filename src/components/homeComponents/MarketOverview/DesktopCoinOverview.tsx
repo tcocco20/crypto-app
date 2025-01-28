@@ -8,12 +8,18 @@ interface DesktopCoinOverviewProps {
 }
 
 const DesktopCoinOverview = ({ coin }: DesktopCoinOverviewProps) => {
+  const showCoin = !coin.image.includes("missing");
+  const coinDisplayName =
+    "$" + coin.name + " (" + coin.symbol.toUpperCase() + ")";
+  const displayPrice = coin.current_price
+    ? coin.current_price.toLocaleString()
+    : "N/A";
   return (
     <Link
       href={`/coin/${coin.id}`}
       className="flex gap-4 items-center bg-white dark:bg-violet-950/90 rounded-md p-6 text-black dark:text-white"
     >
-      {coin.image !== "missing_large.png" && (
+      {showCoin && (
         <Image
           src={coin.image}
           alt={"logo for " + coin.name}
@@ -21,7 +27,8 @@ const DesktopCoinOverview = ({ coin }: DesktopCoinOverviewProps) => {
           height={32}
         />
       )}
-      {coin.name}
+      <p className="text-lg">{coinDisplayName}</p>
+      <p className="text-lg">{displayPrice}</p>
     </Link>
   );
 };
