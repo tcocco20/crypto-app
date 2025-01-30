@@ -1,11 +1,31 @@
+import { ChevronDown, ChevronUp } from "lucide-react";
 import React from "react";
 
 interface PercentageWithIconProps {
-  percentage: number;
+  percentage: string;
+  percentageUp: boolean;
 }
 
-const PercentageWithIcon = ({ percentage }: PercentageWithIconProps) => {
-  return <div>{percentage}</div>;
+const PercentageWithIcon = ({
+  percentage,
+  percentageUp,
+}: PercentageWithIconProps) => {
+  return (
+    <div className="flex gap-2 items-center">
+      {percentageUp ? (
+        <ChevronUp strokeWidth={4} size={20} className="text-cyan-600" />
+      ) : (
+        <ChevronDown strokeWidth={4} size={20} className="text-pink-600" />
+      )}
+      <p
+        className={`text-lg ${
+          percentageUp ? "text-cyan-600" : "text-pink-600"
+        }`}
+      >
+        {percentage}
+      </p>
+    </div>
+  );
 };
 
 export default PercentageWithIcon;
