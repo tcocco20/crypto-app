@@ -5,6 +5,7 @@ import utils from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import CoinOverviewChart from "./CoinOverviewChart";
 
 interface DesktopCoinOverviewProps {
   coin: ListCoin;
@@ -29,13 +30,13 @@ const DesktopCoinOverview = ({ coin }: DesktopCoinOverviewProps) => {
     circulationOverTotal,
   } = utils.getCoinOverview(coin);
 
-  const barColor = oneWeekUp ? "bg-pink-600" : "bg-teal-600";
-  const barBackground = oneWeekUp ? "bg-teal-500/80" : "bg-pink-500/80";
+  const barColor = oneWeekUp ? "#00e1d5" : "#ec4899";
+  const barBackground = oneWeekUp ? "bg-cyan-500/70" : "bg-pink-500/70";
 
   return (
     <Link
       href={`/coin/${coin.id}`}
-      className="grid grid-cols-12 gap-4 bg-white dark:bg-violet-950/90 rounded-md p-6 text-black dark:text-white"
+      className="grid grid-cols-11 gap-4 bg-white dark:bg-violet-950/90 rounded-md p-6 text-black dark:text-white"
     >
       <div className="flex items-center gap-2 col-span-2">
         {showIcon && (
@@ -73,9 +74,7 @@ const DesktopCoinOverview = ({ coin }: DesktopCoinOverviewProps) => {
         containerClassName="col-span-2"
         barContainerClassName={barBackground}
       />
-      <div className="col-span-2">
-        <p>Sparkline Chart</p>
-      </div>
+      <CoinOverviewChart coin={coin} />
     </Link>
   );
 };

@@ -32,14 +32,18 @@ const MarketCapMeter = (props: MarketCapMeterProps) => {
         className={`text-xs md:text-sm flex flex-col gap-1 ${props.containerClassName}`}
       >
         <div className="w-full flex justify-between">
-          <label className="text-xs">{props.startLabel}</label>
-          <label className="text-xs">{props.endLabel}</label>
+          <label className={`text-xs text-[${props.color}]`}>
+            {props.startLabel}
+          </label>
+          <label className={"text-xs " + "text-[" + props.color + "]/70"}>
+            {props.endLabel}
+          </label>
         </div>
         <ProgressBar
           completed={props.value}
           maxCompleted={props.max}
           height={props.height || "10px"}
-          bgColor="white"
+          bgColor={props.color}
           customLabel=" "
           className="w-full"
           barContainerClassName={`rounded-sm ${props.barContainerClassName}`}
