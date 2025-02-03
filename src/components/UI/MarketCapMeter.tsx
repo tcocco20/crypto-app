@@ -29,7 +29,7 @@ const MarketCapMeter = (props: MarketCapMeterProps) => {
   if ("startLabel" in props) {
     return (
       <div
-        className={`text-xs md:text-sm flex flex-col gap-1 ${props.containerClassName}`}
+        className={`text-xs flex flex-col gap-1 ${props.containerClassName}`}
       >
         <div className="w-full flex justify-between">
           <label className={`text-xs text-[${props.color}]`}>
@@ -42,11 +42,11 @@ const MarketCapMeter = (props: MarketCapMeterProps) => {
         <ProgressBar
           completed={props.value}
           maxCompleted={props.max}
-          height={props.height || "10px"}
+          height={props.height || "6px"}
           bgColor={props.color}
           customLabel=" "
           className="w-full"
-          barContainerClassName={`rounded ${props.barContainerClassName}`}
+          barContainerClassName={`rounded-sm ${props.barContainerClassName}`}
           completedClassName={props.completedClassName}
         />
       </div>

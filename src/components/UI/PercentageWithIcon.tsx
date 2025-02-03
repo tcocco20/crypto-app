@@ -18,7 +18,7 @@ const PercentageWithIcon = ({
         <ChevronDown strokeWidth={4} size={20} className="text-pink-600" />
       )}
       <p
-        className={`md:text-sm lg:text-base xl:text-lg ${
+        className={`md:text-xs lg:text-sm xl:text-base ${
           percentageUp ? "text-cyan-600" : "text-pink-600"
         }`}
       >

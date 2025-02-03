@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import CoinOverviewChart from "./CoinOverviewChart";
+import { useScreenSize } from "@/hooks/useScreenSize";
 
 interface DesktopCoinOverviewProps {
   coin: ListCoin;
@@ -35,6 +36,17 @@ const DesktopCoinOverview = ({ coin }: DesktopCoinOverviewProps) => {
   const barColor = oneWeekUp ? "#00e1d5" : "#ec4899";
   const barBackground = oneWeekUp ? "bg-cyan-500/70" : "bg-pink-500/70";
 
+  const screenSize = useScreenSize();
+
+  const iconSize = screenSize === "xl" ? 32 : 24;
+  const barHeight = screenSize === "2xl" ? 7 : 6;
+
+  const meterFallback = (
+    <p className="md:text-sm lg:text-base xl:text-lg col-span-2">
+      Data not available for this coin
+    </p>
+  );
+
   return (
     <Link
       href={`/coin/${coin.id}`}
@@ -45,8 +57,8 @@ const DesktopCoinOverview = ({ coin }: DesktopCoinOverviewProps) => {
           <Image
             src={coin.image}
             alt={"logo for " + coin.name}
-            width={32}
-            height={32}
+            width={iconSize}
+            height={iconSize}
           />
         )}
         <p className="md:text-sm lg:text-base xl:text-lg">{coinDisplayName}</p>
@@ -56,26 +68,36 @@ const DesktopCoinOverview = ({ coin }: DesktopCoinOverviewProps) => {
       <PercentageWithIcon percentage={oneHrChange} percentageUp={oneHrUp} />
       <PercentageWithIcon percentage={oneDayChange} percentageUp={oneDayUp} />
       <PercentageWithIcon percentage={oneWeekChange} percentageUp={oneWeekUp} />
-      <MarketCapMeter
-        max={1}
-        min={0}
-        value={volumeOverCap}
-        startLabel={utils.getShortNumber(totalVolume)}
-        endLabel={utils.getShortNumber(marketCap)}
-        color={barColor}
-        containerClassName="col-span-2"
-        barContainerClassName={barBackground}
-      />
-      <MarketCapMeter
-        max={1}
-        min={0}
-        value={circulationOverTotal}
-        startLabel={utils.getShortNumber(circulatingSupply)}
-        endLabel={utils.getShortNumber(totalSupply)}
-        color={barColor}
-        containerClassName="col-span-2"
-        barContainerClassName={barBackground}
-      />
+      {volumeOverCap ? (
+        <MarketCapMeter
+          max={1}
+          min={0}
+          height={barHeight + "px"}
+          value={volumeOverCap}
+          startLabel={utils.getShortNumber(totalVolume)}
+          endLabel={utils.getShortNumber(marketCap)}
+          color={barColor}
+          containerClassName="col-span-2"
+          barContainerClassName={barBackground}
+        />
+      ) : (
+        meterFallback
+      )}
+      {circulationOverTotal ? (
+        <MarketCapMeter
+          max={1}
+          min={0}
+          height={barHeight + "px"}
+          value={circulationOverTotal}
+          startLabel={utils.getShortNumber(circulatingSupply)}
+          endLabel={utils.getShortNumber(totalSupply)}
+          color={barColor}
+          containerClassName="col-span-2"
+          barContainerClassName={barBackground}
+        />
+      ) : (
+        meterFallback
+      )}
       <CoinOverviewChart coin={coin} />
     </Link>
   );
