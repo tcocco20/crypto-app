@@ -46,7 +46,7 @@ const MarketCapMeter = (props: MarketCapMeterProps) => {
           bgColor={props.color}
           customLabel=" "
           className="w-full"
-          barContainerClassName={`rounded-sm ${props.barContainerClassName}`}
+          barContainerClassName={`rounded ${props.barContainerClassName}`}
           completedClassName={props.completedClassName}
         />
       </div>

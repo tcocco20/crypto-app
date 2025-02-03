@@ -85,6 +85,10 @@ const CoinOverviewChart = ({
               },
             },
           },
+          layout: {
+            autoPadding: false,
+            padding: -5,
+          }
         }}
       />
     </div>

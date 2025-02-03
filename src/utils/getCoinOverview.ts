@@ -30,11 +30,11 @@ export const getCoinOverview = (coin: ListCoin) => {
     oneHrUp,
     oneDayUp,
     oneWeekUp,
-    marketCap: coin.market_cap,
-    totalVolume: coin.total_volume,
+    marketCap: coin.market_cap || 0,
+    totalVolume: coin.total_volume || 0,
     volumeOverCap,
-    totalSupply: coin.total_supply,
-    circulatingSupply: coin.circulating_supply,
+    totalSupply: coin.total_supply || 0,
+    circulatingSupply: coin.circulating_supply || 0,
     circulationOverTotal,
   };
 };

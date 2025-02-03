@@ -54,6 +54,16 @@ const MarketOverview = ({ startingCoins }: MarketOverviewProps) => {
 
   return (
     <>
+      <div className="hidden w-full md:grid md:grid-cols-11 md:gap-1 lg:gap-2 xl:gap-4 px-4 dark:text-gray-400 text-xs xl:text-sm mb-4">
+        <p className="col-span-2">Name</p>
+        <p>Price</p>
+        <p>1h %</p>
+        <p>24h %</p>
+        <p>7d %</p>
+        <p className="col-span-2">24h Volume / Market Cap</p>
+        <p className="col-span-2">Circulating / Total Supply</p>
+        <p>Last 7d</p>
+      </div>
       <InfiniteScroll
         dataLength={coins.length}
         hasMore={hasMore}
