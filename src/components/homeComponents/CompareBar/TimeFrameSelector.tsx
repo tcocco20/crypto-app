@@ -20,15 +20,14 @@ const TimeFrameSelector = () => {
   };
 
   return (
-    <div className="flex justify-between bg-white dark:bg-violet-950 p-1 rounded">
+    <div className="flex justify-between bg-white dark:bg-violet-950 p-1 rounded md:max-w-[450px]">
       {timeFrames.map((timeFrame) => (
         <SelectableWrapper
           key={timeFrame.value}
           selected={selectedTimeFrame === timeFrame.value}
-          py="py-1 px-3"
         >
           <button
-            className={`text-sm font-light ${
+            className={`text-sm md:text-base font-light py-1 px-3 md:py-2 md:px-4 ${
               selectedTimeFrame === timeFrame.value
                 ? "dark:text-white"
                 : "text-violet-900 dark:text-violet-300"
