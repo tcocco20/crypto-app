@@ -54,7 +54,7 @@ const MarketOverview = ({ startingCoins }: MarketOverviewProps) => {
 
   return (
     <>
-      <div className="hidden w-full md:grid md:grid-cols-11 md:gap-1 lg:gap-2 xl:gap-4 px-4 dark:text-gray-400 text-xs xl:text-sm mb-4">
+      <div className="hidden w-full md:grid md:grid-cols-11 md:gap-1 lg:gap-2 xl:gap-4 px-4 text-violet-900 dark:text-gray-400 text-xs xl:text-sm mb-4">
         <p className="col-span-2">Name</p>
         <p>Price</p>
         <p>1h %</p>

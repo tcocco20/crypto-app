@@ -31,11 +31,13 @@ const CoinOverviewChart = ({
 }: CoinOverviewChartProps) => {
   const labels = coin.sparkline_in_7d!.price.map((_, i) => i);
   const priceUp = coin.price_change_percentage_7d_in_currency > 0;
-  const priceUpColor = "#28f625";
-  const priceDownColor = "#ff6465";
+  const priceUpColor = "#00e1d5";
+  const priceDownColor = "#ec4899";
 
   return (
-    <div className={"w-1/3 md:w-full pointer-events-none " + containerClassName}>
+    <div
+      className={"w-1/3 md:w-full pointer-events-none " + containerClassName}
+    >
       <Line
         data={{
           labels: labels,
@@ -88,7 +90,7 @@ const CoinOverviewChart = ({
           layout: {
             autoPadding: false,
             padding: -5,
-          }
+          },
         }}
       />
     </div>

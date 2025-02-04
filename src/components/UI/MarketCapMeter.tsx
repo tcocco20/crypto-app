@@ -11,6 +11,7 @@ interface MeterProps {
   color?: string;
   completedClassName?: string;
   containerClassName?: string;
+  priceUp?: boolean;
 }
 
 interface OneLabelMeter {
@@ -26,18 +27,20 @@ interface TwoLabelMeter {
 type MarketCapMeterProps = MeterProps & (OneLabelMeter | TwoLabelMeter);
 
 const MarketCapMeter = (props: MarketCapMeterProps) => {
+  const { priceUp } = props;
+  const priceUpColor = priceUp ? "text-cyan-600" : "text-pink-600";
+  const priceUpBg = priceUp ? "text-cyan-600/70" : "text-pink-600/70";
+
   if ("startLabel" in props) {
     return (
       <div
         className={`text-xs flex flex-col gap-1 ${props.containerClassName}`}
       >
         <div className="w-full flex justify-between">
-          <label className={`text-xs text-[${props.color}]`}>
+          <label className={`text-xs ${priceUpColor}`}>
             {props.startLabel}
           </label>
-          <label className={"text-xs " + "text-[" + props.color + "]/70"}>
-            {props.endLabel}
-          </label>
+          <label className={"text-xs " + priceUpBg}>{props.endLabel}</label>
         </div>
         <ProgressBar
           completed={props.value}

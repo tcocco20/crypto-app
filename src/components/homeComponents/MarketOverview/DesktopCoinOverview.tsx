@@ -79,6 +79,7 @@ const DesktopCoinOverview = ({ coin }: DesktopCoinOverviewProps) => {
           color={barColor}
           containerClassName="col-span-2"
           barContainerClassName={barBackground}
+          priceUp={oneWeekUp}
         />
       ) : (
         meterFallback
@@ -94,6 +95,7 @@ const DesktopCoinOverview = ({ coin }: DesktopCoinOverviewProps) => {
           color={barColor}
           containerClassName="col-span-2"
           barContainerClassName={barBackground}
+          priceUp={oneWeekUp}
         />
       ) : (
         meterFallback
