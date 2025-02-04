@@ -19,7 +19,7 @@ const CoinButton = ({ selected = false, coin, onClick }: CoinButtonProps) => {
   const iconSize = isMobile ? 24 : 38;
   const displayPercentage =
     Math.abs(coin.price_change_percentage_24h_in_currency).toFixed(2) + "%";
-  const displayPrice = (+coin.current_price.toFixed(2)).toLocaleString();
+  const displayPrice = coin.current_price.toLocaleString();
   return (
     <SelectableWrapper selected={selected} widthClasses="w-fit">
       <button
@@ -39,12 +39,13 @@ const CoinButton = ({ selected = false, coin, onClick }: CoinButtonProps) => {
           <p className="hidden md:block text-lg font-light">
             {coin.name} ({displaySymbol})
           </p>
-          <div className="hidden md:flex items-center gap-2">
+          <div className="hidden md:flex items-center gap-4">
             <p className="font-light">{displayPrice} USD</p>
             <PercentageWithIcon
               percentage={displayPercentage}
               percentageUp={coin.price_change_percentage_24h_in_currency > 0}
               fixedSize
+              selectable
             />
           </div>
         </div>
