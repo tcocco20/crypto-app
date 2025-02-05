@@ -81,7 +81,7 @@ const PriceChart = () => {
   return (
     <>
       {headerData}
-      <div>
+      <div className="w-full">
         <Line
           data={{
             labels: labels,
@@ -115,6 +115,10 @@ const PriceChart = () => {
                   display: false,
                 },
               },
+            },
+            layout: {
+              autoPadding: false,
+              padding: -4,
             },
           }}
         />
