@@ -27,7 +27,7 @@ const TimeFrameSelector = () => {
           selected={selectedTimeFrame === timeFrame.value}
         >
           <button
-            className={`text-sm md:text-base font-light py-1 px-3 md:py-2 md:px-4 ${
+            className={`text-sm md:text-base font-light py-1 px-3 xl:py-2 xl:px-4 ${
               selectedTimeFrame === timeFrame.value
                 ? "dark:text-white"
                 : "text-violet-900 dark:text-violet-300"

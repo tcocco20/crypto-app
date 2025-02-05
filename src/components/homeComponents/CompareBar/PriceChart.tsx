@@ -81,7 +81,7 @@ const PriceChart = () => {
     );
 
   return (
-    <Card className="p-4 flex flex-col gap-2 md:w-full">
+    <Card className="p-4 flex flex-col gap-2 md:flex-1">
       {headerData}
       <div>
         <Line
