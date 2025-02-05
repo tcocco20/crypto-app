@@ -13,6 +13,7 @@ import { ListCoin } from "@/lib/types/ListCoin";
 
 interface CoinOverviewChartProps {
   coin: ListCoin;
+  containerClassName?: string;
 }
 
 ChartJS.register(
@@ -24,14 +25,19 @@ ChartJS.register(
   Tooltip
 );
 
-const CoinOverviewChart = ({ coin }: CoinOverviewChartProps) => {
+const CoinOverviewChart = ({
+  coin,
+  containerClassName,
+}: CoinOverviewChartProps) => {
   const labels = coin.sparkline_in_7d!.price.map((_, i) => i);
   const priceUp = coin.price_change_percentage_7d_in_currency > 0;
-  const priceUpColor = "#28f625";
-  const priceDownColor = "#ff6465";
+  const priceUpColor = "#00e1d5";
+  const priceDownColor = "#ec4899";
 
   return (
-    <div className="w-1/3 pointer-events-none">
+    <div
+      className={"w-1/3 md:w-full pointer-events-none " + containerClassName}
+    >
       <Line
         data={{
           labels: labels,
@@ -80,6 +86,10 @@ const CoinOverviewChart = ({ coin }: CoinOverviewChartProps) => {
                 display: false,
               },
             },
+          },
+          layout: {
+            autoPadding: false,
+            padding: -5,
           },
         }}
       />

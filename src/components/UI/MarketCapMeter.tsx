@@ -10,6 +10,8 @@ interface MeterProps {
   barContainerClassName?: string;
   color?: string;
   completedClassName?: string;
+  containerClassName?: string;
+  priceUp?: boolean;
 }
 
 interface OneLabelMeter {
@@ -18,7 +20,6 @@ interface OneLabelMeter {
 }
 
 interface TwoLabelMeter {
-  // Will be used later to display two labels above the progress bar
   startLabel: string;
   endLabel: string;
 }
@@ -26,9 +27,33 @@ interface TwoLabelMeter {
 type MarketCapMeterProps = MeterProps & (OneLabelMeter | TwoLabelMeter);
 
 const MarketCapMeter = (props: MarketCapMeterProps) => {
+  const { priceUp } = props;
+  const priceUpColor = priceUp ? "text-cyan-600" : "text-pink-600";
+  const priceUpBg = priceUp ? "text-cyan-600/70" : "text-pink-600/70";
+
   if ("startLabel" in props) {
-    // Should not be used yet so returning null for now
-    return null;
+    return (
+      <div
+        className={`text-xs flex flex-col gap-1 ${props.containerClassName}`}
+      >
+        <div className="w-full flex justify-between">
+          <label className={`text-xs ${priceUpColor}`}>
+            {props.startLabel}
+          </label>
+          <label className={"text-xs " + priceUpBg}>{props.endLabel}</label>
+        </div>
+        <ProgressBar
+          completed={props.value}
+          maxCompleted={props.max}
+          height={props.height || "6px"}
+          bgColor={props.color}
+          customLabel=" "
+          className="w-full"
+          barContainerClassName={`rounded-sm ${props.barContainerClassName}`}
+          completedClassName={props.completedClassName}
+        />
+      </div>
+    );
   }
 
   return (

@@ -83,7 +83,7 @@ const PriceChart = () => {
   return (
     <Card className="p-4 flex flex-col gap-2 md:flex-1">
       {headerData}
-      <div>
+      <div className="w-full">
         <Line
           data={{
             labels: labels,
@@ -117,6 +117,10 @@ const PriceChart = () => {
                   display: false,
                 },
               },
+            },
+            layout: {
+              autoPadding: false,
+              padding: -4,
             },
           }}
         />
