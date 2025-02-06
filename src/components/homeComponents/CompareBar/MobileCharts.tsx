@@ -4,13 +4,9 @@ import PriceChart from "./PriceChart";
 import VolumeChart from "./VolumeChart";
 import SelectableWrapper from "@/components/UI/SelectableWrapper";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Card from "@/components/UI/Card";
-import { useCompareBarContext } from "@/context/CompareBarContext/useCompareBarContext";
 
 const MobileCharts = () => {
   const [selectedChart, setSelectedChart] = useState("price");
-
-  const { firstCoin, secondCoin } = useCompareBarContext();
 
   const displayChart =
     selectedChart === "price" ? <PriceChart /> : <VolumeChart />;
@@ -42,21 +38,7 @@ const MobileCharts = () => {
           </button>
         </SelectableWrapper>
       </div>
-      <Card className="p-4 flex flex-col gap-2">
-        {displayChart}
-        {secondCoin && (
-          <div className="flex justify-between">
-            <div className="flex gap-2">
-              <div className="py-1 px-3 bg-indigo-400 rounded-sm" />
-              <p>{firstCoin!.name}</p>
-            </div>
-            <div className="flex gap-2">
-              <div className="py-1 px-3 bg-purple-400 rounded-sm" />
-              <p>{secondCoin.name}</p>
-            </div>
-          </div>
-        )}
-      </Card>
+      {displayChart}
     </div>
   );
 };

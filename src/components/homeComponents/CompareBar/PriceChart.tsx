@@ -10,6 +10,7 @@ import {
   Tooltip,
 } from "chart.js/auto";
 import { useCompareBarContext } from "@/context/CompareBarContext/useCompareBarContext";
+import Card from "@/components/UI/Card";
 
 ChartJS.register(
   LinearScale,
@@ -21,7 +22,8 @@ ChartJS.register(
 );
 
 const PriceChart = () => {
-  const { firstCoinData, secondCoinData, firstCoin } = useCompareBarContext();
+  const { firstCoinData, secondCoinData, firstCoin, secondCoin } =
+    useCompareBarContext();
 
   const labels = firstCoinData.map((data) => data.date);
   const prices = firstCoinData.map((data) => data.price);
@@ -79,7 +81,7 @@ const PriceChart = () => {
     );
 
   return (
-    <>
+    <Card className="p-4 flex flex-col gap-2 md:flex-1">
       {headerData}
       <div className="w-full">
         <Line
@@ -127,7 +129,19 @@ const PriceChart = () => {
           <p className="text-xs">{labels[labels.length - 1]}</p>
         </div>
       </div>
-    </>
+      {secondCoin && (
+        <div className="flex justify-between">
+          <div className="flex gap-2">
+            <div className="py-1 px-3 bg-indigo-400 rounded-sm" />
+            <p>{firstCoin!.name}</p>
+          </div>
+          <div className="flex gap-2">
+            <div className="py-1 px-3 bg-purple-400 rounded-sm" />
+            <p>{secondCoin.name}</p>
+          </div>
+        </div>
+      )}
+    </Card>
   );
 };
 

@@ -10,6 +10,7 @@ import {
   Legend,
 } from "chart.js/auto";
 import { useCompareBarContext } from "@/context/CompareBarContext/useCompareBarContext";
+import Card from "@/components/UI/Card";
 
 ChartJS.register(
   LinearScale,
@@ -21,7 +22,8 @@ ChartJS.register(
 );
 
 const VolumeChart = () => {
-  const { firstCoinData, secondCoinData } = useCompareBarContext();
+  const { firstCoinData, secondCoinData, secondCoin, firstCoin } =
+    useCompareBarContext();
 
   const labels = firstCoinData.map((data) => data.date);
   const volumes = firstCoinData.map((data) => data.volume);
@@ -65,7 +67,7 @@ const VolumeChart = () => {
     );
 
   return (
-    <>
+    <Card className="p-4 flex flex-col gap-2 md:flex-1">
       {headerData}
       <Bar
         data={{
@@ -98,7 +100,19 @@ const VolumeChart = () => {
           },
         }}
       />
-    </>
+      {secondCoin && (
+        <div className="flex justify-between">
+          <div className="flex gap-2">
+            <div className="py-1 px-3 bg-indigo-400 rounded-sm" />
+            <p>{firstCoin!.name}</p>
+          </div>
+          <div className="flex gap-2">
+            <div className="py-1 px-3 bg-purple-400 rounded-sm" />
+            <p>{secondCoin.name}</p>
+          </div>
+        </div>
+      )}
+    </Card>
   );
 };
 

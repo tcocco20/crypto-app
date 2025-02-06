@@ -50,8 +50,7 @@ const CoinSelector = ({ coinsList }: CoinSelectorProps) => {
         {coinsList.map((coin) => (
           <SwiperSlide key={coin.id} style={{ width: "fit-content" }}>
             <CoinButton
-              name={coin.symbol}
-              image={coin.image}
+              coin={coin}
               selected={firstCoinId === coin.id || secondCoinId === coin.id}
               onClick={() => handleCoinClick(coin.id)}
             />

@@ -21,7 +21,7 @@ const CompareBar = ({ coins }: CompareBarProps) => {
 
   return (
     <section className="my-5 dark:text-white flex flex-col gap-4">
-      <div className="flex justify-between items-center text-xs font-light">
+      <div className="flex justify-between items-center text-xs md:text-sm lg:text-base font-light">
         <p>Select the currency to view statistics</p>
         <button
           onClick={() => updateCompareModeSelected(!compareModeSelected)}
