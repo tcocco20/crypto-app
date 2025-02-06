@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ConverterCurrencySelector from "./ConverterCurrencySelector";
 import { Repeat } from "lucide-react";
 import utils from "@/utils";
@@ -16,7 +16,7 @@ interface ConverterSelectorProps {
   setFromQuantity: (quantity: number) => void;
 }
 
-const ConverterSelector = ({
+const ConverterSelectorContainer = ({
   fromCurrency,
   fromQuantity,
   toCurrency,
@@ -47,6 +47,12 @@ const ConverterSelector = ({
       )
     );
   };
+
+  useEffect(() => {
+    if (fromCurrency && toCurrency && hasError) {
+      setHasError(false);
+    }
+  }, [fromCurrency, toCurrency, hasError]);
 
   return (
     <>
@@ -81,4 +87,4 @@ const ConverterSelector = ({
   );
 };
 
-export default ConverterSelector;
+export default ConverterSelectorContainer;
