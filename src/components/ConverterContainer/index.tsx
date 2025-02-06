@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { type ListCoin } from "@/lib/types/ListCoin";
 import ConverterSelectorContainer from "./ConverterSelectorContainer";
-import ConverterChart from "./ConverterChart";
+import ConverterChartContainer from "./ConverterChartContainer";
 
 interface ConverterContainerProps {
   coins: ListCoin[];
@@ -25,7 +25,12 @@ const ConverterContainer = ({ coins }: ConverterContainerProps) => {
         setFromQuantity={setFromQuantity}
         setToCurrency={setToCurrency}
       />
-      <ConverterChart fromCurrency={fromCurrency} toCurrency={toCurrency} />
+      {fromCurrency && toCurrency && (
+        <ConverterChartContainer
+          fromCurrency={fromCurrency}
+          toCurrency={toCurrency}
+        />
+      )}
     </section>
   );
 };

@@ -1,45 +1,104 @@
-import { type ListCoin } from "@/lib/types/ListCoin";
-import Card from "../UI/Card";
-import { generateMonths } from "@/utils/generateMonths";
+import React from "react";
+import { Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+} from "chart.js/auto";
+import { CoinHistoricalData } from "@/lib/types/CoinHistoricalData";
+import { getConvertCurrencyChartData } from "@/utils/getConvertCurrencyChartData";
+
+ChartJS.register(
+  LinearScale,
+  CategoryScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip
+);
 
 interface ConverterChartProps {
-  fromCurrency: ListCoin | undefined;
-  toCurrency: ListCoin | undefined;
+  fromCurrencyData: CoinHistoricalData | undefined;
+  toCurrencyData: CoinHistoricalData | undefined;
+  title: string;
 }
 
-const ConverterChart = ({ fromCurrency, toCurrency }: ConverterChartProps) => {
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
+const ConverterChart = ({
+  fromCurrencyData,
+  toCurrencyData,
+  title,
+}: ConverterChartProps) => {
+  if (!fromCurrencyData || !toCurrencyData) return <p>Loading...</p>;
+
+  const { labels, values } = getConvertCurrencyChartData(
+    fromCurrencyData,
+    toCurrencyData
+  );
+
+  const datasets = [
+    {
+      label: title,
+      data: values,
+      borderColor: "#8e9deb",
+      pointBackgroundColor: "transparent",
+      pointBorderColor: "transparent",
+      pointHoverBackgroundColor: "#8e9deb",
+      fill: {
+        target: "origin",
+        above: "#8e9eeb21",
+      },
+    },
   ];
-  const monthOrder = generateMonths();
 
   return (
-    <Card className="p-4 dark:text-white font-light">
-      {fromCurrency && toCurrency && (
-        <p>
-          {fromCurrency.name} ({fromCurrency.symbol.toUpperCase()}) to{" "}
-          {toCurrency.name} ({toCurrency.symbol.toUpperCase()})
-        </p>
-      )}
-      <div className="grid grid-cols-12 text-xs gap-1">
-        {monthOrder.map((month) => (
-          <p key={months[month]} className="text-center">
-            {months[month]}
-          </p>
-        ))}
+    <>
+      <div className="w-full">
+        <Line
+          data={{
+            labels: labels,
+            datasets,
+          }}
+          options={{
+            elements: {
+              line: {
+                tension: 0.5,
+              },
+            },
+            plugins: {
+              legend: {
+                display: false,
+              },
+            },
+            scales: {
+              x: {
+                ticks: {
+                  display: false,
+                },
+                grid: {
+                  display: false,
+                },
+              },
+              y: {
+                ticks: {
+                  display: false,
+                },
+                grid: {
+                  display: false,
+                },
+              },
+            },
+            layout: {
+              autoPadding: false,
+              padding: -4,
+            },
+          }}
+        />
       </div>
-    </Card>
+    </>
   );
 };
 
