@@ -36,7 +36,9 @@ const ConverterChartContainer = ({
   const [toCurrencyHistoricalData, setToCurrencyHistoricalData] =
     useState<CoinHistoricalData>();
 
-  const monthOrder = generateMonths();
+  const monthOrder = fromCurrencyHistoricalData
+    ? generateMonths(new Date(fromCurrencyHistoricalData[0].date))
+    : [];
 
   useEffect(() => {
     const fetchData = async () => {

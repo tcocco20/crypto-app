@@ -1,9 +1,8 @@
-export const generateMonths = () => {
-  const today = new Date();
+export const generateMonths = (firstDate: Date) => {
   const months = [];
-  const currentMonth = today.getMonth();
+  const currentMonth = firstDate.getMonth();
   for (let i = 0; i < 12; i++) {
-    months.unshift((currentMonth - i) % 12);
+    months.push(Math.abs(currentMonth + i) % 11);
   }
   return months;
 };
