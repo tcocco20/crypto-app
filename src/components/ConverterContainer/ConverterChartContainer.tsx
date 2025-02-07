@@ -78,7 +78,7 @@ const ConverterChartContainer = ({
         fromCurrencyData={fromCurrencyHistoricalData}
         toCurrencyData={toCurrencyHistoricalData}
       />
-      <div className="grid grid-cols-12 text-xs gap-1">
+      <div className="grid grid-cols-12 text-xs gap-1 p-1">
         {monthOrder.map((month) => (
           <p key={months[month]} className="text-center">
             {months[month]}
