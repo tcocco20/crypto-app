@@ -1,9 +1,12 @@
+"use client";
+
 import React from "react";
 import Dropdown from "../UI/Dropdown";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import utils from "@/utils";
 import { type ListCoin } from "@/lib/types/ListCoin";
+import { useScreenSize } from "@/hooks/useScreenSize";
 
 interface ConverterDropdownProps {
   coins: ListCoin[];
@@ -18,6 +21,12 @@ const ConverterDropdown = ({
 }: ConverterDropdownProps) => {
   const placeholder = "Select Currency to begin";
 
+  const screenSize = useScreenSize();
+
+  const dropDownIconSize = screenSize === "mobile" ? 12 : 16;
+  const coinIconSize = screenSize === "mobile" ? 24 : 32;
+  const quantitySize = screenSize === "mobile" ? 13 : 18;
+
   const renderDropdownItem = (item: ListCoin) => {
     return <button onClick={() => onSelect(item)}>{item.name}</button>;
   };
@@ -25,30 +34,32 @@ const ConverterDropdown = ({
     <>
       <Dropdown<ListCoin>
         containerClassName="flex flex-1 items-center gap-2"
-        parentClassName="text-xs"
+        parentClassName="text-xs md:text-base lg:text-lg xl:text-xl"
         menuClassName="top-full mt-1 bg-violet-100/90 shadow-md dark:shadow-0 dark:bg-indigo-950/70 w-full p-2 rounded-md overflow-y-auto max-h-60 z-50"
         data={coins}
         renderItem={renderDropdownItem}
         keyExtractor={(item) => item.id}
       >
         {!selectedCurrency && (
-          <p className="text-gray-400 font-thin">{placeholder}</p>
+          <p className="dark:text-gray-300 font-extralight md:text-lg lg:text-xl">
+            {placeholder}
+          </p>
         )}
         {selectedCurrency && (
-          <div className="flex items-center gap-1 z-0">
+          <div className="flex items-center gap-1 md:gap-2 lg:gap-3 z-0">
             <Image
               src={selectedCurrency.image}
               alt={"logo for " + selectedCurrency.name}
-              width={24}
-              height={24}
+              width={coinIconSize}
+              height={coinIconSize}
             />
             <p>
-              {utils.truncateString(selectedCurrency.name, 13)} (
+              {utils.truncateString(selectedCurrency.name, quantitySize)} (
               {selectedCurrency.symbol.toUpperCase()})
             </p>
           </div>
         )}
-        <ChevronDown size={12} />
+        <ChevronDown size={dropDownIconSize} />
       </Dropdown>
     </>
   );

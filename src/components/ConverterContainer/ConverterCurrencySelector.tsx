@@ -29,10 +29,10 @@ const ConverterCurrencySelector = ({
         isFromCurrency ? "dark:bg-indigo-900/30" : "dark:bg-purple-900/20"
       }`}
     >
-      <p className="text-xs md:text-base font-extralight text-indigo-800 dark:text-gray-100">
+      <p className="text-xs md:text-base font-light text-indigo-900 dark:text-gray-100">
         {isFromCurrency ? "You sell" : "You buy"}
       </p>
-      <div className="flex justify-between items-center border-b border-b-indigo-900 dark:border-b-white py-4">
+      <div className="flex justify-between items-center border-b md:border-b-2 border-b-indigo-800 dark:border-b-white py-4 md:py-6">
         <ConverterDropdown
           onSelect={onSelectCurrency}
           coins={coins}
@@ -53,14 +53,17 @@ const ConverterCurrencySelector = ({
         )}
       </div>
       {selectedCurrency ? (
-        <p className="text-xs font-light my-2">
+        <p className="text-xs md:text-sm lg:text-base font-light my-2 md:my-4">
           <span className="text-indigo-700 dark:text-gray-300">
             1 {selectedCurrency.symbol.toUpperCase()} ={" "}
           </span>
           ${selectedCurrency.current_price}
         </p>
       ) : (
-        <p className="my-2 text-transparent text-xs" aria-hidden>
+        <p
+          className="my-2 md:my-4 text-transparent text-xs md:text-sm lg:text-base"
+          aria-hidden
+        >
           {" "}
           Invisible text for formatting{" "}
         </p>
