@@ -25,16 +25,14 @@ const ConverterCurrencySelector = ({
 
   return (
     <div
-      className={`text-indigo-900 dark:text-white bg-white rounded-md p-3 ${
-        isFromCurrency
-          ? "dark:bg-indigo-900/35 dark:md:bg-indigo-900/25"
-          : "dark:bg-purple-900/20"
+      className={`text-indigo-900 dark:text-white bg-white rounded-md p-3 md:flex-1 md:p-6 ${
+        isFromCurrency ? "dark:bg-indigo-900/30" : "dark:bg-purple-900/20"
       }`}
     >
-      <p className="text-xs font-extralight text-indigo-800 dark:text-gray-100">
+      <p className="text-xs md:text-base font-extralight text-indigo-800 dark:text-gray-100">
         {isFromCurrency ? "You sell" : "You buy"}
       </p>
-      <div className="flex justify-between items-center border-b border-b-indigo-900 dark:border-b-white py-3">
+      <div className="flex justify-between items-center border-b border-b-indigo-900 dark:border-b-white py-4">
         <ConverterDropdown
           onSelect={onSelectCurrency}
           coins={coins}
@@ -43,13 +41,15 @@ const ConverterCurrencySelector = ({
         {isFromCurrency ? (
           <input
             type="number"
-            className="bg-transparent outline-none text-right w-2/5"
+            className="bg-transparent outline-none text-right w-2/5 lg:text-lg appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
             placeholder="Quantity"
             value={quantity && quantity}
             onChange={handleChange}
           />
         ) : (
-          <p className="text-right w-2/5">{quantity || "Quantity"}</p>
+          <p className="text-right w-2/5 lg:text-lg">
+            {quantity || "Quantity"}
+          </p>
         )}
       </div>
       {selectedCurrency ? (
