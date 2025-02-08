@@ -15,7 +15,7 @@ const ConverterContainer = ({ coins }: ConverterContainerProps) => {
   const [toCurrency, setToCurrency] = useState<ListCoin | undefined>();
 
   return (
-    <section className="w-full flex flex-col gap-5">
+    <section className="w-full flex flex-col gap-5 md:gap-8 lg:gap-12 xl:gap-16">
       <ConverterSelectorContainer
         toCurrency={toCurrency}
         fromCurrency={fromCurrency}

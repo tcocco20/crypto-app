@@ -95,6 +95,7 @@ const ConverterChart = ({
               autoPadding: false,
               padding: -4,
             },
+            maintainAspectRatio: false,
           }}
         />
       </div>

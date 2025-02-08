@@ -64,8 +64,8 @@ const ConverterChartContainer = ({
   }, [toCurrency]);
 
   return (
-    <Card className="p-4 dark:text-white font-light">
-      <p>
+    <Card className="p-4 lg:p-6 xl:p-8 dark:text-white font-light md:rounded-lg lg:rounded-xl xl:rounded-2xl">
+      <p className="md:text-lg lg:text-xl">
         {fromCurrency.name} ({fromCurrency.symbol.toUpperCase()}) to{" "}
         {toCurrency.name} ({toCurrency.symbol.toUpperCase()})
       </p>
@@ -78,7 +78,7 @@ const ConverterChartContainer = ({
         fromCurrencyData={fromCurrencyHistoricalData}
         toCurrencyData={toCurrencyHistoricalData}
       />
-      <div className="grid grid-cols-12 text-xs md:text-sm lg:text-base gap-1 p-1">
+      <div className="grid grid-cols-12 text-xs md:text-sm gap-1 p-1">
         {monthOrder.map((month) => (
           <p key={months[month]} className="text-center">
             {months[month]}

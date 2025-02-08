@@ -25,7 +25,7 @@ const ConverterCurrencySelector = ({
 
   return (
     <div
-      className={`text-indigo-900 dark:text-white bg-white rounded-md p-3 md:flex-1 md:p-6 ${
+      className={`text-indigo-900 dark:text-white bg-white rounded-md md:rounded-lg lg:rounded-xl xl:rounded-2xl p-3 md:flex-1 md:p-6 ${
         isFromCurrency ? "dark:bg-indigo-900/30" : "dark:bg-purple-900/20"
       }`}
     >
