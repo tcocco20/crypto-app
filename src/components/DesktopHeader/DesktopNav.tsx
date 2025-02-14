@@ -7,7 +7,7 @@ import { useAppSelector } from "@/lib/hooks";
 const DesktopNav = () => {
   const darkMode = useAppSelector((state) => state.preferences.darkMode);
   return (
-    <nav className="flex justify-between px-4 lg:px-12 xl:px-20 py-8">
+    <nav className="flex justify-between px-3 md:px-8 lg:px-12 xl:px-24 py-8">
       <Image
         src={darkMode ? "/images/logo.png" : "/images/logo-light.png"}
         width={200}
