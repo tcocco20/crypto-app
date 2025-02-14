@@ -25,16 +25,14 @@ const ConverterCurrencySelector = ({
 
   return (
     <div
-      className={`text-indigo-900 dark:text-white bg-white rounded-md p-3 ${
-        isFromCurrency
-          ? "dark:bg-indigo-900/35 dark:md:bg-indigo-900/25"
-          : "dark:bg-purple-900/20"
+      className={`text-indigo-900 dark:text-white bg-white rounded-md md:rounded-lg lg:rounded-xl xl:rounded-2xl p-3 md:flex-1 md:p-6 ${
+        isFromCurrency ? "dark:bg-indigo-900/30" : "dark:bg-purple-900/20"
       }`}
     >
-      <p className="text-xs font-extralight text-indigo-800 dark:text-gray-100">
+      <p className="text-xs md:text-base font-light text-indigo-900 dark:text-gray-100">
         {isFromCurrency ? "You sell" : "You buy"}
       </p>
-      <div className="flex justify-between items-center border-b border-b-indigo-900 dark:border-b-white py-3">
+      <div className="flex justify-between items-center border-b md:border-b-2 border-b-indigo-800 dark:border-b-white py-4 md:py-6">
         <ConverterDropdown
           onSelect={onSelectCurrency}
           coins={coins}
@@ -43,24 +41,29 @@ const ConverterCurrencySelector = ({
         {isFromCurrency ? (
           <input
             type="number"
-            className="bg-transparent outline-none text-right w-2/5"
+            className="bg-transparent outline-none text-right w-2/5 lg:text-lg appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
             placeholder="Quantity"
             value={quantity && quantity}
             onChange={handleChange}
           />
         ) : (
-          <p className="text-right w-2/5">{quantity || "Quantity"}</p>
+          <p className="text-right w-2/5 lg:text-lg">
+            {quantity || "Quantity"}
+          </p>
         )}
       </div>
       {selectedCurrency ? (
-        <p className="text-xs font-light my-2">
+        <p className="text-xs md:text-sm lg:text-base font-light my-2 md:my-4">
           <span className="text-indigo-700 dark:text-gray-300">
             1 {selectedCurrency.symbol.toUpperCase()} ={" "}
           </span>
           ${selectedCurrency.current_price}
         </p>
       ) : (
-        <p className="my-2 text-transparent text-xs" aria-hidden>
+        <p
+          className="my-2 md:my-4 text-transparent text-xs md:text-sm lg:text-base"
+          aria-hidden
+        >
           {" "}
           Invisible text for formatting{" "}
         </p>
