@@ -1,9 +1,7 @@
-import actions from "@/actions";
 import ConverterContainer from "@/components/ConverterContainer";
 import HomeNav from "@/components/homeComponents/HomeNav";
 
 const Converter = async () => {
-  const coinsList = await actions.getCoinsList();
   return (
     <>
       <HomeNav />
@@ -15,7 +13,7 @@ const Converter = async () => {
           {new Date().toLocaleString()}
         </p>
       </div>
-      <ConverterContainer coins={coinsList} />
+      <ConverterContainer />
     </>
   );
 };

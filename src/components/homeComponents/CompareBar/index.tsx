@@ -1,17 +1,15 @@
 "use client";
 import { ChartLine, X } from "lucide-react";
 import CoinSelector from "./CoinSelector";
-import { type ListCoin } from "@/lib/types/ListCoin";
+
 import CompareCharts from "./CompareCharts";
 import TimeFrameSelector from "./TimeFrameSelector";
 import { useCompareBarContext } from "@/context/CompareBarContext/useCompareBarContext";
 import { useEffect } from "react";
+import { useAppSelector } from "@/lib/hooks";
 
-interface CompareBarProps {
-  coins: ListCoin[];
-}
-
-const CompareBar = ({ coins }: CompareBarProps) => {
+const CompareBar = () => {
+  const coins = useAppSelector((state) => state.coinList.coins);
   const { compareModeSelected, updateCompareModeSelected, updateFirstCoin } =
     useCompareBarContext();
 
