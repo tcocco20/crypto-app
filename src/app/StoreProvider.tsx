@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 import { Provider } from "react-redux";
 import { makeStore, type AppStore } from "../lib/store";
-import { loadCoins } from "@/lib/features/coinList/coinListSlice";
+import { setCoins } from "@/lib/features/coinList/coinListSlice";
 import actions from "@/actions";
 
 export default function StoreProvider({
@@ -19,7 +19,7 @@ export default function StoreProvider({
     const loadInitialCoins = async () => {
       if (storeRef.current) {
         const coinList = await actions.getCoinsList("usd", 1, true);
-        storeRef.current.dispatch(loadCoins(coinList));
+        storeRef.current.dispatch(setCoins(coinList));
       }
     };
     loadInitialCoins();

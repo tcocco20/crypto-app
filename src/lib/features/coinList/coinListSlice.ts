@@ -15,6 +15,10 @@ export const CoinListSlice = createSlice({
   name: "coinData",
   initialState,
   reducers: {
+    setCoins: (state, action: PayloadAction<ListCoin[]>) => {
+      state.coins = action.payload;
+      state.pagesLoaded = 1;
+    },
     loadCoins: (state, action: PayloadAction<ListCoin[]>) => {
       state.coins = [...state.coins, ...action.payload];
       state.pagesLoaded += 1;
@@ -22,6 +26,6 @@ export const CoinListSlice = createSlice({
   },
 });
 
-export const { loadCoins } = CoinListSlice.actions;
+export const { loadCoins, setCoins } = CoinListSlice.actions;
 
 export default CoinListSlice.reducer;

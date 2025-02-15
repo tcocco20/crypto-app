@@ -3,22 +3,20 @@ import React, { useState } from "react";
 import MobileCoinOverview from "./MobileCoinOverview";
 import { getCoinsList } from "@/actions/getCoinsList";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useAppSelector } from "@/lib/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { type ListCoin } from "@/lib/types/ListCoin";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import DesktopCoinOverview from "./DesktopCoinOverview";
+import { loadCoins } from "@/lib/features/coinList/coinListSlice";
 
-interface MarketOverviewProps {
-  startingCoins: ListCoin[];
-}
-
-const MarketOverview = ({ startingCoins }: MarketOverviewProps) => {
-  const [coins, setCoins] = useState(startingCoins);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+const MarketOverview = () => {
+  const coins = useAppSelector((state) => state.coinList.coins);
+  const currentPage = useAppSelector((state) => state.coinList.pagesLoaded);
   const selectedCurrency = useAppSelector(
     (state) => state.preferences.selectedCurrency
   );
+  const dispatch = useAppDispatch();
+  const [hasMore, setHasMore] = useState(true);
   const isMobile = useIsMobile();
 
   const renderCoins = () => {
@@ -43,11 +41,7 @@ const MarketOverview = ({ startingCoins }: MarketOverviewProps) => {
       return;
     }
 
-    setCoins((prev) => {
-      if (!prev) return data;
-      return [...prev, ...data];
-    });
-    setCurrentPage((prev) => ++prev);
+    dispatch(loadCoins(data));
   };
 
   if (!coins) return <p className="text-white">Loading...</p>;
