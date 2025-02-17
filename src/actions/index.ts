@@ -3,6 +3,7 @@ import { getCoinsList } from "./getCoinsList";
 import { testConnection } from "./testConnection";
 import { getCoinHistoricalPriceData } from "./getCoinHistoricalPriceData";
 import { getGlobalMarketData } from "./getGlobalMarketData";
+import { getSearchResults } from "./getSearchResults";
 
 const actions = {
   testConnection,
@@ -10,6 +11,7 @@ const actions = {
   getCoinById,
   getCoinHistoricalPriceData,
   getGlobalMarketData,
+  getSearchResults,
 };
 
 export default actions;
