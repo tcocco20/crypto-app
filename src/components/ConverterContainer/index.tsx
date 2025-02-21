@@ -4,12 +4,10 @@ import { useState } from "react";
 import { type ListCoin } from "@/lib/types/ListCoin";
 import ConverterSelectorContainer from "./ConverterSelectorContainer";
 import ConverterChartContainer from "./ConverterChartContainer";
+import { useAppSelector } from "@/lib/hooks";
 
-interface ConverterContainerProps {
-  coins: ListCoin[];
-}
-
-const ConverterContainer = ({ coins }: ConverterContainerProps) => {
+const ConverterContainer = () => {
+  const coins = useAppSelector((state) => state.coinList.coins);
   const [fromCurrency, setFromCurrency] = useState<ListCoin | undefined>();
   const [fromQuantity, setFromQuantity] = useState<number | undefined>();
   const [toCurrency, setToCurrency] = useState<ListCoin | undefined>();
