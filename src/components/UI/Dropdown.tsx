@@ -12,7 +12,7 @@ interface DropdownProps<T> {
   keyExtractor?: (item: T) => string;
 }
 
-function Dropdown<C>({
+function Dropdown<T>({
   containerClassName,
   children,
   menuClassName,
@@ -20,7 +20,7 @@ function Dropdown<C>({
   data,
   renderItem,
   keyExtractor,
-}: DropdownProps<C>) {
+}: DropdownProps<T>) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleBackgroundClick = () => {
@@ -34,7 +34,8 @@ function Dropdown<C>({
   };
 
   const renderDropdownItems = () => {
-    if (!data || !renderItem) return null;
+    if (!data || !renderItem)
+      return <div className="p-4 text-center">No items to display</div>;
     return data.map((item) => (
       <div key={keyExtractor ? keyExtractor(item) : Math.random()}>
         {renderItem(item)}
