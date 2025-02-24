@@ -10,6 +10,7 @@ interface DropdownProps<T> {
   data?: T[];
   renderItem?: (item: T) => ReactNode;
   keyExtractor?: (item: T) => string;
+  onBackgroundClick?: () => void;
 }
 
 function Dropdown<T>({
@@ -20,11 +21,15 @@ function Dropdown<T>({
   data,
   renderItem,
   keyExtractor,
+  onBackgroundClick,
 }: DropdownProps<T>) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleBackgroundClick = () => {
     setIsOpen(false);
+    if (onBackgroundClick) {
+      onBackgroundClick();
+    }
   };
 
   const handleInputClick = () => {
