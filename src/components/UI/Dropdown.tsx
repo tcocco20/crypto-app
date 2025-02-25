@@ -39,10 +39,13 @@ function Dropdown<T>({
   };
 
   const renderDropdownItems = () => {
-    if (!data || !renderItem)
+    if (!data || !renderItem || data.length === 0)
       return <div className="p-4 text-center">No items to display</div>;
     return data.map((item) => (
-      <div key={keyExtractor ? keyExtractor(item) : Math.random()}>
+      <div
+        key={keyExtractor ? keyExtractor(item) : Math.random()}
+        onClick={handleBackgroundClick}
+      >
         {renderItem(item)}
       </div>
     ));

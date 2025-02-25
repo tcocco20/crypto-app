@@ -33,6 +33,8 @@ const SearchButton = () => {
       timer = setTimeout(() => {
         getSearch();
       }, 1000);
+    } else {
+      setSearchResults([]);
     }
 
     return () => {
@@ -40,9 +42,18 @@ const SearchButton = () => {
     };
   }, [searchQuery]);
 
+  const handleLinkClick = () => {
+    setDropdownOpen(false);
+    setSearchQuery("");
+  };
+
   const renderSearchResult = (item: SearchResult) => {
     return (
-      <Link className="text-sm" href={`/coin/${item.id}`}>
+      <Link
+        className="text-sm"
+        href={`/coin/${item.id}`}
+        onClick={handleLinkClick}
+      >
         {item.name}
       </Link>
     );
@@ -52,8 +63,8 @@ const SearchButton = () => {
 
   return (
     <Dropdown
-      menuClassName="text-indigo-900 bg-indigo-600/15 dark:text-white dark:bg-violet-950 w-full border border-indigo-600/5 dark:border-gray-700/80 rounded-b"
-      parentClassName="h-full z-10"
+      menuClassName="text-indigo-900 bg-indigo-600/15 dark:text-white dark:bg-violet-950 w-full border border-indigo-600/5 dark:border-gray-700/80 rounded-b p-2 overflow-y-scroll max-h-[18rem]"
+      parentClassName="h-full z-40"
       containerClassName="h-full"
       onBackgroundClick={() => setDropdownOpen(false)}
       data={searchResults}
