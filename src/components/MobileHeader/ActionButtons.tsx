@@ -2,7 +2,10 @@
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { ChevronDown, Moon, Search, SunDim } from "lucide-react";
 import HeaderButton from "@/components/UI/HeaderButton";
-import { toggleDarkMode } from "@/lib/features/preferences/preferencesSlice";
+import {
+  toggleDarkMode,
+  toggleSearchDrawer,
+} from "@/lib/features/preferences/preferencesSlice";
 
 const ActionButtons = () => {
   const selectedCurrency = useAppSelector(
@@ -14,9 +17,13 @@ const ActionButtons = () => {
   const handleToggleDarkMode = () => {
     dispatch(toggleDarkMode());
   };
+
+  const handleOpenDrawer = () => {
+    dispatch(toggleSearchDrawer());
+  };
   return (
     <div className="flex gap-2">
-      <HeaderButton>
+      <HeaderButton onClick={handleOpenDrawer}>
         <Search size={18} />
       </HeaderButton>
       <HeaderButton>

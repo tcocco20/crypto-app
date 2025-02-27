@@ -10,9 +10,10 @@ interface DropdownProps<T> {
   data?: T[];
   renderItem?: (item: T) => ReactNode;
   keyExtractor?: (item: T) => string;
+  onBackgroundClick?: () => void;
 }
 
-function Dropdown<C>({
+function Dropdown<T>({
   containerClassName,
   children,
   menuClassName,
@@ -20,11 +21,15 @@ function Dropdown<C>({
   data,
   renderItem,
   keyExtractor,
-}: DropdownProps<C>) {
+  onBackgroundClick,
+}: DropdownProps<T>) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleBackgroundClick = () => {
     setIsOpen(false);
+    if (onBackgroundClick) {
+      onBackgroundClick();
+    }
   };
 
   const handleInputClick = () => {
@@ -34,9 +39,13 @@ function Dropdown<C>({
   };
 
   const renderDropdownItems = () => {
-    if (!data || !renderItem) return null;
+    if (!data || !renderItem || data.length === 0)
+      return <div className="p-4 text-center">No items to display</div>;
     return data.map((item) => (
-      <div key={keyExtractor ? keyExtractor(item) : Math.random()}>
+      <div
+        key={keyExtractor ? keyExtractor(item) : Math.random()}
+        onClick={handleBackgroundClick}
+      >
         {renderItem(item)}
       </div>
     ));
@@ -47,7 +56,7 @@ function Dropdown<C>({
       {isOpen && (
         <Portal>
           <div
-            className="absolute top-0 left-0 right-0 bottom-0 z-40"
+            className="absolute top-0 left-0 right-0 bottom-0 z-30"
             onClick={handleBackgroundClick}
           ></div>
         </Portal>

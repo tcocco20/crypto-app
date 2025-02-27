@@ -1,8 +1,9 @@
 "use client";
-import { ChevronDown, Moon, Search, SunMedium } from "lucide-react";
+import { ChevronDown, Moon, SunMedium } from "lucide-react";
 import HeaderButton from "../UI/HeaderButton";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { toggleDarkMode } from "@/lib/features/preferences/preferencesSlice";
+import SearchButton from "./SearchButton";
 
 const NavActions = () => {
   const selectedCurrency = useAppSelector(
@@ -17,14 +18,7 @@ const NavActions = () => {
 
   return (
     <div className="flex gap-2 lg:gap-3 xl:gap-4 items-stretch text-indigo-900 dark:text-white">
-      <HeaderButton className="lg:px-4 w-[14.2rem] lg:w-72 xl:w-96 pointer-events-none active:opacity-100">
-        <Search size={18} strokeWidth={2.5} />
-        <input
-          type="text"
-          placeholder="Search..."
-          className="bg-transparent outline-none flex-1 pointer-events-auto"
-        />
-      </HeaderButton>
+      <SearchButton />
       <HeaderButton>
         {selectedCurrency}
         <ChevronDown strokeWidth={3} size={13} />
