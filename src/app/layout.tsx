@@ -5,6 +5,7 @@ import MobileNavbar from "@/components/MobileNavbar";
 import Providers from "@/app/Providers";
 import { ToastContainer } from "react-toastify";
 import Header from "@/components/UI/Header";
+import SearchDrawer from "@/components/MobileHeader/SearchDrawer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,6 +32,7 @@ export default function RootLayout({
           <MobileNavbar />
           <div id="portal-root"></div>
           <ToastContainer />
+          <SearchDrawer />
         </Providers>
       </body>
     </html>
