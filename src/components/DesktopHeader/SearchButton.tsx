@@ -74,7 +74,7 @@ const SearchButton = () => {
         value={searchQuery}
         onClick={handleSearchClick}
         onChange={(e) => setSearchQuery(e.target.value)}
-        containerClasses={`w-[14.2rem] lg:w-72 xl:w-96 ${
+        containerClasses={`w-[14.2rem] lg:w-72 xl:w-96 h-full ${
           dropdownOpen ? "md:rounded-b-none" : ""
         }`}
         ref={searchInputRef}

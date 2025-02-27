@@ -13,7 +13,7 @@ const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>(
   ({ onClick, value, onChange, containerClasses }, ref) => {
     return (
       <HeaderButton
-        className={`lg:px-4 pointer-events-none active:opacity-100 h-full ${
+        className={`lg:px-4 pointer-events-none active:opacity-100 ${
           containerClasses || ""
         }`}
         onClick={onClick}
