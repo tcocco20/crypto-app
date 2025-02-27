@@ -2,11 +2,10 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Dropdown from "../UI/Dropdown";
-import HeaderButton from "../UI/HeaderButton";
-import { Search } from "lucide-react";
 import actions from "@/actions";
 import { type SearchResult } from "@/lib/types/SearchResult";
 import Link from "next/link";
+import SearchBar from "../UI/SearchBar";
 
 const SearchButton = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -71,22 +70,15 @@ const SearchButton = () => {
       renderItem={renderSearchResult}
       keyExtractor={extractKey}
     >
-      <HeaderButton
-        className={`lg:px-4 w-[14.2rem] lg:w-72 xl:w-96 pointer-events-none active:opacity-100 h-full ${
+      <SearchBar
+        value={searchQuery}
+        onClick={handleSearchClick}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        containerClasses={`w-[14.2rem] lg:w-72 xl:w-96 ${
           dropdownOpen ? "md:rounded-b-none" : ""
         }`}
-        onClick={handleSearchClick}
-      >
-        <Search size={18} strokeWidth={2.5} onClick={handleSearchClick} />
-        <input
-          type="text"
-          placeholder="Search..."
-          className="bg-transparent outline-none flex-1 pointer-events-auto"
-          ref={searchInputRef}
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-      </HeaderButton>
+        ref={searchInputRef}
+      />
     </Dropdown>
   );
 };

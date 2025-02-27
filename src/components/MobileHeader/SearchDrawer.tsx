@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import Drawer from "react-modern-drawer";
 
 import "react-modern-drawer/dist/index.css";
+import SearchBar from "../UI/SearchBar";
 
 const SearchDrawer = () => {
   const searchDrawerOpen = useAppSelector(
@@ -17,14 +18,16 @@ const SearchDrawer = () => {
   };
 
   return (
-    <Drawer open={searchDrawerOpen} onClose={toggleDrawer} direction="bottom">
-      <div className="bg-gray-950 dark:bg-gray-200/45 text-white dark:text-black p-4 h-full">
+    <Drawer
+      open={searchDrawerOpen}
+      onClose={toggleDrawer}
+      direction="bottom"
+      size={"90vh"}
+      className="rounded-t-2xl"
+    >
+      <div className="dark:bg-gray-950 bg-gray-200/45 dark:text-white text-black p-4 rounded-t-xl">
         <h1 className="text-2xl font-bold">Search</h1>
-        <input
-          type="text"
-          placeholder="Search..."
-          className="w-full bg-gray-800 dark:bg-gray-200/60 text-white dark:text-black p-2 mt-4"
-        />
+        <SearchBar value="test" onChange={() => null} onClick={() => ""} containerClasses="w-full" />
       </div>
     </Drawer>
   );
