@@ -1,9 +1,9 @@
 import { ListCoin } from "@/lib/types/ListCoin";
 
-export const getCoinOverview = (coin: ListCoin) => {
+export const getCoinOverview = (coin: ListCoin, selectedCurrency: string) => {
   const showIcon = !coin.image.includes("missing");
   const displayPrice = coin.current_price
-    ? "$" + coin.current_price.toLocaleString()
+    ? coin.current_price.toLocaleString() + " " + selectedCurrency
     : "N/A";
   const oneHrChange =
     Math.abs(coin.price_change_percentage_1h_in_currency).toFixed(2) + "%";

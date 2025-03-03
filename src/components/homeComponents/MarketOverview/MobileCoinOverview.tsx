@@ -1,16 +1,22 @@
+"use client";
+
 import { type ListCoin } from "@/lib/types/ListCoin";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import CoinOverviewChart from "./CoinOverviewChart";
+import { useAppSelector } from "@/lib/hooks";
 
 interface MobileCoinOverviewProps {
   coin: ListCoin;
 }
 
 const MobileCoinOverview = ({ coin }: MobileCoinOverviewProps) => {
+  const selectedCurrency = useAppSelector(
+    (state) => state.preferences.selectedCurrency
+  );
   const displayPrice = coin.current_price
-    ? "$" + coin.current_price
+    ? coin.current_price + " " + selectedCurrency.toUpperCase()
     : "No price data";
 
   const displayPriceChange = coin.price_change_percentage_7d_in_currency

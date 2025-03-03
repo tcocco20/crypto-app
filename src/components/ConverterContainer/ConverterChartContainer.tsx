@@ -6,6 +6,7 @@ import actions from "@/actions";
 import { useEffect, useState } from "react";
 import { CoinHistoricalData } from "@/lib/types/CoinHistoricalData";
 import ConverterChart from "./ConverterChart";
+import { useAppSelector } from "@/lib/hooks";
 
 interface ConverterChartProps {
   fromCurrency: ListCoin;
@@ -30,11 +31,14 @@ const ConverterChartContainer = ({
     "Nov",
     "Dec",
   ];
-
   const [fromCurrencyHistoricalData, setFromCurrencyHistoricalData] =
     useState<CoinHistoricalData>();
   const [toCurrencyHistoricalData, setToCurrencyHistoricalData] =
     useState<CoinHistoricalData>();
+
+  const selectedCurrency = useAppSelector(
+    (state) => state.preferences.selectedCurrency
+  );
 
   const monthOrder = fromCurrencyHistoricalData
     ? generateMonths(new Date(fromCurrencyHistoricalData[0].date))
@@ -43,25 +47,29 @@ const ConverterChartContainer = ({
   useEffect(() => {
     const fetchData = async () => {
       const fromCurrencyHistoricalData =
-        await actions.getCoinHistoricalPriceData(fromCurrency.id, "usd", 365);
+        await actions.getCoinHistoricalPriceData(
+          fromCurrency.id,
+          selectedCurrency,
+          365
+        );
       setFromCurrencyHistoricalData(fromCurrencyHistoricalData);
     };
 
     fetchData();
-  }, [fromCurrency]);
+  }, [fromCurrency, selectedCurrency]);
 
   useEffect(() => {
     const fetchData = async () => {
       const toCurrencyHistoricalData = await actions.getCoinHistoricalPriceData(
         toCurrency.id,
-        "usd",
+        selectedCurrency,
         365
       );
       setToCurrencyHistoricalData(toCurrencyHistoricalData);
     };
 
     fetchData();
-  }, [toCurrency]);
+  }, [toCurrency, selectedCurrency]);
 
   return (
     <Card className="p-4 lg:p-6 xl:p-8 dark:text-white font-light md:rounded-lg lg:rounded-xl xl:rounded-2xl">
