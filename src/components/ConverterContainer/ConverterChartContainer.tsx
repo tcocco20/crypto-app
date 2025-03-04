@@ -9,8 +9,8 @@ import ConverterChart from "./ConverterChart";
 import { useAppSelector } from "@/lib/hooks";
 
 interface ConverterChartProps {
-  fromCurrency: ListCoin;
-  toCurrency: ListCoin;
+  fromCurrency: { coin: ListCoin; index: number };
+  toCurrency: { coin: ListCoin; index: number };
 }
 
 const ConverterChartContainer = ({
@@ -48,7 +48,7 @@ const ConverterChartContainer = ({
     const fetchData = async () => {
       const fromCurrencyHistoricalData =
         await actions.getCoinHistoricalPriceData(
-          fromCurrency.id,
+          fromCurrency.coin.id,
           selectedCurrency,
           365
         );
@@ -61,7 +61,7 @@ const ConverterChartContainer = ({
   useEffect(() => {
     const fetchData = async () => {
       const toCurrencyHistoricalData = await actions.getCoinHistoricalPriceData(
-        toCurrency.id,
+        toCurrency.coin.id,
         selectedCurrency,
         365
       );
@@ -74,14 +74,14 @@ const ConverterChartContainer = ({
   return (
     <Card className="p-4 lg:p-6 xl:p-8 dark:text-white font-light md:rounded-lg lg:rounded-xl xl:rounded-2xl">
       <p className="md:text-lg lg:text-xl">
-        {fromCurrency.name} ({fromCurrency.symbol.toUpperCase()}) to{" "}
-        {toCurrency.name} ({toCurrency.symbol.toUpperCase()})
+        {fromCurrency.coin.name} ({fromCurrency.coin.symbol.toUpperCase()}) to{" "}
+        {toCurrency.coin.name} ({toCurrency.coin.symbol.toUpperCase()})
       </p>
       <ConverterChart
         title={
-          fromCurrency.symbol.toUpperCase() +
+          fromCurrency.coin.symbol.toUpperCase() +
           " to " +
-          toCurrency.symbol.toUpperCase()
+          toCurrency.coin.symbol.toUpperCase()
         }
         fromCurrencyData={fromCurrencyHistoricalData}
         toCurrencyData={toCurrencyHistoricalData}

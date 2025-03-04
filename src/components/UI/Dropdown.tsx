@@ -8,7 +8,7 @@ interface DropdownProps<T> {
   parentClassName?: string;
   children: ReactNode;
   data?: T[];
-  renderItem?: (item: T) => ReactNode;
+  renderItem?: (item: T, index?: number, arr?: T[]) => ReactNode;
   keyExtractor?: (item: T) => string;
   onBackgroundClick?: () => void;
 }
@@ -41,14 +41,19 @@ function Dropdown<T>({
   const renderDropdownItems = () => {
     if (!data || !renderItem || data.length === 0)
       return <div className="p-4 text-center">No items to display</div>;
-    return data.map((item) => (
-      <div
-        key={keyExtractor ? keyExtractor(item) : Math.random()}
-        onClick={handleBackgroundClick}
-      >
-        {renderItem(item)}
-      </div>
-    ));
+
+    return data.map((item, index, arr) => {
+      const safeRenderItem: (item: T, index?: number, arr?: T[]) => ReactNode =
+        renderItem;
+      return (
+        <div
+          key={keyExtractor ? keyExtractor(item) : Math.random()}
+          onClick={handleBackgroundClick}
+        >
+          {safeRenderItem(item, index, arr)}
+        </div>
+      );
+    });
   };
 
   return (

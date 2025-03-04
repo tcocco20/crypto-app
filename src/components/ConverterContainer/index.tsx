@@ -8,9 +8,33 @@ import { useAppSelector } from "@/lib/hooks";
 
 const ConverterContainer = () => {
   const coins = useAppSelector((state) => state.coinList.coins);
-  const [fromCurrency, setFromCurrency] = useState<ListCoin | undefined>();
+  const [fromCurrencyIndex, setFromCurrencyIndex] = useState<
+    number | undefined
+  >();
   const [fromQuantity, setFromQuantity] = useState<number | undefined>();
-  const [toCurrency, setToCurrency] = useState<ListCoin | undefined>();
+  const [toCurrencyIndex, setToCurrencyIndex] = useState<number | undefined>();
+
+  let fromCurrency: { coin: ListCoin; index: number } | undefined;
+  let toCurrency: { coin: ListCoin; index: number } | undefined;
+
+  if (fromCurrencyIndex !== undefined) {
+    fromCurrency = { coin: coins[fromCurrencyIndex], index: fromCurrencyIndex };
+  }
+  if (toCurrencyIndex !== undefined) {
+    toCurrency = { coin: coins[toCurrencyIndex], index: toCurrencyIndex };
+  }
+
+  // useEffect(() => {
+  //   if (fromCurrencyIndex && toCurrencyIndex) {
+  //     if (
+  //       fromCurrencyIndex + 1 > coins.length ||
+  //       toCurrencyIndex + 1 > coins.length
+  //     ) {
+  //       setFromCurrencyIndex(undefined);
+  //       setToCurrencyIndex(undefined);
+  //     }
+  //   }
+  // }, [fromCurrencyIndex, toCurrencyIndex, coins]);
 
   return (
     <section className="w-full flex flex-col gap-5 md:gap-8 lg:gap-12 xl:gap-16">
@@ -18,10 +42,9 @@ const ConverterContainer = () => {
         toCurrency={toCurrency}
         fromCurrency={fromCurrency}
         fromQuantity={fromQuantity}
-        coins={coins}
-        setFromCurrency={setFromCurrency}
+        setFromCurrency={setFromCurrencyIndex}
         setFromQuantity={setFromQuantity}
-        setToCurrency={setToCurrency}
+        setToCurrency={setToCurrencyIndex}
       />
       {fromCurrency && toCurrency && (
         <ConverterChartContainer
