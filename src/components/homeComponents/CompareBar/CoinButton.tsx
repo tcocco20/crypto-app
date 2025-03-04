@@ -6,6 +6,7 @@ import Image from "next/image";
 import { type ListCoin } from "@/lib/types/ListCoin";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import PercentageWithIcon from "@/components/UI/PercentageWithIcon";
+import { useAppSelector } from "@/lib/hooks";
 
 interface CoinButtonProps {
   selected?: boolean;
@@ -20,6 +21,10 @@ const CoinButton = ({ selected = false, coin, onClick }: CoinButtonProps) => {
   const displayPercentage =
     Math.abs(coin.price_change_percentage_24h_in_currency).toFixed(2) + "%";
   const displayPrice = coin.current_price.toLocaleString();
+  const selectedCurrency = useAppSelector(
+    (state) => state.preferences.selectedCurrency
+  );
+
   return (
     <SelectableWrapper selected={selected} widthClasses="w-fit">
       <button
@@ -40,7 +45,9 @@ const CoinButton = ({ selected = false, coin, onClick }: CoinButtonProps) => {
             {coin.name} ({displaySymbol})
           </p>
           <div className="hidden md:flex items-center gap-4">
-            <p className="font-light">{displayPrice} USD</p>
+            <p className="font-light">
+              {displayPrice} {selectedCurrency.toUpperCase()}
+            </p>
             <PercentageWithIcon
               percentage={displayPercentage}
               percentageUp={coin.price_change_percentage_24h_in_currency > 0}

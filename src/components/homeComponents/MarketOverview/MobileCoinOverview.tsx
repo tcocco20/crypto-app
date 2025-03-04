@@ -1,16 +1,22 @@
+"use client";
+
 import { type ListCoin } from "@/lib/types/ListCoin";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import CoinOverviewChart from "./CoinOverviewChart";
+import { useAppSelector } from "@/lib/hooks";
 
 interface MobileCoinOverviewProps {
   coin: ListCoin;
 }
 
 const MobileCoinOverview = ({ coin }: MobileCoinOverviewProps) => {
+  const selectedCurrency = useAppSelector(
+    (state) => state.preferences.selectedCurrency
+  );
   const displayPrice = coin.current_price
-    ? "$" + coin.current_price
+    ? coin.current_price + " " + selectedCurrency.toUpperCase()
     : "No price data";
 
   const displayPriceChange = coin.price_change_percentage_7d_in_currency
@@ -22,7 +28,7 @@ const MobileCoinOverview = ({ coin }: MobileCoinOverviewProps) => {
   return (
     <Link
       href={`/coin/${coin.id}`}
-      className="flex gap-4 items-center bg-white dark:bg-violet-950 rounded-md p-3 text-black dark:text-white"
+      className="flex gap-3 items-center bg-white dark:bg-violet-950 rounded-md p-3 text-black dark:text-white"
     >
       {showCoin && (
         <Image
@@ -42,7 +48,7 @@ const MobileCoinOverview = ({ coin }: MobileCoinOverviewProps) => {
         <CoinOverviewChart coin={coin} />
       )}
       <div className="text-right flex-1">
-        <p className="font-medium">{displayPrice}</p>
+        <p className="font-medium text-sm">{displayPrice}</p>
         <p
           className={`text-xs ${
             coin.price_change_percentage_7d_in_currency > 0

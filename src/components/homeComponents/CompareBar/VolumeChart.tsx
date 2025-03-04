@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Bar } from "react-chartjs-2";
 import {
@@ -11,6 +13,7 @@ import {
 } from "chart.js/auto";
 import { useCompareBarContext } from "@/context/CompareBarContext/useCompareBarContext";
 import Card from "@/components/UI/Card";
+import { useAppSelector } from "@/lib/hooks";
 
 ChartJS.register(
   LinearScale,
@@ -24,6 +27,10 @@ ChartJS.register(
 const VolumeChart = () => {
   const { firstCoinData, secondCoinData, secondCoin, firstCoin } =
     useCompareBarContext();
+
+  const selectedCurrency = useAppSelector(
+    (state) => state.preferences.selectedCurrency
+  );
 
   const labels = firstCoinData.map((data) => data.date);
   const volumes = firstCoinData.map((data) => data.volume);
@@ -59,7 +66,9 @@ const VolumeChart = () => {
     ) : (
       <>
         <p className="text-sm text-gray-700 dark:text-gray-300">Volume 24h</p>
-        <p className="font-medium text-lg">${volumes[volumes.length - 1]}</p>
+        <p className="font-medium text-lg">
+          {volumes[volumes.length - 1]} {selectedCurrency.toUpperCase()}
+        </p>
         <p className="text-xs text-gray-800 dark:text-gray-400">
           {latestVolume}
         </p>

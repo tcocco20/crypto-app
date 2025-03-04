@@ -6,10 +6,11 @@ import actions from "@/actions";
 import { useEffect, useState } from "react";
 import { CoinHistoricalData } from "@/lib/types/CoinHistoricalData";
 import ConverterChart from "./ConverterChart";
+import { useAppSelector } from "@/lib/hooks";
 
 interface ConverterChartProps {
-  fromCurrency: ListCoin;
-  toCurrency: ListCoin;
+  fromCurrency: { coin: ListCoin; index: number } | undefined;
+  toCurrency: { coin: ListCoin; index: number } | undefined;
 }
 
 const ConverterChartContainer = ({
@@ -30,11 +31,14 @@ const ConverterChartContainer = ({
     "Nov",
     "Dec",
   ];
-
   const [fromCurrencyHistoricalData, setFromCurrencyHistoricalData] =
     useState<CoinHistoricalData>();
   const [toCurrencyHistoricalData, setToCurrencyHistoricalData] =
     useState<CoinHistoricalData>();
+
+  const selectedCurrency = useAppSelector(
+    (state) => state.preferences.selectedCurrency
+  );
 
   const monthOrder = fromCurrencyHistoricalData
     ? generateMonths(new Date(fromCurrencyHistoricalData[0].date))
@@ -43,37 +47,49 @@ const ConverterChartContainer = ({
   useEffect(() => {
     const fetchData = async () => {
       const fromCurrencyHistoricalData =
-        await actions.getCoinHistoricalPriceData(fromCurrency.id, "usd", 365);
+        await actions.getCoinHistoricalPriceData(
+          fromCurrency!.coin.id,
+          selectedCurrency,
+          365
+        );
       setFromCurrencyHistoricalData(fromCurrencyHistoricalData);
     };
 
-    fetchData();
-  }, [fromCurrency]);
+    if (fromCurrency) fetchData();
+  }, [fromCurrency, selectedCurrency]);
 
   useEffect(() => {
     const fetchData = async () => {
       const toCurrencyHistoricalData = await actions.getCoinHistoricalPriceData(
-        toCurrency.id,
-        "usd",
+        toCurrency!.coin.id,
+        selectedCurrency,
         365
       );
       setToCurrencyHistoricalData(toCurrencyHistoricalData);
     };
 
-    fetchData();
-  }, [toCurrency]);
+    if (toCurrency) fetchData();
+  }, [toCurrency, selectedCurrency]);
+
+  if (
+    fromCurrency === undefined ||
+    fromCurrency.coin === undefined ||
+    toCurrency === undefined ||
+    toCurrency.coin === undefined
+  )
+    return null;
 
   return (
     <Card className="p-4 lg:p-6 xl:p-8 dark:text-white font-light md:rounded-lg lg:rounded-xl xl:rounded-2xl">
       <p className="md:text-lg lg:text-xl">
-        {fromCurrency.name} ({fromCurrency.symbol.toUpperCase()}) to{" "}
-        {toCurrency.name} ({toCurrency.symbol.toUpperCase()})
+        {fromCurrency.coin.name} ({fromCurrency.coin.symbol.toUpperCase()}) to{" "}
+        {toCurrency.coin.name} ({toCurrency.coin.symbol.toUpperCase()})
       </p>
       <ConverterChart
         title={
-          fromCurrency.symbol.toUpperCase() +
+          fromCurrency.coin.symbol.toUpperCase() +
           " to " +
-          toCurrency.symbol.toUpperCase()
+          toCurrency.coin.symbol.toUpperCase()
         }
         fromCurrencyData={fromCurrencyHistoricalData}
         toCurrencyData={toCurrencyHistoricalData}

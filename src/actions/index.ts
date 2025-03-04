@@ -4,6 +4,7 @@ import { testConnection } from "./testConnection";
 import { getCoinHistoricalPriceData } from "./getCoinHistoricalPriceData";
 import { getGlobalMarketData } from "./getGlobalMarketData";
 import { getSearchResults } from "./getSearchResults";
+import { getCurrenciesList } from "./getCurrenciesList";
 
 const actions = {
   testConnection,
@@ -12,6 +13,7 @@ const actions = {
   getCoinHistoricalPriceData,
   getGlobalMarketData,
   getSearchResults,
+  getCurrenciesList,
 };
 
 export default actions;

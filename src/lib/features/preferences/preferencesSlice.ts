@@ -4,12 +4,14 @@ export interface PreferencesState {
   selectedCurrency: string;
   darkMode: boolean;
   searchDrawerOpen: boolean;
+  supportedCurrencies: string[];
 }
 
 const initialState: PreferencesState = {
   selectedCurrency: "USD",
   darkMode: true,
   searchDrawerOpen: false,
+  supportedCurrencies: [],
 };
 
 export const preferencesSlice = createSlice({
@@ -26,10 +28,17 @@ export const preferencesSlice = createSlice({
     toggleSearchDrawer: (state) => {
       state.searchDrawerOpen = !state.searchDrawerOpen;
     },
+    setSupportedCurrencies(state, action: PayloadAction<string[]>) {
+      state.supportedCurrencies = action.payload;
+    },
   },
 });
 
-export const { toggleDarkMode, setSelectedCurrency, toggleSearchDrawer } =
-  preferencesSlice.actions;
+export const {
+  toggleDarkMode,
+  setSelectedCurrency,
+  toggleSearchDrawer,
+  setSupportedCurrencies,
+} = preferencesSlice.actions;
 
 export default preferencesSlice.reducer;

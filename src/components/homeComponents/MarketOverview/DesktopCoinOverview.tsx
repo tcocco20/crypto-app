@@ -9,12 +9,16 @@ import Link from "next/link";
 import React from "react";
 import CoinOverviewChart from "./CoinOverviewChart";
 import { useScreenSize } from "@/hooks/useScreenSize";
+import { useAppSelector } from "@/lib/hooks";
 
 interface DesktopCoinOverviewProps {
   coin: ListCoin;
 }
 
 const DesktopCoinOverview = ({ coin }: DesktopCoinOverviewProps) => {
+  const selectedCurrency = useAppSelector(
+    (state) => state.preferences.selectedCurrency
+  );
   const {
     showIcon,
     coinDisplayName,
@@ -31,7 +35,7 @@ const DesktopCoinOverview = ({ coin }: DesktopCoinOverviewProps) => {
     totalSupply,
     circulatingSupply,
     circulationOverTotal,
-  } = utils.getCoinOverview(coin);
+  } = utils.getCoinOverview(coin, selectedCurrency.toUpperCase());
 
   const barColor = oneWeekUp ? "#00e1d5" : "#ec4899";
   const barBackground = oneWeekUp ? "bg-cyan-500/70" : "bg-pink-500/70";
@@ -64,7 +68,7 @@ const DesktopCoinOverview = ({ coin }: DesktopCoinOverviewProps) => {
         <p className="md:text-sm lg:text-base xl:text-lg">{coinDisplayName}</p>
       </div>
 
-      <p className="md:text-sm lg:text-base xl:text-lg">{displayPrice}</p>
+      <p className="md:text-xs lg:text-sm xl:text-base">{displayPrice}</p>
       <PercentageWithIcon percentage={oneHrChange} percentageUp={oneHrUp} />
       <PercentageWithIcon percentage={oneDayChange} percentageUp={oneDayUp} />
       <PercentageWithIcon percentage={oneWeekChange} percentageUp={oneWeekUp} />

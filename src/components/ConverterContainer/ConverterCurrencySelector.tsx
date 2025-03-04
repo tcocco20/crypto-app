@@ -1,24 +1,29 @@
+"use client";
+
 import ConverterDropdown from "./ConverterDropdown";
 import { type ChangeEvent } from "react";
 import { type ListCoin } from "@/lib/types/ListCoin";
+import { useAppSelector } from "@/lib/hooks";
 
 interface ConverterCurrencySelectorProps {
   isFromCurrency?: boolean;
-  coins: ListCoin[];
   selectedCurrency?: ListCoin;
   quantity?: number | string;
-  onSelectCurrency: (coin: ListCoin) => void;
+  onSelectCurrency: (index: number) => void;
   setQuantity?: (quantity: number) => void;
 }
 
 const ConverterCurrencySelector = ({
   isFromCurrency = false,
-  coins,
   onSelectCurrency,
   selectedCurrency,
   quantity,
   setQuantity,
 }: ConverterCurrencySelectorProps) => {
+  const userCurrency = useAppSelector(
+    (state) => state.preferences.selectedCurrency
+  );
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setQuantity!(+e.target.value);
   };
@@ -35,7 +40,6 @@ const ConverterCurrencySelector = ({
       <div className="flex justify-between items-center border-b md:border-b-2 border-b-indigo-800 dark:border-b-white py-4 md:py-6">
         <ConverterDropdown
           onSelect={onSelectCurrency}
-          coins={coins}
           selectedCurrency={selectedCurrency}
         />
         {isFromCurrency ? (
@@ -43,7 +47,7 @@ const ConverterCurrencySelector = ({
             type="number"
             className="bg-transparent outline-none text-right w-2/5 lg:text-lg appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
             placeholder="Quantity"
-            value={quantity && quantity}
+            value={quantity}
             onChange={handleChange}
           />
         ) : (
@@ -57,7 +61,7 @@ const ConverterCurrencySelector = ({
           <span className="text-indigo-700 dark:text-gray-300">
             1 {selectedCurrency.symbol.toUpperCase()} ={" "}
           </span>
-          ${selectedCurrency.current_price}
+          {selectedCurrency.current_price} {userCurrency.toUpperCase()}
         </p>
       ) : (
         <p
