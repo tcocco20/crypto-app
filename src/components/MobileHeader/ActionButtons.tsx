@@ -20,7 +20,7 @@ const ActionButtons = () => {
     dispatch(toggleSearchDrawer());
   };
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 text-indigo-900 dark:text-white">
       <HeaderButton onClick={handleOpenDrawer}>
         <Search size={18} />
       </HeaderButton>
