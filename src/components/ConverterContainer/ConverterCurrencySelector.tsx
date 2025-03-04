@@ -47,7 +47,7 @@ const ConverterCurrencySelector = ({
             type="number"
             className="bg-transparent outline-none text-right w-2/5 lg:text-lg appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
             placeholder="Quantity"
-            value={quantity && quantity}
+            value={quantity}
             onChange={handleChange}
           />
         ) : (

@@ -9,8 +9,8 @@ import ConverterChart from "./ConverterChart";
 import { useAppSelector } from "@/lib/hooks";
 
 interface ConverterChartProps {
-  fromCurrency: { coin: ListCoin; index: number };
-  toCurrency: { coin: ListCoin; index: number };
+  fromCurrency: { coin: ListCoin; index: number } | undefined;
+  toCurrency: { coin: ListCoin; index: number } | undefined;
 }
 
 const ConverterChartContainer = ({
@@ -48,28 +48,36 @@ const ConverterChartContainer = ({
     const fetchData = async () => {
       const fromCurrencyHistoricalData =
         await actions.getCoinHistoricalPriceData(
-          fromCurrency.coin.id,
+          fromCurrency!.coin.id,
           selectedCurrency,
           365
         );
       setFromCurrencyHistoricalData(fromCurrencyHistoricalData);
     };
 
-    fetchData();
+    if (fromCurrency) fetchData();
   }, [fromCurrency, selectedCurrency]);
 
   useEffect(() => {
     const fetchData = async () => {
       const toCurrencyHistoricalData = await actions.getCoinHistoricalPriceData(
-        toCurrency.coin.id,
+        toCurrency!.coin.id,
         selectedCurrency,
         365
       );
       setToCurrencyHistoricalData(toCurrencyHistoricalData);
     };
 
-    fetchData();
+    if (toCurrency) fetchData();
   }, [toCurrency, selectedCurrency]);
+
+  if (
+    fromCurrency === undefined ||
+    fromCurrency.coin === undefined ||
+    toCurrency === undefined ||
+    toCurrency.coin === undefined
+  )
+    return null;
 
   return (
     <Card className="p-4 lg:p-6 xl:p-8 dark:text-white font-light md:rounded-lg lg:rounded-xl xl:rounded-2xl">

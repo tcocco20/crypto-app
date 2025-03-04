@@ -68,7 +68,7 @@ const DesktopCoinOverview = ({ coin }: DesktopCoinOverviewProps) => {
         <p className="md:text-sm lg:text-base xl:text-lg">{coinDisplayName}</p>
       </div>
 
-      <p className="md:text-sm lg:text-base xl:text-lg">{displayPrice}</p>
+      <p className="md:text-xs lg:text-sm xl:text-base">{displayPrice}</p>
       <PercentageWithIcon percentage={oneHrChange} percentageUp={oneHrUp} />
       <PercentageWithIcon percentage={oneDayChange} percentageUp={oneDayUp} />
       <PercentageWithIcon percentage={oneWeekChange} percentageUp={oneWeekUp} />

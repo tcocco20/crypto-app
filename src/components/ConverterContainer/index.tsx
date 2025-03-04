@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { type ListCoin } from "@/lib/types/ListCoin";
 import ConverterSelectorContainer from "./ConverterSelectorContainer";
 import ConverterChartContainer from "./ConverterChartContainer";
@@ -13,28 +13,41 @@ const ConverterContainer = () => {
   >();
   const [fromQuantity, setFromQuantity] = useState<number | undefined>();
   const [toCurrencyIndex, setToCurrencyIndex] = useState<number | undefined>();
+  const [fromCurrency, setFromCurrency] = useState<
+    { coin: ListCoin; index: number } | undefined
+  >();
+  const [toCurrency, setToCurrency] = useState<
+    { coin: ListCoin; index: number } | undefined
+  >();
 
-  let fromCurrency: { coin: ListCoin; index: number } | undefined;
-  let toCurrency: { coin: ListCoin; index: number } | undefined;
+  useEffect(() => {
+    if (fromCurrencyIndex === undefined || fromCurrencyIndex >= coins.length) {
+      setFromCurrencyIndex(undefined);
+      setFromCurrency(undefined);
+    } else {
+      setFromCurrency({
+      coin: coins[fromCurrencyIndex],
+      index: fromCurrencyIndex,
+      });
+    }
 
-  if (fromCurrencyIndex !== undefined) {
-    fromCurrency = { coin: coins[fromCurrencyIndex], index: fromCurrencyIndex };
-  }
-  if (toCurrencyIndex !== undefined) {
-    toCurrency = { coin: coins[toCurrencyIndex], index: toCurrencyIndex };
-  }
+    if (toCurrencyIndex === undefined || toCurrencyIndex >= coins.length) {
+      setToCurrencyIndex(undefined);
+      setToCurrency(undefined);
+    } else {
+      setToCurrency({
+      coin: coins[toCurrencyIndex],
+      index: toCurrencyIndex,
+      });
+    }
+  }, [fromCurrencyIndex, toCurrencyIndex, coins]);
 
-  // useEffect(() => {
-  //   if (fromCurrencyIndex && toCurrencyIndex) {
-  //     if (
-  //       fromCurrencyIndex + 1 > coins.length ||
-  //       toCurrencyIndex + 1 > coins.length
-  //     ) {
-  //       setFromCurrencyIndex(undefined);
-  //       setToCurrencyIndex(undefined);
-  //     }
-  //   }
-  // }, [fromCurrencyIndex, toCurrencyIndex, coins]);
+  const converterChart = fromCurrency && toCurrency && (
+    <ConverterChartContainer
+      fromCurrency={fromCurrency}
+      toCurrency={toCurrency}
+    />
+  );
 
   return (
     <section className="w-full flex flex-col gap-5 md:gap-8 lg:gap-12 xl:gap-16">
@@ -46,12 +59,7 @@ const ConverterContainer = () => {
         setFromQuantity={setFromQuantity}
         setToCurrency={setToCurrencyIndex}
       />
-      {fromCurrency && toCurrency && (
-        <ConverterChartContainer
-          fromCurrency={fromCurrency}
-          toCurrency={toCurrency}
-        />
-      )}
+      {converterChart}
     </section>
   );
 };
