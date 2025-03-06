@@ -7,18 +7,18 @@ import Image from "next/image";
 import utils from "@/utils";
 import { type ListCoin } from "@/lib/types/ListCoin";
 import { useScreenSize } from "@/hooks/useScreenSize";
+import { useAppSelector } from "@/lib/hooks";
 
 interface ConverterDropdownProps {
-  coins: ListCoin[];
-  onSelect: (coin: ListCoin) => void;
+  onSelect: (index: number) => void;
   selectedCurrency?: ListCoin;
 }
 
 const ConverterDropdown = ({
-  coins,
   onSelect,
   selectedCurrency,
 }: ConverterDropdownProps) => {
+  const coins = useAppSelector((state) => state.coinList.coins);
   const placeholder = "Select Currency to begin";
 
   const screenSize = useScreenSize();
@@ -27,8 +27,9 @@ const ConverterDropdown = ({
   const coinIconSize = screenSize === "mobile" ? 24 : 32;
   const quantitySize = screenSize === "mobile" ? 13 : 18;
 
-  const renderDropdownItem = (item: ListCoin) => {
-    return <button onClick={() => onSelect(item)}>{item.name}</button>;
+  const renderDropdownItem = (item: ListCoin, index?: number) => {
+    const coinIndex = index!;
+    return <button onClick={() => onSelect(coinIndex)}>{item.name}</button>;
   };
   return (
     <>

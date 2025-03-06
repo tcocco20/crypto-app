@@ -7,12 +7,11 @@ import utils from "@/utils";
 import { ListCoin } from "@/lib/types/ListCoin";
 
 interface ConverterSelectorProps {
-  fromCurrency: ListCoin | undefined;
-  toCurrency: ListCoin | undefined;
+  fromCurrency: { coin: ListCoin; index: number } | null;
+  toCurrency: { coin: ListCoin; index: number } | null;
   fromQuantity: number | undefined;
-  coins: ListCoin[];
-  setFromCurrency: (coin: ListCoin) => void;
-  setToCurrency: (coin: ListCoin) => void;
+  setFromCurrency: (index: number) => void;
+  setToCurrency: (index: number) => void;
   setFromQuantity: (quantity: number) => void;
 }
 
@@ -20,7 +19,6 @@ const ConverterSelectorContainer = ({
   fromCurrency,
   fromQuantity,
   toCurrency,
-  coins,
   setFromCurrency,
   setToCurrency,
   setFromQuantity,
@@ -32,8 +30,8 @@ const ConverterSelectorContainer = ({
       setHasError(true);
       return;
     }
-    const temp = fromCurrency;
-    setFromCurrency(toCurrency);
+    const temp = fromCurrency.index;
+    setFromCurrency(toCurrency.index);
     setToCurrency(temp);
   };
 
@@ -41,8 +39,8 @@ const ConverterSelectorContainer = ({
     if (!fromQuantity || !fromCurrency || !toCurrency) return;
     return utils.getDisplayNumber(
       utils.convertCurrencies(
-        fromCurrency.current_price,
-        toCurrency.current_price,
+        fromCurrency.coin.current_price,
+        toCurrency.coin.current_price,
         fromQuantity
       )
     );
@@ -59,16 +57,14 @@ const ConverterSelectorContainer = ({
       <div className="flex flex-col md:flex-row gap-5 md:gap-8 relative">
         <ConverterCurrencySelector
           onSelectCurrency={setFromCurrency}
-          selectedCurrency={fromCurrency}
+          selectedCurrency={fromCurrency?.coin}
           isFromCurrency
-          coins={coins}
           quantity={fromQuantity}
           setQuantity={setFromQuantity}
         />
         <ConverterCurrencySelector
           onSelectCurrency={setToCurrency}
-          selectedCurrency={toCurrency}
-          coins={coins}
+          selectedCurrency={toCurrency?.coin}
           quantity={convertCurrency()}
         />
         <button

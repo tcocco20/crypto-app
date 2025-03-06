@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Line } from "react-chartjs-2";
 import {
@@ -11,6 +13,7 @@ import {
 } from "chart.js/auto";
 import { useCompareBarContext } from "@/context/CompareBarContext/useCompareBarContext";
 import Card from "@/components/UI/Card";
+import { useAppSelector } from "@/lib/hooks";
 
 ChartJS.register(
   LinearScale,
@@ -24,6 +27,10 @@ ChartJS.register(
 const PriceChart = () => {
   const { firstCoinData, secondCoinData, firstCoin, secondCoin } =
     useCompareBarContext();
+
+  const selectedCurrency = useAppSelector(
+    (state) => state.preferences.selectedCurrency
+  );
 
   const labels = firstCoinData.map((data) => data.date);
   const prices = firstCoinData.map((data) => data.price);
@@ -73,7 +80,9 @@ const PriceChart = () => {
         <p className="text-sm text-gray-700 dark:text-gray-300">
           {firstCoin?.name} ({firstCoin?.symbol.toUpperCase()})
         </p>
-        <p className="font-medium text-lg">${firstCoin?.current_price}</p>
+        <p className="font-medium text-lg">
+          {firstCoin?.current_price} {selectedCurrency.toUpperCase()}
+        </p>
         <p className="text-xs text-gray-800 dark:text-gray-400">
           {latestPrice}
         </p>
