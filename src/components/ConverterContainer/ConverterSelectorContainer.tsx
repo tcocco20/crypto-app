@@ -7,8 +7,8 @@ import utils from "@/utils";
 import { ListCoin } from "@/lib/types/ListCoin";
 
 interface ConverterSelectorProps {
-  fromCurrency: { coin: ListCoin; index: number } | undefined;
-  toCurrency: { coin: ListCoin; index: number } | undefined;
+  fromCurrency: { coin: ListCoin; index: number } | null;
+  toCurrency: { coin: ListCoin; index: number } | null;
   fromQuantity: number | undefined;
   setFromCurrency: (index: number) => void;
   setToCurrency: (index: number) => void;

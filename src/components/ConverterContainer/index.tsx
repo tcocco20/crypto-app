@@ -8,36 +8,38 @@ import { useAppSelector } from "@/lib/hooks";
 
 const ConverterContainer = () => {
   const coins = useAppSelector((state) => state.coinList.coins);
-  const [fromCurrencyIndex, setFromCurrencyIndex] = useState<
-    number | undefined
-  >();
+  const [fromCurrencyIndex, setFromCurrencyIndex] = useState<number | null>(
+    null
+  );
   const [fromQuantity, setFromQuantity] = useState<number | undefined>();
-  const [toCurrencyIndex, setToCurrencyIndex] = useState<number | undefined>();
-  const [fromCurrency, setFromCurrency] = useState<
-    { coin: ListCoin; index: number } | undefined
-  >();
-  const [toCurrency, setToCurrency] = useState<
-    { coin: ListCoin; index: number } | undefined
-  >();
+  const [toCurrencyIndex, setToCurrencyIndex] = useState<number | null>(null);
+  const [fromCurrency, setFromCurrency] = useState<{
+    coin: ListCoin;
+    index: number;
+  } | null>(null);
+  const [toCurrency, setToCurrency] = useState<{
+    coin: ListCoin;
+    index: number;
+  } | null>(null);
 
   useEffect(() => {
-    if (fromCurrencyIndex === undefined || fromCurrencyIndex >= coins.length) {
-      setFromCurrencyIndex(undefined);
-      setFromCurrency(undefined);
+    if (fromCurrencyIndex === null || fromCurrencyIndex >= coins.length) {
+      setFromCurrencyIndex(null);
+      setFromCurrency(null);
     } else {
       setFromCurrency({
-      coin: coins[fromCurrencyIndex],
-      index: fromCurrencyIndex,
+        coin: coins[fromCurrencyIndex],
+        index: fromCurrencyIndex,
       });
     }
 
-    if (toCurrencyIndex === undefined || toCurrencyIndex >= coins.length) {
-      setToCurrencyIndex(undefined);
-      setToCurrency(undefined);
+    if (toCurrencyIndex === null || toCurrencyIndex >= coins.length) {
+      setToCurrencyIndex(null);
+      setToCurrency(null);
     } else {
       setToCurrency({
-      coin: coins[toCurrencyIndex],
-      index: toCurrencyIndex,
+        coin: coins[toCurrencyIndex],
+        index: toCurrencyIndex,
       });
     }
   }, [fromCurrencyIndex, toCurrencyIndex, coins]);
