@@ -3,9 +3,6 @@ import MarketCapMeter from "@/components/UI/MarketCapMeter";
 import PercentageWithIcon from "@/components/UI/PercentageWithIcon";
 
 const PortfolioCoinCard = () => {
-//   const barColorUp = "#00b6b0";
-//   const barColorDown = "#db2777";
-
   return (
     <Card className="p-[1px] rounded-md">
       <div className="p-4">
