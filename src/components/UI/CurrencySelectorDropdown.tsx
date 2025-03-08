@@ -35,7 +35,7 @@ const CurrencySelectorDropdown = ({
   return (
     <Dropdown
       containerClassName="h-full"
-      menuClassName="mt-1 bg-violet-100/90 shadow-md dark:shadow-0 dark:bg-indigo-950/90 text-sm md:text-base p-2 rounded-md overflow-y-auto max-h-60 z-50"
+      menuClassName="mt-1 bg-violet-100/90 shadow-md dark:shadow-0 dark:bg-indigo-950/90 text-sm md:text-base p-2 rounded-md overflow-y-auto max-h-60 z-50 w-8 md:w-12"
       data={currencies}
       renderItem={renderDropdownItem}
       keyExtractor={(item) => item}

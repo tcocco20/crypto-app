@@ -76,7 +76,7 @@ function Dropdown<T>({
           {children}
         </div>
         {isOpen && (
-          <div className={`absolute min-w-36 ${menuClassName}`}>
+          <div className={`absolute min-w-16 md:min-w-20 ${menuClassName}`}>
             {renderDropdownItems()}
           </div>
         )}
