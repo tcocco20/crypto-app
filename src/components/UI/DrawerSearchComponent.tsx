@@ -1,15 +1,16 @@
 "use client";
-import React, { type ReactNode, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import SearchBar from "../UI/SearchBar";
 import { SearchResult } from "@/lib/types/SearchResult";
 import actions from "@/actions";
+import Image from "next/image";
 
 interface DrawerSearchComponentProps {
-  renderSearchItem: (searchItems: SearchResult) => ReactNode;
+  handleSearchResultClick: (item?: SearchResult) => void;
 }
 
 const DrawerSearchComponent = ({
-  renderSearchItem,
+  handleSearchResultClick,
 }: DrawerSearchComponentProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
@@ -21,20 +22,36 @@ const DrawerSearchComponent = ({
     }
   };
 
-  const handleItemClick = () => {
-    setSearchQuery("");
-  };
-
   const generateSearchResults = () => {
     if (searchResults.length === 0) {
       return <p>No results to display</p>;
     }
 
-    return searchResults.map((result) => (
-      <div key={result.id} onClick={handleItemClick}>
-        {renderSearchItem(result)}
-      </div>
-    ));
+    return searchResults.map((result) => {
+      const renderImage = !result.image.includes("missing");
+      const handleItemClick = () => {
+        handleSearchResultClick(result);
+        setSearchQuery("");
+      };
+      return (
+        <button
+          key={result.id}
+          className="text-sm mb-2 flex items-center gap-2"
+          onClick={handleItemClick}
+        >
+          {renderImage && (
+            <Image
+              src={result.image}
+              alt={result.name}
+              width={24}
+              height={24}
+              className="rounded-full"
+            />
+          )}
+          {result.name}
+        </button>
+      );
+    });
   };
 
   useEffect(() => {
@@ -68,7 +85,7 @@ const DrawerSearchComponent = ({
           ref={searchRef}
         />
       </div>
-      <div className="flex-1 overflow-scroll p-4">
+      <div className="flex-1 overflow-scroll p-4 pb-20">
         {generateSearchResults()}
       </div>
     </div>

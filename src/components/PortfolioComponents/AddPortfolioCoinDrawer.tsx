@@ -1,7 +1,11 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Drawer from "react-modern-drawer";
 import DrawerSearchComponent from "../UI/DrawerSearchComponent";
-import { SearchResult } from "@/lib/types/SearchResult";
+
+import "react-modern-drawer/dist/index.css";
+import PortfolioCoinDetails from "./PortfolioCoinDetails";
 
 interface AddPortfolioCoinDrawerProps {
   isOpen: boolean;
@@ -12,9 +16,12 @@ const AddPortfolioCoinDrawer = ({
   isOpen,
   onClose,
 }: AddPortfolioCoinDrawerProps) => {
-  const renderSearchItem = (result: SearchResult) => (
-    <button className="text-sm block mb-2">{result.name}</button>
-  );
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const handleChangePage = () => {
+    setCurrentPage((prev) => prev + 1);
+  };
+
   return (
     <Drawer
       open={isOpen}
@@ -24,7 +31,10 @@ const AddPortfolioCoinDrawer = ({
       className="rounded-t-2xl"
       lockBackgroundScroll
     >
-      <DrawerSearchComponent renderSearchItem={renderSearchItem} />
+      {currentPage === 0 && (
+        <DrawerSearchComponent handleSearchResultClick={handleChangePage} />
+      )}
+      {currentPage === 1 && <PortfolioCoinDetails />}
     </Drawer>
   );
 };
