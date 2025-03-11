@@ -6,6 +6,7 @@ import DrawerSearchComponent from "../UI/DrawerSearchComponent";
 
 import "react-modern-drawer/dist/index.css";
 import PortfolioCoinDetails from "./PortfolioCoinDetails";
+import { type SearchResult } from "@/lib/types/SearchResult";
 
 interface AddPortfolioCoinDrawerProps {
   isOpen: boolean;
@@ -16,10 +17,18 @@ const AddPortfolioCoinDrawer = ({
   isOpen,
   onClose,
 }: AddPortfolioCoinDrawerProps) => {
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState<0 | 1>(0);
+  const [selectedCoin, setSelectedCoin] = useState<SearchResult | null>(null);
 
-  const handleChangePage = () => {
-    setCurrentPage((prev) => prev + 1);
+  const handleSelectCoin = (result?: SearchResult) => {
+    if (result) {
+      setSelectedCoin(result);
+    }
+    setCurrentPage(1);
+  };
+
+  const handleBack = () => {
+    setCurrentPage(0);
   };
 
   return (
@@ -32,9 +41,11 @@ const AddPortfolioCoinDrawer = ({
       lockBackgroundScroll
     >
       {currentPage === 0 && (
-        <DrawerSearchComponent handleSearchResultClick={handleChangePage} />
+        <DrawerSearchComponent handleSearchResultClick={handleSelectCoin} />
       )}
-      {currentPage === 1 && <PortfolioCoinDetails />}
+      {currentPage === 1 && (
+        <PortfolioCoinDetails selectedCoin={selectedCoin} onGoBack={handleBack} />
+      )}
     </Drawer>
   );
 };

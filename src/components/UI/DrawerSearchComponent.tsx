@@ -41,8 +41,8 @@ const DrawerSearchComponent = ({
         >
           {renderImage && (
             <Image
-              src={result.image}
-              alt={result.name}
+              src={result.thumbnail}
+              alt={"Logo for " + result.name}
               width={24}
               height={24}
               className="rounded-full"
@@ -76,7 +76,7 @@ const DrawerSearchComponent = ({
   return (
     <div className="text-violet-900 bg-indigo-600/15 dark:text-white dark:bg-indigo-950 rounded-t-xl flex flex-col gap-2 h-full">
       <div className="border-b border-gray-400 p-4">
-        <h1 className="text-lg mb-2">Search</h1>
+        <h1 className="text-lg mb-2 text-center">Search for Coin</h1>
         <SearchBar
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
