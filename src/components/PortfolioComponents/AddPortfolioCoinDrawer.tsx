@@ -31,6 +31,19 @@ const AddPortfolioCoinDrawer = ({
     setCurrentPage(0);
   };
 
+  const handleAddCoin = () => {
+    alert("Added " + selectedCoin?.name + " to portfolio");
+    onClose();
+    setSelectedCoin(null);
+    setCurrentPage(0);
+  };
+
+  const handleCancelAddCoin = () => {
+    onClose();
+    setSelectedCoin(null);
+    setCurrentPage(0);
+  };
+
   return (
     <Drawer
       open={isOpen}
@@ -51,6 +64,8 @@ const AddPortfolioCoinDrawer = ({
         <PortfolioCoinDetails
           selectedCoin={selectedCoin}
           onGoBack={handleBack}
+          onAddCoin={handleAddCoin}
+          onCancelAddCoin={handleCancelAddCoin}
         />
       )}
     </Drawer>
