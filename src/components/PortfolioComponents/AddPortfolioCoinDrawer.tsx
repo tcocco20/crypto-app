@@ -41,10 +41,17 @@ const AddPortfolioCoinDrawer = ({
       lockBackgroundScroll
     >
       {currentPage === 0 && (
-        <DrawerSearchComponent handleSearchResultClick={handleSelectCoin} />
+        <DrawerSearchComponent
+          handleSearchResultClick={handleSelectCoin}
+          title="Add Coin to Portfolio"
+          helperText="Search for a coin to add to your portfolio"
+        />
       )}
       {currentPage === 1 && (
-        <PortfolioCoinDetails selectedCoin={selectedCoin} onGoBack={handleBack} />
+        <PortfolioCoinDetails
+          selectedCoin={selectedCoin}
+          onGoBack={handleBack}
+        />
       )}
     </Drawer>
   );

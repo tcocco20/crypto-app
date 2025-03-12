@@ -7,10 +7,14 @@ import Image from "next/image";
 
 interface DrawerSearchComponentProps {
   handleSearchResultClick: (item?: SearchResult) => void;
+  title: string;
+  helperText: string;
 }
 
 const DrawerSearchComponent = ({
   handleSearchResultClick,
+  title,
+  helperText,
 }: DrawerSearchComponentProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
@@ -24,7 +28,7 @@ const DrawerSearchComponent = ({
 
   const generateSearchResults = () => {
     if (searchResults.length === 0) {
-      return <p>No results to display</p>;
+      return <p>{helperText}</p>;
     }
 
     return searchResults.map((result) => {
@@ -76,7 +80,7 @@ const DrawerSearchComponent = ({
   return (
     <div className="text-violet-900 bg-indigo-600/15 dark:text-white dark:bg-indigo-950 rounded-t-xl flex flex-col gap-2 h-full">
       <div className="border-b border-gray-400 p-4">
-        <h1 className="text-lg mb-2 text-center">Search for Coin</h1>
+        <h1 className="text-lg mb-2 text-center">{title}</h1>
         <SearchBar
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}

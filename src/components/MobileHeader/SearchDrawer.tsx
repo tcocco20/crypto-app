@@ -36,7 +36,11 @@ const SearchDrawer = () => {
       className="rounded-t-2xl"
       lockBackgroundScroll
     >
-      <DrawerSearchComponent handleSearchResultClick={handleSearchItemClick} />
+      <DrawerSearchComponent
+        handleSearchResultClick={handleSearchItemClick}
+        title="Search"
+        helperText="No results found, type in search bar to find coins"
+      />
     </Drawer>
   );
 };
