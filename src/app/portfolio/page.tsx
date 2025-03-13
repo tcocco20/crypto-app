@@ -1,4 +1,4 @@
-import AddPortfolioCoinModal from "@/components/PortfolioComponents/AddPortfolioCoinModal";
+import AddPortfolioCoinButton from "@/components/PortfolioComponents/AddPortfolioCoinButton";
 import MobileActionButton from "@/components/PortfolioComponents/MobileActionButton";
 import PortfolioCoinCard from "@/components/PortfolioComponents/PortfolioCoinCard";
 
@@ -9,7 +9,7 @@ const Portfolio = () => {
         <div className="block md:flex justify-between items-center mb-4 md:mb-6 lg:mb-8 xl:mb-10">
           <h1 className="text-2xl">Your Portfolio</h1>
           <div className="hidden md:block">
-            <AddPortfolioCoinModal />
+            <AddPortfolioCoinButton />
           </div>
         </div>
         <PortfolioCoinCard />
