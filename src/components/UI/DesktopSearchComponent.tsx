@@ -55,6 +55,7 @@ const DesktopSearchComponent = ({
     const renderImage = !result.image.includes("missing");
     const handleItemClick = () => {
       onItemSelect(result);
+      setSearchQuery(result.name);
       setDropdownOpen(false);
       if (clearOnSelect) setSearchQuery("");
     };
