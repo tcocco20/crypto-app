@@ -25,7 +25,7 @@ const FormControl = ({
       </label>
       <input
         className={
-          "w-full border bg-indigo-600/15 dark:bg-violet-950/50 rounded p-2 mb-2 dark:[&::-webkit-calendar-picker-indicator]:invert"
+          "w-full bg-indigo-600/15 dark:bg-violet-950/50 rounded p-2 mb-2 dark:[&::-webkit-calendar-picker-indicator]:invert"
         }
         {...props}
       />

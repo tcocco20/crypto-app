@@ -17,31 +17,27 @@ const AddPortfolioCoinDrawer = ({
   isOpen,
   onClose,
 }: AddPortfolioCoinDrawerProps) => {
-  const [currentPage, setCurrentPage] = useState<0 | 1>(0);
   const [selectedCoin, setSelectedCoin] = useState<SearchResult | null>(null);
 
   const handleSelectCoin = (result?: SearchResult) => {
     if (result) {
       setSelectedCoin(result);
     }
-    setCurrentPage(1);
   };
 
   const handleBack = () => {
-    setCurrentPage(0);
+    setSelectedCoin(null);
   };
 
   const handleAddCoin = () => {
     alert("Added " + selectedCoin?.name + " to portfolio");
     onClose();
     setSelectedCoin(null);
-    setCurrentPage(0);
   };
 
   const handleCancelAddCoin = () => {
     onClose();
     setSelectedCoin(null);
-    setCurrentPage(0);
   };
 
   return (
@@ -53,14 +49,14 @@ const AddPortfolioCoinDrawer = ({
       className="rounded-t-2xl"
       lockBackgroundScroll
     >
-      {currentPage === 0 && (
+      {!selectedCoin && (
         <DrawerSearchComponent
           handleSearchResultClick={handleSelectCoin}
           title="Add Coin to Portfolio"
           helperText="Search for a coin to add to your portfolio"
         />
       )}
-      {currentPage === 1 && (
+      {selectedCoin && (
         <PortfolioCoinDetails
           selectedCoin={selectedCoin}
           onGoBack={handleBack}
