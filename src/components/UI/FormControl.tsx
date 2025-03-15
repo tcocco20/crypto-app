@@ -17,14 +17,15 @@ const FormControl = ({
   ...props
 }: FormControlProps) => {
   return (
-    <div className={wrapperClassName || ""}>
+    <div
+      className={`${props.disabled && "opacity-70"} ${wrapperClassName || ""}`}
+    >
       <label className={labelClassName || ""} htmlFor={props.name || ""}>
         {label}
       </label>
       <input
         className={
-          "w-full dark:bg-violet-950/50 rounded p-2 mb-2 " + props.className ||
-          ""
+          "w-full border bg-indigo-600/15 dark:bg-violet-950/50 rounded p-2 mb-2 dark:[&::-webkit-calendar-picker-indicator]:invert"
         }
         {...props}
       />

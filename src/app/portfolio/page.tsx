@@ -5,7 +5,7 @@ import PortfolioCoinCard from "@/components/PortfolioComponents/PortfolioCoinCar
 const Portfolio = () => {
   return (
     <>
-      <section className="py-8 text-indigo-900 dark:text-white flex flex-col gap-4 relative">
+      <section className="pt-8 pb-20 text-indigo-900 dark:text-white flex flex-col gap-4 relative">
         <div className="block md:flex justify-between items-center mb-4 md:mb-6 lg:mb-8 xl:mb-10">
           <h1 className="text-2xl">Your Portfolio</h1>
           <div className="hidden md:block">

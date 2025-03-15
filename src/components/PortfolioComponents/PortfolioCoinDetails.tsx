@@ -35,7 +35,7 @@ const PortfolioCoinDetails = ({
       </button>
       <h2 className="text-lg text-center mb-4">Enter Coin Details</h2>
       {selectedCoin && (
-        <div className="flex flex-col w-full gap-4">
+        <div className="flex flex-col w-full h-full gap-4 overflow-y-scroll pb-24">
           <CoinBrand
             name={selectedCoin.name}
             symbol={selectedCoin.symbol}
@@ -68,7 +68,7 @@ const PortfolioCoinDetails = ({
             </button>
           </SelectableWrapper>
           <button
-            className="p-2 text-center w-full bg-violet-900/50 rounded"
+            className="p-2 text-center w-full bg-white dark:bg-violet-900/50 rounded"
             onClick={onCancelAddCoin}
           >
             Cancel
