@@ -11,12 +11,16 @@ interface DesktopSearchComponentProps {
   clearOnSelect?: boolean;
   onItemSelect: (item?: SearchResult) => void;
   searchBarClasses?: string;
+  wrapperClasses?: string;
+  inputContainerClasses?: string;
 }
 
 const DesktopSearchComponent = ({
   onItemSelect,
   clearOnSelect = true,
   searchBarClasses,
+  wrapperClasses,
+  inputContainerClasses,
 }: DesktopSearchComponentProps) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -83,8 +87,8 @@ const DesktopSearchComponent = ({
   return (
     <Dropdown
       menuClassName="text-indigo-900 bg-indigo-600/15 dark:text-white dark:bg-violet-950 w-full border border-indigo-600/5 dark:border-gray-700/80 rounded-b p-2 overflow-y-scroll max-h-[18rem]"
-      parentClassName="h-full z-40"
-      containerClassName="h-full"
+      parentClassName={"h-full z-40 " + (wrapperClasses || "")}
+      containerClassName={"h-full " + (inputContainerClasses || "")}
       onBackgroundClick={() => setDropdownOpen(false)}
       data={searchResults}
       renderItem={renderSearchResult}

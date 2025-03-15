@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${inter.className} bg-gray-200/45 dark:bg-gray-950 transition-all duration-500`}
+        className={`${inter.className} bg-gray-200/45 dark:bg-gray-950 transition-all duration-500 overflow-x-hidden`}
       >
         <Providers>
           <Header />

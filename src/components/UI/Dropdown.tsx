@@ -1,6 +1,5 @@
 "use client";
 import { useState, type ReactNode } from "react";
-import Portal from "./Portal";
 
 interface DropdownProps<T> {
   containerClassName?: string;
@@ -58,15 +57,13 @@ function Dropdown<T>({
 
   return (
     <>
-      {isOpen && (
-        <Portal>
+      <div className={`relative ${parentClassName}`}>
+        {isOpen && (
           <div
-            className="absolute top-0 left-0 right-0 bottom-0 z-30"
+            className="absolute left-[-5000px] top-[-5000px] h-[10000px] w-[10000px] z-30"
             onClick={handleBackgroundClick}
           ></div>
-        </Portal>
-      )}
-      <div className={`relative ${parentClassName}`}>
+        )}
         <div
           className={`${
             isOpen ? "z-50" : "z-40"
@@ -76,7 +73,9 @@ function Dropdown<T>({
           {children}
         </div>
         {isOpen && (
-          <div className={`absolute min-w-16 md:min-w-20 ${menuClassName}`}>
+          <div
+            className={`absolute min-w-16 md:min-w-20 z-50 backdrop-blur ${menuClassName}`}
+          >
             {renderDropdownItems()}
           </div>
         )}
