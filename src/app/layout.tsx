@@ -22,11 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${inter.className} bg-gray-200/45 dark:bg-gray-950 transition-all duration-500`}
+        className={`${inter.className} bg-gray-200/45 dark:bg-gray-950 transition-all duration-500 overflow-x-hidden`}
       >
         <Providers>
           <Header />
-          <main className="flex min-h-screen flex-col px-3 md:px-8 lg:px-12 xl:px-24">
+          <main className="flex min-h-screen flex-col px-4 md:px-8 lg:px-12 xl:px-24">
             {children}
           </main>
           <MobileNavbar />

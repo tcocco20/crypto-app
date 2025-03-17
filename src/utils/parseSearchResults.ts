@@ -5,5 +5,8 @@ export const parseSearchResults = (data: SearchQueryResponse) => {
   return data.coins.map((coin) => ({
     name: coin.name,
     id: coin.id,
+    image: coin.large,
+    thumbnail: coin.thumb,
+    symbol: coin.symbol,
   })) as SearchResult[];
 };
