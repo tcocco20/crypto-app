@@ -1,9 +1,4 @@
-import {
-  Dialog,
-  DialogOverlay,
-  DialogPortal,
-  DialogTrigger,
-} from "@radix-ui/react-dialog";
+import { Dialog, DialogPortal, DialogTrigger } from "@radix-ui/react-dialog";
 import React from "react";
 import SelectableWrapper from "../UI/SelectableWrapper";
 import AddPortfolioCoinModalContent from "./AddPortfolioCoinModalContent";
@@ -17,7 +12,7 @@ const AddPortfolioCoinButton = () => {
         </SelectableWrapper>
       </DialogTrigger>
       <DialogPortal>
-        <DialogOverlay className="fixed inset-0 bg-gray-950/20 z-50 backdrop-blur-sm" />
+        <div className="fixed top-0 left-0 right-0 bottom-0 w-full h-full bg-gray-950/20 z-50 backdrop-blur-sm" />
         <AddPortfolioCoinModalContent />
       </DialogPortal>
     </Dialog>

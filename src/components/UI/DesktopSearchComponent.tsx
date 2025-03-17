@@ -45,7 +45,7 @@ const DesktopSearchComponent = ({
     if (searchQuery.length > 0) {
       timer = setTimeout(() => {
         getSearch();
-      }, 1000);
+      }, 200);
     } else {
       setSearchResults([]);
     }
