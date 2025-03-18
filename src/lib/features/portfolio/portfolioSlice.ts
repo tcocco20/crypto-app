@@ -5,7 +5,14 @@ const loadPortfolioFromLocalStorage = () => {
   if (typeof window !== "undefined") {
     const coins = localStorage.getItem("portfolio");
     if (coins) {
-      return JSON.parse(coins) as PortfolioCoin[];
+      const parsedCoins = JSON.parse(coins) as PortfolioCoin[];
+
+      const portfolioCoins = parsedCoins.map((coin) => ({
+        ...coin,
+        datePurchased: new Date(coin.datePurchased),
+      }));
+
+      return portfolioCoins;
     }
   }
   return [] as PortfolioCoin[];

@@ -1,14 +1,21 @@
 import PercentageWithIcon from "@/components/UI/PercentageWithIcon";
+import { PortfolioCoin } from "@/lib/types/PortfolioCoin";
 import React from "react";
 
-const PortfolioDetails = () => {
+interface PortfolioDetailsProps {
+  coin: PortfolioCoin;
+}
+
+const PortfolioDetails = ({ coin }: PortfolioDetailsProps) => {
   return (
     <div className="p-4 md:p-5 lg:p-6">
       <div className="flex justify-between mb-6 items-center md:gap-12 lg:gap-16 xl:gap-20">
         <div>
-          <h3 className="text-lg md:text-xl lg:text-2xl">Bitcoin (BTC)</h3>
+          <h3 className="text-lg md:text-xl lg:text-2xl">
+            {coin.name} ({coin.symbol.toUpperCase()})
+          </h3>
           <p className="text-sm md:text-base dark:text-gray-300">
-            Purchased 03.23.2023
+            Purchased {coin.datePurchased.toLocaleDateString()}
           </p>
           <p className="text-sm md:text-base dark:text-gray-300">
             Purchase Amount: 27,000 USD
