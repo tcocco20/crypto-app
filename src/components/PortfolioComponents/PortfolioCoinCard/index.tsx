@@ -5,12 +5,16 @@ import { type PortfolioCoin } from "@/lib/types/PortfolioCoin";
 
 interface PortfolioCoinCardProps {
   coin: PortfolioCoin;
+  selectedCurrency: string;
 }
 
-const PortfolioCoinCard = ({ coin }: PortfolioCoinCardProps) => {
+const PortfolioCoinCard = ({
+  coin,
+  selectedCurrency,
+}: PortfolioCoinCardProps) => {
   return (
     <Card className="p-px md:p-[2px] rounded-md md:flex">
-      <PortfolioDetails coin={coin} />
+      <PortfolioDetails coin={coin} selectedCurrency={selectedCurrency} />
       <MarketDetails />
     </Card>
   );

@@ -1,12 +1,26 @@
 import PercentageWithIcon from "@/components/UI/PercentageWithIcon";
 import { PortfolioCoin } from "@/lib/types/PortfolioCoin";
+import Image from "next/image";
 import React from "react";
 
 interface PortfolioDetailsProps {
   coin: PortfolioCoin;
+  selectedCurrency: string;
 }
 
-const PortfolioDetails = ({ coin }: PortfolioDetailsProps) => {
+const PortfolioDetails = ({
+  coin,
+  selectedCurrency,
+}: PortfolioDetailsProps) => {
+  const priceUp =
+    coin.priceAtPurchase[selectedCurrency] <
+    29000; /* replace with real value once you are fetching that */
+  const percentageChange =
+    /* current price */ ((29000 - coin.priceAtPurchase[selectedCurrency]) /
+      coin.priceAtPurchase[selectedCurrency]) *
+    100;
+  const percentageChangeString = percentageChange.toFixed(2) + "%";
+
   return (
     <div className="p-4 md:p-5 lg:p-6">
       <div className="flex justify-between mb-6 items-center md:gap-12 lg:gap-16 xl:gap-20">
@@ -18,10 +32,15 @@ const PortfolioDetails = ({ coin }: PortfolioDetailsProps) => {
             Purchased {coin.datePurchased.toLocaleDateString()}
           </p>
           <p className="text-sm md:text-base dark:text-gray-300">
-            Purchase Amount: 27,000 USD
+            Purchase Amount: {coin.amountPurchased[selectedCurrency]}{" "}
+            {selectedCurrency.toUpperCase()}
           </p>
         </div>
-        <div className="p-6 bg-orange-400 rounded-full md:mb-4 lg:mb-8"></div>
+        <Image
+          src={coin.image}
+          className="h-6 w-6 rounded-full md:mb-4 lg:mb-8"
+          alt={"Logo for " + coin.name}
+        />
       </div>
       <h3 className="hidden md:block text-lg dark:text-gray-200">
         Current Total Value
@@ -30,7 +49,10 @@ const PortfolioDetails = ({ coin }: PortfolioDetailsProps) => {
         <h4 className="text-xl md:text-2xl lg:text-3xl font-medium">
           29,850 USD
         </h4>
-        <PercentageWithIcon percentage="6.76%" percentageUp />
+        <PercentageWithIcon
+          percentage={percentageChangeString}
+          percentageUp={priceUp}
+        />
       </div>
     </div>
   );
