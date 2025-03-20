@@ -12,7 +12,7 @@ const PortfolioDetails = ({
   coin,
   selectedCurrency,
 }: PortfolioDetailsProps) => {
-  const priceUp = coin.amountPurchased[selectedCurrency] < coin.price;
+  const priceUp = coin.priceAtPurchase[selectedCurrency] < coin.price;
   const percentageChange =
     ((coin.currentValue - coin.amountPurchased[selectedCurrency]) /
       coin.amountPurchased[selectedCurrency]) *
