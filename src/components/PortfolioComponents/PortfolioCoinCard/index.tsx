@@ -1,10 +1,10 @@
 import Card from "@/components/UI/Card";
 import PortfolioDetails from "./PortfolioDetails";
 import MarketDetails from "./MarketDetails";
-import { type PortfolioCoin } from "@/lib/types/PortfolioCoin";
+import { type PortfolioCoinWithMarketData } from "@/lib/types/PortfolioCoinWithMarketData";
 
 interface PortfolioCoinCardProps {
-  coin: PortfolioCoin;
+  coin: PortfolioCoinWithMarketData;
   selectedCurrency: string;
 }
 
@@ -15,7 +15,7 @@ const PortfolioCoinCard = ({
   return (
     <Card className="p-px md:p-[2px] rounded-md md:flex">
       <PortfolioDetails coin={coin} selectedCurrency={selectedCurrency} />
-      <MarketDetails />
+      <MarketDetails coin={coin} selectedCurrency={selectedCurrency} />
     </Card>
   );
 };

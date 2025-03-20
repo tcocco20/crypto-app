@@ -1,10 +1,10 @@
 import PercentageWithIcon from "@/components/UI/PercentageWithIcon";
-import { PortfolioCoin } from "@/lib/types/PortfolioCoin";
+import { type PortfolioCoinWithMarketData } from "@/lib/types/PortfolioCoinWithMarketData";
 import Image from "next/image";
 import React from "react";
 
 interface PortfolioDetailsProps {
-  coin: PortfolioCoin;
+  coin: PortfolioCoinWithMarketData;
   selectedCurrency: string;
 }
 
@@ -12,14 +12,13 @@ const PortfolioDetails = ({
   coin,
   selectedCurrency,
 }: PortfolioDetailsProps) => {
-  const priceUp =
-    coin.priceAtPurchase[selectedCurrency] <
-    29000; /* replace with real value once you are fetching that */
+  const priceUp = coin.amountPurchased[selectedCurrency] < coin.price;
   const percentageChange =
-    /* current price */ ((29000 - coin.priceAtPurchase[selectedCurrency]) /
-      coin.priceAtPurchase[selectedCurrency]) *
+    ((coin.currentValue - coin.amountPurchased[selectedCurrency]) /
+      coin.amountPurchased[selectedCurrency]) *
     100;
   const percentageChangeString = percentageChange.toFixed(2) + "%";
+  const showImage = !coin.image.includes("missing");
 
   return (
     <div className="p-4 md:p-5 lg:p-6">
@@ -36,18 +35,22 @@ const PortfolioDetails = ({
             {selectedCurrency.toUpperCase()}
           </p>
         </div>
-        <Image
-          src={coin.image}
-          className="h-6 w-6 rounded-full md:mb-4 lg:mb-8"
-          alt={"Logo for " + coin.name}
-        />
+        {showImage && (
+          <Image
+            src={coin.image}
+            className="h-6 w-6 rounded-full md:mb-4 lg:mb-8"
+            alt={"Logo for " + coin.name}
+            width={24}
+            height={24}
+          />
+        )}
       </div>
       <h3 className="hidden md:block text-lg dark:text-gray-200">
         Current Total Value
       </h3>
       <div className="flex gap-2 items-center">
         <h4 className="text-xl md:text-2xl lg:text-3xl font-medium">
-          29,850 USD
+          {coin.currentValue} {selectedCurrency.toUpperCase()}
         </h4>
         <PercentageWithIcon
           percentage={percentageChangeString}
