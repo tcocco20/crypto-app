@@ -3,7 +3,7 @@
 import { coingeckoFetch } from "@/utils/coingeckoFetch";
 import { type PortfolioCoinHistoricalDataResponse } from "@/utils/types/PortfolioCoinHistoricalDataResponse";
 
-export const getCoinHistoricalPriceData = async (
+export const getHistoricalDataForPortfolio = async (
   coinId: string,
   date: string
 ) => {

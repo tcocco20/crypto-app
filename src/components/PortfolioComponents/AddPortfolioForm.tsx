@@ -5,15 +5,19 @@ import DesktopSearchComponent from "../UI/DesktopSearchComponent";
 import FormControl from "../UI/FormControl";
 import { DialogClose } from "@radix-ui/react-dialog";
 import SelectableWrapper from "../UI/SelectableWrapper";
-import { /* useAppDispatch, */ useAppSelector } from "@/lib/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { type SearchResult } from "@/lib/types/SearchResult";
-// import { addCoinToPortfolio } from "@/lib/features/portfolio/portfolioSlice";
+import { addCoinToPortfolio } from "@/lib/features/portfolio/portfolioSlice";
+import { formatPortfolioCoinDate } from "@/utils/formatPortfolioCoinDate";
+import { getAmountPurchased } from "@/utils/getAmountPurchased";
+import actions from "@/actions";
+import { MarketDataArray } from "@/utils/types/MarketDataArray";
 
 const AddPortfolioForm = () => {
   const selectedCurrency = useAppSelector(
     (state) => state.preferences.selectedCurrency
   );
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const [selectedCoin, setSelectedCoin] = useState<SearchResult | null>(null);
   const [amount, setAmount] = useState<string>("");
   const [date, setDate] = useState<string>("");
@@ -32,18 +36,37 @@ const AddPortfolioForm = () => {
       event.preventDefault();
       return;
     }
-    // const { id, name, symbol, image } = selectedCoin;
 
-    // dispatch(
-    //   addCoinToPortfolio({
-    //     id,
-    //     name,
-    //     symbol,
-    //     image,
-    //     amount: parseFloat(amount),
-    //     date: new Date(date),
-    //   })
-    // );
+    const formattedDate = formatPortfolioCoinDate(date);
+    let priceAtPurchase: MarketDataArray = {};
+
+    try {
+      priceAtPurchase = await actions.getHistoricalDataForPortfolio(
+        selectedCoin.id,
+        formattedDate
+      );
+    } catch (error) {
+      alert(`Error adding coin to portfolio: ${error}`);
+    }
+
+    const { id, name, symbol, image } = selectedCoin;
+    const amountPurchased = getAmountPurchased(
+      priceAtPurchase,
+      +amount,
+      selectedCurrency
+    );
+    
+    dispatch(
+      addCoinToPortfolio({
+        id,
+        name,
+        symbol,
+        image,
+        datePurchased: new Date(formattedDate),
+        priceAtPurchase,
+        amountPurchased,
+      })
+    );
   };
   return (
     <div className="grid grid-cols-5 gap-4">
