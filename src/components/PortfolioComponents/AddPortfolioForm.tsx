@@ -1,18 +1,22 @@
 "use client";
-import React, { useState } from "react";
+import React, { MouseEvent, useState } from "react";
 import CoinBrand from "../UI/CoinBrand";
 import DesktopSearchComponent from "../UI/DesktopSearchComponent";
 import FormControl from "../UI/FormControl";
 import { DialogClose } from "@radix-ui/react-dialog";
 import SelectableWrapper from "../UI/SelectableWrapper";
-import { useAppSelector } from "@/lib/hooks";
+import { /* useAppDispatch, */ useAppSelector } from "@/lib/hooks";
 import { type SearchResult } from "@/lib/types/SearchResult";
+// import { addCoinToPortfolio } from "@/lib/features/portfolio/portfolioSlice";
 
 const AddPortfolioForm = () => {
   const selectedCurrency = useAppSelector(
     (state) => state.preferences.selectedCurrency
   );
+  // const dispatch = useAppDispatch();
   const [selectedCoin, setSelectedCoin] = useState<SearchResult | null>(null);
+  const [amount, setAmount] = useState<string>("");
+  const [date, setDate] = useState<string>("");
 
   const today = new Date().toISOString().split("T")[0];
   const oneYearAgo = new Date(today);
@@ -21,6 +25,25 @@ const AddPortfolioForm = () => {
 
   const handleItemSelect = (item?: SearchResult) => {
     setSelectedCoin(item!);
+  };
+
+  const handleAddCoin = async (event: MouseEvent<HTMLButtonElement>) => {
+    if (!selectedCoin || !amount || !date) {
+      event.preventDefault();
+      return;
+    }
+    // const { id, name, symbol, image } = selectedCoin;
+
+    // dispatch(
+    //   addCoinToPortfolio({
+    //     id,
+    //     name,
+    //     symbol,
+    //     image,
+    //     amount: parseFloat(amount),
+    //     date: new Date(date),
+    //   })
+    // );
   };
   return (
     <div className="grid grid-cols-5 gap-4">
@@ -42,6 +65,8 @@ const AddPortfolioForm = () => {
         <FormControl
           label="Amount Purchased"
           id="amount"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
           name="amount"
           type="number"
           step={0.01}
@@ -54,6 +79,8 @@ const AddPortfolioForm = () => {
           id="date"
           name="date"
           type="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
           min={minDate}
           max={today}
           disabled={!selectedCoin}
@@ -68,7 +95,12 @@ const AddPortfolioForm = () => {
           </DialogClose>
           <SelectableWrapper selected widthClasses="flex-1">
             <DialogClose asChild>
-              <button className="p-2 text-center w-full">Save Currency</button>
+              <button
+                className="p-2 text-center w-full"
+                onClick={handleAddCoin}
+              >
+                Save Currency
+              </button>
             </DialogClose>
           </SelectableWrapper>
         </div>
