@@ -9,7 +9,6 @@ const loadPortfolioFromLocalStorage = () => {
 
       const portfolioCoins = parsedCoins.map((coin) => ({
         ...coin,
-        datePurchased: new Date(coin.datePurchased),
       }));
 
       return portfolioCoins;

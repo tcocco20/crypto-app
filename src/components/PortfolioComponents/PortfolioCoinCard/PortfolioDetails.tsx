@@ -28,7 +28,7 @@ const PortfolioDetails = ({
             {coin.name} ({coin.symbol.toUpperCase()})
           </h3>
           <p className="text-sm md:text-base dark:text-gray-300">
-            Purchased {coin.datePurchased.toLocaleDateString()}
+            Purchased {coin.datePurchased}
           </p>
           <p className="text-sm md:text-base dark:text-gray-300">
             Purchase Amount: {coin.amountPurchased[selectedCurrency]}{" "}
@@ -38,10 +38,10 @@ const PortfolioDetails = ({
         {showImage && (
           <Image
             src={coin.image}
-            className="h-6 w-6 rounded-full md:mb-4 lg:mb-8"
+            className="h-10 w-10 lg:h-12 lg:w-12 xl:w-14 xl:h-14 rounded-full md:mb-4 lg:mb-8"
             alt={"Logo for " + coin.name}
-            width={24}
-            height={24}
+            width={56}
+            height={56}
           />
         )}
       </div>

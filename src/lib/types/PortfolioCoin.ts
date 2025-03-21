@@ -2,7 +2,7 @@ import { type MarketDataArray } from "@/utils/types/MarketDataArray";
 
 export interface PortfolioCoin {
   amountPurchased: MarketDataArray;
-  datePurchased: Date;
+  datePurchased: string;
   priceAtPurchase: MarketDataArray;
   id: string;
   name: string;

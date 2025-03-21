@@ -16,7 +16,7 @@ import { MarketDataArray } from "@/utils/types/MarketDataArray";
 const AddPortfolioForm = () => {
   const selectedCurrency = useAppSelector(
     (state) => state.preferences.selectedCurrency
-  );
+  ).toLowerCase();
   const dispatch = useAppDispatch();
   const [selectedCoin, setSelectedCoin] = useState<SearchResult | null>(null);
   const [amount, setAmount] = useState<string>("");
@@ -37,13 +37,13 @@ const AddPortfolioForm = () => {
       return;
     }
 
-    const formattedDate = formatPortfolioCoinDate(date);
+    const datePurchased = formatPortfolioCoinDate(date);
     let priceAtPurchase: MarketDataArray = {};
 
     try {
       priceAtPurchase = await actions.getHistoricalDataForPortfolio(
         selectedCoin.id,
-        formattedDate
+        datePurchased
       );
     } catch (error) {
       alert(`Error adding coin to portfolio: ${error}`);
@@ -55,14 +55,14 @@ const AddPortfolioForm = () => {
       +amount,
       selectedCurrency
     );
-    
+
     dispatch(
       addCoinToPortfolio({
         id,
         name,
         symbol,
         image,
-        datePurchased: new Date(formattedDate),
+        datePurchased,
         priceAtPurchase,
         amountPurchased,
       })

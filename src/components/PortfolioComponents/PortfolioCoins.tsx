@@ -12,6 +12,7 @@ const PortfolioCoins = () => {
   const [portfolioCoins, setPortfolioCoins] = useState<
     PortfolioCoinWithMarketData[]
   >([]);
+  const [componentMounted, setComponentMounted] = useState(false);
   const coins = useAppSelector((state) => state.portfolio.coins);
   const selectedCurrency = useAppSelector(
     (state) => state.preferences.selectedCurrency
@@ -46,6 +47,14 @@ const PortfolioCoins = () => {
     if (coins.length > 0) fetchCoins();
     fetchCoins();
   }, [coins, selectedCurrency]);
+
+  useEffect(() => {
+    setComponentMounted(true);
+  }, []);
+
+  if (!componentMounted) {
+    return null;
+  }
 
   if (coins.length === 0) {
     return <NoCoins />;

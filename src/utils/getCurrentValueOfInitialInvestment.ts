@@ -3,5 +3,5 @@ export const getCurrentValueOfInitialInvestment = (
   initialPrice: number,
   currentPrice: number
 ) => {
-  return (initialInvestment / initialPrice) * currentPrice;
+  return +((initialInvestment / initialPrice) * currentPrice).toFixed(2);
 };
