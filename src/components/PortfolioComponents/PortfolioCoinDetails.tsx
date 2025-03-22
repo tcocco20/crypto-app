@@ -39,7 +39,7 @@ const PortfolioCoinDetails = ({
 
   const handleAddCoin = async () => {
     setFormSubmitAttempted(true);
-    if (!selectedCoin || !amount || !date) {
+    if (!selectedCoin || !date || invalidateAmount()) {
       return;
     }
 
@@ -77,6 +77,10 @@ const PortfolioCoinDetails = ({
     onAddCoin();
   };
 
+  const invalidateAmount = () => {
+    return formSubmitAttempted && (!amount || +amount <= 0);
+  };
+
   return (
     <div className="text-violet-900 bg-indigo-600/15 dark:text-white dark:bg-indigo-950 rounded-t-xl p-4 relative h-full">
       <button onClick={onGoBack} className="absolute top-4 left-4">
@@ -102,8 +106,8 @@ const PortfolioCoinDetails = ({
             min={0.01}
             placeholder="0.00"
             helperText={`Enter the amount you purchased in your currently selected currency. Selected Currency: ${selectedCurrency}`}
-            hasError={formSubmitAttempted && !amount}
-            errorText="Please enter the amount you purchased."
+            hasError={invalidateAmount()}
+            errorText="Please enter a valid amount."
           />
           <FormControl
             label="Date Purchased"
@@ -122,7 +126,8 @@ const PortfolioCoinDetails = ({
           />
           <div
             className={`flex-1 ${
-              (!selectedCoin || (formSubmitAttempted && (!amount || !date))) &&
+              (!selectedCoin ||
+                (formSubmitAttempted && (invalidateAmount() || !date))) &&
               "opacity-50 pointer-events-none"
             }`}
           >

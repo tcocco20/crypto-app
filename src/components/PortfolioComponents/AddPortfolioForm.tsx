@@ -34,7 +34,7 @@ const AddPortfolioForm = () => {
 
   const handleAddCoin = async (event: MouseEvent<HTMLButtonElement>) => {
     setFormSubmitAttempted(true);
-    if (!selectedCoin || !amount || !date) {
+    if (!selectedCoin || !date || invalidateAmount()) {
       event.preventDefault();
       return;
     }
@@ -71,6 +71,10 @@ const AddPortfolioForm = () => {
     );
   };
 
+  const invalidateAmount = () => {
+    return formSubmitAttempted && (!amount || +amount <= 0);
+  };
+
   return (
     <div className="grid grid-cols-5 gap-4">
       {selectedCoin && (
@@ -99,8 +103,8 @@ const AddPortfolioForm = () => {
           placeholder="0.00"
           disabled={!selectedCoin}
           helperText={`Enter the amount you purchased in your currently selected currency. Selected Currency: ${selectedCurrency}`}
-          hasError={formSubmitAttempted && !amount}
-          errorText="Please enter the amount you purchased."
+          hasError={invalidateAmount()}
+          errorText="Please enter a valid amount."
         />
         <FormControl
           label="Date Purchased"
@@ -125,7 +129,8 @@ const AddPortfolioForm = () => {
           </DialogClose>
           <div
             className={`flex-1 ${
-              (!selectedCoin || (formSubmitAttempted && (!amount || !date))) &&
+              (!selectedCoin ||
+                (formSubmitAttempted && (invalidateAmount() || !date))) &&
               "opacity-50 pointer-events-none"
             }`}
           >
