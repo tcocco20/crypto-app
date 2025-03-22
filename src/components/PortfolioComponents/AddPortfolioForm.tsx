@@ -19,8 +19,9 @@ const AddPortfolioForm = () => {
   ).toLowerCase();
   const dispatch = useAppDispatch();
   const [selectedCoin, setSelectedCoin] = useState<SearchResult | null>(null);
-  const [amount, setAmount] = useState<string>("");
-  const [date, setDate] = useState<string>("");
+  const [amount, setAmount] = useState("");
+  const [formSubmitAttempted, setFormSubmitAttempted] = useState(false);
+  const [date, setDate] = useState("");
 
   const today = new Date().toISOString().split("T")[0];
   const oneYearAgo = new Date(today);
@@ -32,6 +33,7 @@ const AddPortfolioForm = () => {
   };
 
   const handleAddCoin = async (event: MouseEvent<HTMLButtonElement>) => {
+    setFormSubmitAttempted(true);
     if (!selectedCoin || !amount || !date) {
       event.preventDefault();
       return;
@@ -97,6 +99,8 @@ const AddPortfolioForm = () => {
           placeholder="0.00"
           disabled={!selectedCoin}
           helperText={`Enter the amount you purchased in your currently selected currency. Selected Currency: ${selectedCurrency}`}
+          hasError={formSubmitAttempted && !amount}
+          errorText="Please enter the amount you purchased."
         />
         <FormControl
           label="Date Purchased"
@@ -110,23 +114,32 @@ const AddPortfolioForm = () => {
           disabled={!selectedCoin}
           placeholder="MM/DD/YYYY"
           helperText="Enter the date you purchased the coin. You can only select a date up to a year ago."
+          hasError={formSubmitAttempted && !date}
+          errorText="Please enter the date you purchased the coin."
         />
         <div className="flex items-center gap-2 text-center">
           <DialogClose asChild>
-            <button className="flex-1 py-2 text-center w-full dark:bg-violet-900/50 rounded">
+            <button className="flex-1 py-2 text-center w-full dark:bg-violet-900/50 rounded disabled:opacity-50">
               Cancel
             </button>
           </DialogClose>
-          <SelectableWrapper selected widthClasses="flex-1">
-            <DialogClose asChild>
-              <button
-                className="p-2 text-center w-full"
-                onClick={handleAddCoin}
-              >
-                Save Currency
-              </button>
-            </DialogClose>
-          </SelectableWrapper>
+          <div
+            className={`flex-1 ${
+              (!selectedCoin || (formSubmitAttempted && (!amount || !date))) &&
+              "opacity-50 pointer-events-none"
+            }`}
+          >
+            <SelectableWrapper selected>
+              <DialogClose asChild>
+                <button
+                  className="p-2 text-center w-full"
+                  onClick={handleAddCoin}
+                >
+                  Save Currency
+                </button>
+              </DialogClose>
+            </SelectableWrapper>
+          </div>
         </div>
       </div>
     </div>

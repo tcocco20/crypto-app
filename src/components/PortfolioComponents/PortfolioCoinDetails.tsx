@@ -25,8 +25,9 @@ const PortfolioCoinDetails = ({
   onAddCoin,
   onCancelAddCoin,
 }: PortfolioCoinDetailsProps) => {
-  const [amount, setAmount] = useState<string>("");
-  const [date, setDate] = useState<string>("");
+  const [amount, setAmount] = useState("");
+  const [date, setDate] = useState("");
+  const [formSubmitAttempted, setFormSubmitAttempted] = useState(false);
   const selectedCurrency = useAppSelector(
     (state) => state.preferences.selectedCurrency
   ).toLowerCase();
@@ -37,6 +38,7 @@ const PortfolioCoinDetails = ({
   const minDate = oneYearAgo.toISOString().split("T")[0];
 
   const handleAddCoin = async () => {
+    setFormSubmitAttempted(true);
     if (!selectedCoin || !amount || !date) {
       return;
     }
@@ -97,8 +99,11 @@ const PortfolioCoinDetails = ({
             onChange={(e) => setAmount(e.target.value)}
             type="number"
             step={0.01}
+            min={0.01}
             placeholder="0.00"
             helperText={`Enter the amount you purchased in your currently selected currency. Selected Currency: ${selectedCurrency}`}
+            hasError={formSubmitAttempted && !amount}
+            errorText="Please enter the amount you purchased."
           />
           <FormControl
             label="Date Purchased"
@@ -112,12 +117,24 @@ const PortfolioCoinDetails = ({
             placeholder="MM/DD/YYYY"
             helperText="Enter the date you purchased the coin. You can only select a date
               up to a year ago."
+            hasError={formSubmitAttempted && !date}
+            errorText="Please enter the date you purchased the coin."
           />
-          <SelectableWrapper selected>
-            <button className="p-2 text-center w-full" onClick={handleAddCoin}>
-              Save Currency
-            </button>
-          </SelectableWrapper>
+          <div
+            className={`flex-1 ${
+              (!selectedCoin || (formSubmitAttempted && (!amount || !date))) &&
+              "opacity-50 pointer-events-none"
+            }`}
+          >
+            <SelectableWrapper selected>
+              <button
+                className="p-2 text-center w-full"
+                onClick={handleAddCoin}
+              >
+                Save Currency
+              </button>
+            </SelectableWrapper>
+          </div>
           <button
             className="p-2 text-center w-full bg-white dark:bg-violet-900/50 rounded"
             onClick={onCancelAddCoin}
