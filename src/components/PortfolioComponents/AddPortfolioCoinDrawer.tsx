@@ -3,11 +3,10 @@
 import React, { useState } from "react";
 import Drawer from "react-modern-drawer";
 import DrawerSearchComponent from "../UI/DrawerSearchComponent";
-
-import "react-modern-drawer/dist/index.css";
 import PortfolioCoinDetails from "./PortfolioCoinDetails";
 import { type SearchResult } from "@/lib/types/SearchResult";
 
+import "react-modern-drawer/dist/index.css";
 interface AddPortfolioCoinDrawerProps {
   isOpen: boolean;
   onClose: () => void;
@@ -30,14 +29,13 @@ const AddPortfolioCoinDrawer = ({
   };
 
   const handleAddCoin = () => {
-    alert("Added " + selectedCoin?.name + " to portfolio");
     onClose();
     setSelectedCoin(null);
   };
 
   const handleCancelAddCoin = () => {
-    onClose();
     setSelectedCoin(null);
+    onClose();
   };
 
   return (

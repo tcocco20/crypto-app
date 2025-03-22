@@ -5,6 +5,8 @@ import { getCoinHistoricalPriceData } from "./getCoinHistoricalPriceData";
 import { getGlobalMarketData } from "./getGlobalMarketData";
 import { getSearchResults } from "./getSearchResults";
 import { getCurrenciesList } from "./getCurrenciesList";
+import { getSimpleCoinPriceData } from "./getSimpleCoinPriceData";
+import { getHistoricalDataForPortfolio } from "./getHistoricalDataForPortfolio";
 
 const actions = {
   testConnection,
@@ -14,6 +16,8 @@ const actions = {
   getGlobalMarketData,
   getSearchResults,
   getCurrenciesList,
+  getSimpleCoinPriceData,
+  getHistoricalDataForPortfolio,
 };
 
 export default actions;
