@@ -1,6 +1,6 @@
 import AddPortfolioCoinButton from "@/components/PortfolioComponents/AddPortfolioCoinButton";
 import MobileActionButton from "@/components/PortfolioComponents/MobileActionButton";
-import PortfolioCoinCard from "@/components/PortfolioComponents/PortfolioCoinCard";
+import PortfolioCoins from "@/components/PortfolioComponents/PortfolioCoins";
 
 const Portfolio = () => {
   return (
@@ -12,8 +12,7 @@ const Portfolio = () => {
             <AddPortfolioCoinButton />
           </div>
         </div>
-        <PortfolioCoinCard />
-        <PortfolioCoinCard />
+        <PortfolioCoins />
         <MobileActionButton />
       </section>
     </>
