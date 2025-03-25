@@ -1,7 +1,7 @@
 "use client";
 import { SearchResult } from "@/lib/types/SearchResult";
 import { ChevronLeft } from "lucide-react";
-import React, { useState } from "react";
+import React, { type ChangeEvent, useState } from "react";
 import CoinBrand from "../UI/CoinBrand";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import SelectableWrapper from "../UI/SelectableWrapper";
@@ -81,6 +81,14 @@ const PortfolioCoinDetails = ({
     return formSubmitAttempted && (!amount || +amount <= 0);
   };
 
+  const handleAmountChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setAmount(e.target.value);
+  };
+
+  const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setDate(e.target.value);
+  };
+
   return (
     <div className="text-violet-900 bg-indigo-600/15 dark:text-white dark:bg-indigo-950 rounded-t-xl p-4 relative h-full">
       <button onClick={onGoBack} className="absolute top-4 left-4">
@@ -100,7 +108,7 @@ const PortfolioCoinDetails = ({
             id="amount"
             name="amount"
             value={amount}
-            onChange={(e) => setAmount(e.target.value)}
+            onChange={handleAmountChange}
             type="number"
             step={0.01}
             min={0.01}
@@ -114,7 +122,7 @@ const PortfolioCoinDetails = ({
             id="date"
             name="date"
             value={date}
-            onChange={(e) => setDate(e.target.value)}
+            onChange={handleDateChange}
             type="date"
             min={minDate}
             max={today}

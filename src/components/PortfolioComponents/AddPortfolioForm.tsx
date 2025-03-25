@@ -1,5 +1,5 @@
 "use client";
-import React, { MouseEvent, useState } from "react";
+import React, { type ChangeEvent, type MouseEvent, useState } from "react";
 import CoinBrand from "../UI/CoinBrand";
 import DesktopSearchComponent from "../UI/DesktopSearchComponent";
 import FormControl from "../UI/FormControl";
@@ -75,6 +75,14 @@ const AddPortfolioForm = () => {
     return formSubmitAttempted && (!amount || +amount <= 0);
   };
 
+  const handleAmountChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setAmount(e.target.value);
+  };
+
+  const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setDate(e.target.value);
+  };
+
   return (
     <div className="grid grid-cols-5 gap-4">
       {selectedCoin && (
@@ -96,7 +104,7 @@ const AddPortfolioForm = () => {
           label="Amount Purchased"
           id="amount"
           value={amount}
-          onChange={(e) => setAmount(e.target.value)}
+          onChange={handleAmountChange}
           name="amount"
           type="number"
           step={0.01}
@@ -112,7 +120,7 @@ const AddPortfolioForm = () => {
           name="date"
           type="date"
           value={date}
-          onChange={(e) => setDate(e.target.value)}
+          onChange={handleDateChange}
           min={minDate}
           max={today}
           disabled={!selectedCoin}

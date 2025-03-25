@@ -4,15 +4,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 const loadPortfolioFromLocalStorage = () => {
   if (typeof window !== "undefined") {
     const coins = localStorage.getItem("portfolio");
-    if (coins) {
-      const parsedCoins = JSON.parse(coins) as PortfolioCoin[];
-
-      const portfolioCoins = parsedCoins.map((coin) => ({
-        ...coin,
-      }));
-
-      return portfolioCoins;
-    }
+    if (coins) return JSON.parse(coins) as PortfolioCoin[];
   }
   return [] as PortfolioCoin[];
 };
