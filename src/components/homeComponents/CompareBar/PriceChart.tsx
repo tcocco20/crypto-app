@@ -14,6 +14,9 @@ import {
 import { useCompareBarContext } from "@/context/CompareBarContext/useCompareBarContext";
 import Card from "@/components/UI/Card";
 import { useAppSelector } from "@/lib/hooks";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+
+import "react-loading-skeleton/dist/skeleton.css";
 
 ChartJS.register(
   LinearScale,
@@ -78,79 +81,89 @@ const PriceChart = () => {
     ) : (
       <>
         <p className="text-sm text-gray-700 dark:text-gray-300">
-          {firstCoin?.name} ({firstCoin?.symbol.toUpperCase()})
+          {firstCoin ? (
+            `${firstCoin.name} (${firstCoin?.symbol.toUpperCase()})`
+          ) : (
+            <Skeleton />
+          )}
         </p>
         <p className="font-medium text-lg">
-          {firstCoin?.current_price} {selectedCurrency.toUpperCase()}
+          {firstCoin ? (
+            `${firstCoin?.current_price} ${selectedCurrency.toUpperCase()}`
+          ) : (
+            <Skeleton />
+          )}
         </p>
         <p className="text-xs text-gray-800 dark:text-gray-400">
-          {latestPrice}
+          {latestPrice || <Skeleton />}
         </p>
       </>
     );
 
   return (
-    <Card className="p-4 flex flex-col gap-2 md:flex-1">
-      {headerData}
-      <div className="w-full">
-        <Line
-          data={{
-            labels: labels,
-            datasets,
-          }}
-          options={{
-            elements: {
-              line: {
-                tension: 0.5,
-              },
-            },
-            plugins: {
-              legend: {
-                display: false,
-              },
-            },
-            scales: {
-              x: {
-                ticks: {
-                  display: false,
+    <SkeletonTheme>
+      <Card className="p-4 flex flex-col gap-2 md:flex-1">
+        {headerData}
+        <div className="w-full">
+          <Line
+            data={{
+              labels: labels,
+              datasets,
+            }}
+            options={{
+              elements: {
+                line: {
+                  tension: 0.5,
                 },
-                grid: {
+              },
+              plugins: {
+                legend: {
                   display: false,
                 },
               },
-              y: {
-                ticks: {
-                  display: false,
+              scales: {
+                x: {
+                  ticks: {
+                    display: false,
+                  },
+                  grid: {
+                    display: false,
+                  },
                 },
-                grid: {
-                  display: false,
+                y: {
+                  ticks: {
+                    display: false,
+                  },
+                  grid: {
+                    display: false,
+                  },
                 },
               },
-            },
-            layout: {
-              autoPadding: false,
-              padding: -4,
-            },
-          }}
-        />
-        <div className="flex justify-between">
-          <p className="text-xs">{labels[0]}</p>
-          <p className="text-xs">{labels[labels.length - 1]}</p>
-        </div>
-      </div>
-      {secondCoin && (
-        <div className="flex justify-between">
-          <div className="flex gap-2">
-            <div className="py-1 px-3 bg-indigo-400 rounded-sm" />
-            <p>{firstCoin!.name}</p>
-          </div>
-          <div className="flex gap-2">
-            <div className="py-1 px-3 bg-purple-400 rounded-sm" />
-            <p>{secondCoin.name}</p>
+              layout: {
+                autoPadding: false,
+                padding: -4,
+              },
+            }}
+          />
+          <div className="flex justify-between">
+            <p className="text-xs">{labels[0]}</p>
+            <p className="text-xs">{labels[labels.length - 1]}</p>
           </div>
         </div>
-      )}
-    </Card>
+        {secondCoin && (
+          <div className="flex justify-between">
+            <div className="flex gap-2">
+              <div className="py-1 px-3 bg-indigo-400 rounded-sm" />
+              <p>{firstCoin!.name}</p>
+            </div>
+            <div className="flex gap-2">
+              <div className="py-1 px-3 bg-purple-400 rounded-sm" />
+              <p>{secondCoin.name}</p>
+            </div>
+          </div>
+        )}
+      </Card>
+    </SkeletonTheme>
   );
 };
 
