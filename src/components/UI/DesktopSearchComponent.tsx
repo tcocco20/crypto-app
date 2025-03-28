@@ -6,6 +6,7 @@ import actions from "@/actions";
 import { type SearchResult } from "@/lib/types/SearchResult";
 import SearchBar from "../UI/SearchBar";
 import Image from "next/image";
+import SearchLoader from "./SearchLoader";
 
 interface DesktopSearchComponentProps {
   clearOnSelect?: boolean;
@@ -25,6 +26,7 @@ const DesktopSearchComponent = ({
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -38,8 +40,10 @@ const DesktopSearchComponent = ({
   useEffect(() => {
     let timer: NodeJS.Timeout;
     const getSearch = async () => {
+      setLoading(true);
       const searchResults = await actions.getSearchResults(searchQuery);
       setSearchResults(searchResults);
+      setLoading(false);
     };
 
     if (searchQuery.length > 0) {
@@ -93,6 +97,8 @@ const DesktopSearchComponent = ({
       data={searchResults}
       renderItem={renderSearchResult}
       keyExtractor={extractKey}
+      loading={loading}
+      loadingComponent={<SearchLoader />}
     >
       <SearchBar
         value={searchQuery}

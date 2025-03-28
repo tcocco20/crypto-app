@@ -7,6 +7,7 @@ import TimeFrameSelector from "./TimeFrameSelector";
 import { useCompareBarContext } from "@/context/CompareBarContext/useCompareBarContext";
 import { useEffect } from "react";
 import { useAppSelector } from "@/lib/hooks";
+import CoinSelectorSkeleton from "./CoinSelectorSkeleton";
 
 const CompareBar = () => {
   const coins = useAppSelector((state) => state.coinList.coins);
@@ -29,7 +30,11 @@ const CompareBar = () => {
           <span>{compareModeSelected ? "Exit Compare" : "Compare"}</span>
         </button>
       </div>
-      <CoinSelector coinsList={coins} />
+      {coins.length ? (
+        <CoinSelector coinsList={coins} />
+      ) : (
+        <CoinSelectorSkeleton />
+      )}
       <CompareCharts />
       <TimeFrameSelector />
     </section>

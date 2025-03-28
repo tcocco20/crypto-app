@@ -10,6 +10,8 @@ interface DropdownProps<T> {
   renderItem?: (item: T, index?: number, arr?: T[]) => ReactNode;
   keyExtractor?: (item: T) => string;
   onBackgroundClick?: () => void;
+  loading?: boolean;
+  loadingComponent?: ReactNode;
 }
 
 function Dropdown<T>({
@@ -21,6 +23,8 @@ function Dropdown<T>({
   renderItem,
   keyExtractor,
   onBackgroundClick,
+  loading,
+  loadingComponent,
 }: DropdownProps<T>) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -38,6 +42,11 @@ function Dropdown<T>({
   };
 
   const renderDropdownItems = () => {
+    if (loading) {
+      return (
+        loadingComponent || <div className="p-4 text-center">Loading...</div>
+      );
+    }
     if (!data || !renderItem || data.length === 0)
       return <div className="p-4 text-center">No items to display</div>;
 

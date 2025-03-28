@@ -14,6 +14,8 @@ import {
 import { useCompareBarContext } from "@/context/CompareBarContext/useCompareBarContext";
 import Card from "@/components/UI/Card";
 import { useAppSelector } from "@/lib/hooks";
+import { useScreenSize } from "@/hooks/useScreenSize";
+import Skeleton from "react-loading-skeleton";
 
 ChartJS.register(
   LinearScale,
@@ -36,6 +38,10 @@ const VolumeChart = () => {
   const volumes = firstCoinData.map((data) => data.volume);
   const secondCoinVolumes = secondCoinData.map((data) => data.volume);
   const latestVolume = labels[labels.length - 1];
+
+  const screenSize = useScreenSize();
+  const chartSkeletonHeight = screenSize === "mobile" ? 150 : 300;
+  const textSkeletonWidth = screenSize === "mobile" ? 100 : 150;
 
   const datasets = [
     {
@@ -60,17 +66,21 @@ const VolumeChart = () => {
       <>
         <p className="font-medium text-lg">Volume 24h</p>
         <p className="text-xs text-gray-800 dark:text-gray-400">
-          {latestVolume}
+          {latestVolume || <Skeleton width={textSkeletonWidth} />}
         </p>
       </>
     ) : (
       <>
         <p className="text-sm text-gray-700 dark:text-gray-300">Volume 24h</p>
         <p className="font-medium text-lg">
-          {volumes[volumes.length - 1]} {selectedCurrency.toUpperCase()}
+          {volumes.length ? (
+            `${volumes[volumes.length - 1]} ${selectedCurrency.toUpperCase()}`
+          ) : (
+            <Skeleton width={textSkeletonWidth} />
+          )}
         </p>
         <p className="text-xs text-gray-800 dark:text-gray-400">
-          {latestVolume}
+          {latestVolume || <Skeleton width={textSkeletonWidth} />}
         </p>
       </>
     );
@@ -78,37 +88,41 @@ const VolumeChart = () => {
   return (
     <Card className="p-4 flex flex-col gap-2 md:flex-1">
       {headerData}
-      <Bar
-        data={{
-          labels,
-          datasets,
-        }}
-        options={{
-          scales: {
-            y: {
-              ticks: {
-                display: false,
+      {volumes.length ? (
+        <Bar
+          data={{
+            labels,
+            datasets,
+          }}
+          options={{
+            scales: {
+              y: {
+                ticks: {
+                  display: false,
+                },
+                grid: {
+                  display: false,
+                },
               },
-              grid: {
+              x: {
+                ticks: {
+                  display: false,
+                },
+                grid: {
+                  display: false,
+                },
+              },
+            },
+            plugins: {
+              legend: {
                 display: false,
               },
             },
-            x: {
-              ticks: {
-                display: false,
-              },
-              grid: {
-                display: false,
-              },
-            },
-          },
-          plugins: {
-            legend: {
-              display: false,
-            },
-          },
-        }}
-      />
+          }}
+        />
+      ) : (
+        <Skeleton height={chartSkeletonHeight} />
+      )}
       {secondCoin && (
         <div className="flex justify-between">
           <div className="flex gap-2">

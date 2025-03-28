@@ -4,6 +4,7 @@ import SearchBar from "../UI/SearchBar";
 import { SearchResult } from "@/lib/types/SearchResult";
 import actions from "@/actions";
 import Image from "next/image";
+import SearchLoader from "./SearchLoader";
 
 interface DrawerSearchComponentProps {
   handleSearchResultClick: (item?: SearchResult) => void;
@@ -18,6 +19,7 @@ const DrawerSearchComponent = ({
 }: DrawerSearchComponentProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [loading, setLoading] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
 
   const handleSearchClick = () => {
@@ -61,8 +63,11 @@ const DrawerSearchComponent = ({
   useEffect(() => {
     let timer: NodeJS.Timeout;
     const getSearch = async () => {
+      setLoading(true);
+      setSearchResults([]);
       const searchResults = await actions.getSearchResults(searchQuery);
       setSearchResults(searchResults);
+      setLoading(false);
     };
 
     if (searchQuery.length > 0) {
@@ -77,6 +82,7 @@ const DrawerSearchComponent = ({
       clearTimeout(timer);
     };
   }, [searchQuery]);
+
   return (
     <div className="text-violet-900 bg-indigo-600/15 dark:text-white dark:bg-indigo-950 rounded-t-xl flex flex-col gap-2 h-full">
       <div className="border-b border-gray-400 p-4">
@@ -90,6 +96,7 @@ const DrawerSearchComponent = ({
         />
       </div>
       <div className="flex-1 overflow-scroll p-4 pb-20">
+        {loading && <SearchLoader />}
         {generateSearchResults()}
       </div>
     </div>

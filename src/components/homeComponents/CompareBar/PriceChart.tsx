@@ -14,6 +14,8 @@ import {
 import { useCompareBarContext } from "@/context/CompareBarContext/useCompareBarContext";
 import Card from "@/components/UI/Card";
 import { useAppSelector } from "@/lib/hooks";
+import Skeleton from "react-loading-skeleton";
+import { useScreenSize } from "@/hooks/useScreenSize";
 
 ChartJS.register(
   LinearScale,
@@ -36,6 +38,10 @@ const PriceChart = () => {
   const prices = firstCoinData.map((data) => data.price);
   const latestPrice = labels[labels.length - 1];
   const secondCoinPrices = secondCoinData.map((data) => data.price);
+
+  const screenSize = useScreenSize();
+  const chartSkeletonHeight = screenSize === "mobile" ? 150 : 300;
+  const textSkeletonWidth = screenSize === "mobile" ? 100 : 150;
 
   const datasets = [
     {
@@ -78,13 +84,21 @@ const PriceChart = () => {
     ) : (
       <>
         <p className="text-sm text-gray-700 dark:text-gray-300">
-          {firstCoin?.name} ({firstCoin?.symbol.toUpperCase()})
+          {firstCoin ? (
+            `${firstCoin.name} (${firstCoin?.symbol.toUpperCase()})`
+          ) : (
+            <Skeleton width={textSkeletonWidth} />
+          )}
         </p>
         <p className="font-medium text-lg">
-          {firstCoin?.current_price} {selectedCurrency.toUpperCase()}
+          {firstCoin ? (
+            `${firstCoin?.current_price} ${selectedCurrency.toUpperCase()}`
+          ) : (
+            <Skeleton width={textSkeletonWidth} />
+          )}
         </p>
         <p className="text-xs text-gray-800 dark:text-gray-400">
-          {latestPrice}
+          {latestPrice || <Skeleton width={textSkeletonWidth} />}
         </p>
       </>
     );
@@ -92,52 +106,56 @@ const PriceChart = () => {
   return (
     <Card className="p-4 flex flex-col gap-2 md:flex-1">
       {headerData}
-      <div className="w-full">
-        <Line
-          data={{
-            labels: labels,
-            datasets,
-          }}
-          options={{
-            elements: {
-              line: {
-                tension: 0.5,
-              },
-            },
-            plugins: {
-              legend: {
-                display: false,
-              },
-            },
-            scales: {
-              x: {
-                ticks: {
-                  display: false,
+      {prices.length ? (
+        <div className="w-full">
+          <Line
+            data={{
+              labels: labels,
+              datasets,
+            }}
+            options={{
+              elements: {
+                line: {
+                  tension: 0.5,
                 },
-                grid: {
+              },
+              plugins: {
+                legend: {
                   display: false,
                 },
               },
-              y: {
-                ticks: {
-                  display: false,
+              scales: {
+                x: {
+                  ticks: {
+                    display: false,
+                  },
+                  grid: {
+                    display: false,
+                  },
                 },
-                grid: {
-                  display: false,
+                y: {
+                  ticks: {
+                    display: false,
+                  },
+                  grid: {
+                    display: false,
+                  },
                 },
               },
-            },
-            layout: {
-              autoPadding: false,
-              padding: -4,
-            },
-          }}
-        />
-        <div className="flex justify-between">
-          <p className="text-xs">{labels[0]}</p>
-          <p className="text-xs">{labels[labels.length - 1]}</p>
+              layout: {
+                autoPadding: false,
+                padding: -4,
+              },
+            }}
+          />
+          <div className="flex justify-between">
+            <p className="text-xs">{labels[0]}</p>
+            <p className="text-xs">{labels[labels.length - 1]}</p>
+          </div>
         </div>
-      </div>
+      ) : (
+        <Skeleton height={chartSkeletonHeight} />
+      )}
       {secondCoin && (
         <div className="flex justify-between">
           <div className="flex gap-2">
