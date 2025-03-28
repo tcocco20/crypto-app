@@ -16,7 +16,7 @@ const PortfolioCoins = () => {
   const coins = useAppSelector((state) => state.portfolio.coins);
   const selectedCurrency = useAppSelector(
     (state) => state.preferences.selectedCurrency
-  ).toLowerCase();
+  );
 
   useEffect(() => {
     const fetchCoins = async () => {
