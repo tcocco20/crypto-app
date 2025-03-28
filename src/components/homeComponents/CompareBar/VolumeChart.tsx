@@ -17,8 +17,6 @@ import { useAppSelector } from "@/lib/hooks";
 import { useScreenSize } from "@/hooks/useScreenSize";
 import Skeleton from "react-loading-skeleton";
 
-import "react-loading-skeleton/dist/skeleton.css";
-
 ChartJS.register(
   LinearScale,
   CategoryScale,

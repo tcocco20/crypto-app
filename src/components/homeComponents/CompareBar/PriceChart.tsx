@@ -15,8 +15,6 @@ import { useCompareBarContext } from "@/context/CompareBarContext/useCompareBarC
 import Card from "@/components/UI/Card";
 import { useAppSelector } from "@/lib/hooks";
 import Skeleton from "react-loading-skeleton";
-
-import "react-loading-skeleton/dist/skeleton.css";
 import { useScreenSize } from "@/hooks/useScreenSize";
 
 ChartJS.register(

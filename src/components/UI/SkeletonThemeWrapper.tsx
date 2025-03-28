@@ -2,6 +2,7 @@
 import { useAppSelector } from "@/lib/hooks";
 import { type ReactNode } from "react";
 import { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const SkeletonThemeWrapper = ({ children }: { children: ReactNode }) => {
   const darkMode = useAppSelector((state) => state.preferences.darkMode);
