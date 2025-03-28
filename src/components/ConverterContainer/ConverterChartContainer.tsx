@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { CoinHistoricalData } from "@/lib/types/CoinHistoricalData";
 import ConverterChart from "./ConverterChart";
 import { useAppSelector } from "@/lib/hooks";
+import Skeleton from "react-loading-skeleton";
 
 interface ConverterChartProps {
   fromCurrency: { coin: ListCoin; index: number } | undefined;
@@ -85,7 +86,7 @@ const ConverterChartContainer = ({
         {fromCurrency.coin.name} ({fromCurrency.coin.symbol.toUpperCase()}) to{" "}
         {toCurrency.coin.name} ({toCurrency.coin.symbol.toUpperCase()})
       </p>
-      <ConverterChart
+      {fromCurrencyHistoricalData && toCurrencyHistoricalData ? <ConverterChart
         title={
           fromCurrency.coin.symbol.toUpperCase() +
           " to " +
@@ -93,7 +94,7 @@ const ConverterChartContainer = ({
         }
         fromCurrencyData={fromCurrencyHistoricalData}
         toCurrencyData={toCurrencyHistoricalData}
-      />
+      /> : <Skeleton height={100} />}
       <div className="grid grid-cols-12 text-xs md:text-sm gap-1 p-1">
         {monthOrder.map((month) => (
           <p key={months[month]} className="text-center">

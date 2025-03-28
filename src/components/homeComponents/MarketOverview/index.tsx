@@ -8,6 +8,7 @@ import { type ListCoin } from "@/lib/types/ListCoin";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import DesktopCoinOverview from "./DesktopCoinOverview";
 import { loadCoins } from "@/lib/features/coinList/coinListSlice";
+import CoinOverviewSkeleton from "./CoinOverviewSkeleton";
 
 const MarketOverview = () => {
   const coins = useAppSelector((state) => state.coinList.coins);
@@ -20,7 +21,7 @@ const MarketOverview = () => {
   const isMobile = useIsMobile();
 
   const renderCoins = () => {
-    if (!coins) return null;
+    if (!coins.length) return null;
     return coins.map((coin) => {
       return isMobile ? (
         <MobileCoinOverview key={coin.id} coin={coin} />
@@ -61,7 +62,7 @@ const MarketOverview = () => {
       <InfiniteScroll
         dataLength={coins.length}
         hasMore={hasMore}
-        loader={<p>Loading...</p>}
+        loader={<CoinOverviewSkeleton />}
         endMessage={<p style={{ textAlign: "center" }}>end of list</p>}
         next={fetchCoins}
         className="text-white flex flex-col gap-1 md:gap-2 pb-16 mb-2"
