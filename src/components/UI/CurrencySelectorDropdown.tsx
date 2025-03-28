@@ -20,7 +20,7 @@ const CurrencySelectorDropdown = ({
   const dispatch = useAppDispatch();
 
   const handleSelectCurrency = async (currency: string) => {
-    dispatch(setSelectedCurrency(currency.toLowerCase()));
+    dispatch(setSelectedCurrency(currency));
     const newCoinsList = await actions.getCoinsList(currency, 1, true);
     dispatch(setCoins(newCoinsList));
   };
