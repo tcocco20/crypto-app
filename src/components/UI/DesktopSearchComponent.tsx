@@ -7,6 +7,7 @@ import { type SearchResult } from "@/lib/types/SearchResult";
 import SearchBar from "../UI/SearchBar";
 import Image from "next/image";
 import SearchLoader from "./SearchLoader";
+import { useDebounce } from "@/hooks/useDebounce";
 
 interface DesktopSearchComponentProps {
   clearOnSelect?: boolean;
@@ -27,6 +28,7 @@ const DesktopSearchComponent = ({
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
+  const debouncedSearchTerm = useDebounce(searchQuery, 200);
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -38,26 +40,19 @@ const DesktopSearchComponent = ({
   };
 
   useEffect(() => {
-    let timer: NodeJS.Timeout;
     const getSearch = async () => {
       setLoading(true);
-      const searchResults = await actions.getSearchResults(searchQuery);
+      const searchResults = await actions.getSearchResults(debouncedSearchTerm);
       setSearchResults(searchResults);
       setLoading(false);
     };
 
-    if (searchQuery.length > 0) {
-      timer = setTimeout(() => {
-        getSearch();
-      }, 200);
+    if (debouncedSearchTerm) {
+      getSearch();
     } else {
       setSearchResults([]);
     }
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [searchQuery]);
+  }, [debouncedSearchTerm]);
 
   const renderSearchResult = (result: SearchResult) => {
     const renderImage = !result.image.includes("missing");
