@@ -6,6 +6,8 @@ import { ChevronDown, ChevronUp, Layers } from "lucide-react";
 import utils from "@/utils";
 import { useIsLg } from "@/hooks/useIsLg";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { useAppSelector } from "@/lib/hooks";
+import { getProfitDetails } from "@/utils/getProfit";
 
 interface InvestmentDetailsProps {
   coin: IndividualCoin;
@@ -28,6 +30,8 @@ const InvestmentDetails = ({
 
   const isLg = useIsLg();
   const isMobile = useIsMobile();
+  const portfolio = useAppSelector((state) => state.portfolio.coins);
+  const { inPortfolio } = getProfitDetails(coin, portfolio);
 
   const iconSizeMultiplier = isMobile ? 1 : isLg ? 1 : 0.7;
 
@@ -78,6 +82,11 @@ const InvestmentDetails = ({
         </h2>
         {displayPriceChange()}
       </div>
+      {inPortfolio && (
+        <div className="flex gap-1 items-center">
+          <p className="text-xs lg:text-sm xl:text-base">Profit:</p>
+        </div>
+      )}
       <Layers size={24 * iconSizeMultiplier} className="mx-auto" />
       <div className="max-md:flex max-md:flex-col max-md:items-center">
         <div className="flex gap-2 lg:gap-4 items-center">
