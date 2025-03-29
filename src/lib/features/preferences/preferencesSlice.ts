@@ -8,7 +8,7 @@ export interface PreferencesState {
 }
 
 const initialState: PreferencesState = {
-  selectedCurrency: "USD",
+  selectedCurrency: "usd",
   darkMode: true,
   searchDrawerOpen: false,
   supportedCurrencies: [],

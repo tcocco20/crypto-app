@@ -16,7 +16,7 @@ import { MarketDataArray } from "@/utils/types/MarketDataArray";
 const AddPortfolioForm = () => {
   const selectedCurrency = useAppSelector(
     (state) => state.preferences.selectedCurrency
-  ).toLowerCase();
+  );
   const dispatch = useAppDispatch();
   const [selectedCoin, setSelectedCoin] = useState<SearchResult | null>(null);
   const [amount, setAmount] = useState("");

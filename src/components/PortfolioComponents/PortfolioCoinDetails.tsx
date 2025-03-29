@@ -30,7 +30,7 @@ const PortfolioCoinDetails = ({
   const [formSubmitAttempted, setFormSubmitAttempted] = useState(false);
   const selectedCurrency = useAppSelector(
     (state) => state.preferences.selectedCurrency
-  ).toLowerCase();
+  );
   const dispatch = useAppDispatch();
   const today = new Date().toISOString().split("T")[0];
   const oneYearAgo = new Date(today);
