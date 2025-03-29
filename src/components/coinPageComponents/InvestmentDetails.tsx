@@ -87,7 +87,7 @@ const InvestmentDetails = ({
         {displayPriceChange()}
       </div>
       {inPortfolio && (
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 items-center justify-center">
           <p className="text-xs lg:text-sm xl:text-base">Profit:</p>
           <p
             className={`text-sm lg:text-base xl:text-lg ${
