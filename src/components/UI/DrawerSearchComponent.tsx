@@ -5,6 +5,7 @@ import { SearchResult } from "@/lib/types/SearchResult";
 import actions from "@/actions";
 import Image from "next/image";
 import SearchLoader from "./SearchLoader";
+import { useDebounce } from "@/hooks/useDebounce";
 
 interface DrawerSearchComponentProps {
   handleSearchResultClick: (item?: SearchResult) => void;
@@ -21,6 +22,7 @@ const DrawerSearchComponent = ({
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
+  const debouncedSearchTerm = useDebounce(searchQuery, 200);
 
   const handleSearchClick = () => {
     if (searchRef.current) {
@@ -61,27 +63,20 @@ const DrawerSearchComponent = ({
   };
 
   useEffect(() => {
-    let timer: NodeJS.Timeout;
     const getSearch = async () => {
       setLoading(true);
       setSearchResults([]);
-      const searchResults = await actions.getSearchResults(searchQuery);
+      const searchResults = await actions.getSearchResults(debouncedSearchTerm);
       setSearchResults(searchResults);
       setLoading(false);
     };
 
-    if (searchQuery.length > 0) {
-      timer = setTimeout(() => {
-        getSearch();
-      }, 200);
+    if (debouncedSearchTerm) {
+      getSearch();
     } else {
       setSearchResults([]);
     }
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [searchQuery]);
+  }, [debouncedSearchTerm]);
 
   return (
     <div className="text-violet-900 bg-indigo-600/15 dark:text-white dark:bg-indigo-950 rounded-t-xl flex flex-col gap-2 h-full">
