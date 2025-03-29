@@ -7,7 +7,7 @@ import utils from "@/utils";
 import { useIsLg } from "@/hooks/useIsLg";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useAppSelector } from "@/lib/hooks";
-import { getProfitDetails } from "@/utils/getProfit";
+import { getProfitDetails } from "@/utils/getProfitDetails";
 
 interface InvestmentDetailsProps {
   coin: IndividualCoin;
@@ -31,7 +31,11 @@ const InvestmentDetails = ({
   const isLg = useIsLg();
   const isMobile = useIsMobile();
   const portfolio = useAppSelector((state) => state.portfolio.coins);
-  const { inPortfolio } = getProfitDetails(coin, portfolio);
+  const { inPortfolio, profit, profitUp } = getProfitDetails(
+    coin,
+    portfolio,
+    selectedCurrency
+  );
 
   const iconSizeMultiplier = isMobile ? 1 : isLg ? 1 : 0.7;
 
@@ -74,7 +78,7 @@ const InvestmentDetails = ({
         <h2
           className={`${
             priceDataAvailable
-              ? "text-lg lg:text-xl xl:text-2xl 2xl:text-4xl"
+              ? "text-lg lg:text-xl xl:text-2xl"
               : "text-base md:text-lg lg:text-xl xl:text-2xl"
           } font-semibold`}
         >
@@ -83,8 +87,15 @@ const InvestmentDetails = ({
         {displayPriceChange()}
       </div>
       {inPortfolio && (
-        <div className="flex gap-1 items-center">
+        <div className="flex gap-2 items-center">
           <p className="text-xs lg:text-sm xl:text-base">Profit:</p>
+          <p
+            className={`text-sm lg:text-base xl:text-lg ${
+              profitUp ? "text-cyan-600" : "text-pink-600"
+            }`}
+          >
+            {profit} {selectedCurrency.toUpperCase()}
+          </p>
         </div>
       )}
       <Layers size={24 * iconSizeMultiplier} className="mx-auto" />
