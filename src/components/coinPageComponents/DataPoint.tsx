@@ -9,7 +9,6 @@ interface DataPointProps {
   title: string;
   currencyDisplay?: boolean;
   currencyToDisplay?: string;
-  currencyLocation?: "left" | "right";
   dataPoint: number | null;
 }
 
@@ -17,7 +16,6 @@ const DataPoint = ({
   title,
   currencyDisplay,
   currencyToDisplay,
-  currencyLocation = "left",
   dataPoint,
 }: DataPointProps) => {
   const isMobile = useIsMobile();
@@ -25,20 +23,16 @@ const DataPoint = ({
   const iconSize = isMobile ? 24 : isLg ? 24 : 18;
   let dataPointToDisplay = "N/A";
   if (dataPoint) {
-    // Allows component to be reused and is used to configure how the data point is displayed
     if (currencyDisplay) {
       dataPointToDisplay = dataPoint?.toLocaleString();
     } else {
       dataPointToDisplay = dataPoint.toString();
     }
     if (currencyToDisplay) {
-      if (currencyLocation === "right") {
-        dataPointToDisplay = `${dataPointToDisplay} ${currencyToDisplay}`;
-      } else {
-        dataPointToDisplay = `${currencyToDisplay}${dataPointToDisplay}`;
-      }
+      dataPointToDisplay = `${dataPointToDisplay} ${currencyToDisplay}`;
     }
   }
+
   return (
     <div className="flex items-center">
       <div className="flex items-center w-1/2 gap-3">

@@ -4,7 +4,9 @@ export function getPriceDetails(coin: IndividualCoin, currency: string) {
   const priceUp = coin.price_change_24h ? coin.price_change_24h > 0 : false;
   const priceDataAvailable = !!coin.current_price[currency];
   const displayPrice = coin.current_price[currency]
-    ? "$" + coin.current_price[currency].toLocaleString()
+    ? coin.current_price[currency].toLocaleString() +
+      " " +
+      currency.toUpperCase()
     : "No Data Available";
   const allTimeHigh = coin.all_time_high[currency] || "-";
   const allTimeHighDate = coin.all_time_high_date[currency]
