@@ -56,50 +56,7 @@ const PortfolioCoinDetails = ({
 
   const handleAddCoin = async () => {
     setFormSubmitAttempted(true);
-    if (!selectedCoin || !date || invalidateAmount()) {
-      return;
-    }
-
-    const datePurchased = formatPortfolioCoinDate(date);
-    const apiDate = getDateForApi(date);
-    let priceAtPurchase: MarketDataArray = {};
-
-    try {
-      priceAtPurchase = await actions.getHistoricalDataForPortfolio(
-        selectedCoin.id,
-        apiDate
-      );
-    } catch (error) {
-      alert(`Error adding coin to portfolio: ${error}`);
-      return;
-    }
-
-    const { id, name, symbol, image } = selectedCoin;
-    const amountPurchased = getAmountPurchased(
-      priceAtPurchase,
-      +amount,
-      selectedCurrency
-    );
-
-    dispatch(
-      addCoinToPortfolio({
-        id: Math.random().toString(36).substring(2, 9),
-        coinId: id,
-        name,
-        symbol,
-        image,
-        datePurchased,
-        priceAtPurchase,
-        amountPurchased,
-      })
-    );
-
-    onAddCoin();
-  };
-
-  const handleEditCoin = async () => {
-    setFormSubmitAttempted(true);
-    if (!date || invalidateAmount()) {
+    if ((!selectedCoin && !coinToEdit) || !date || invalidateAmount()) {
       return;
     }
 
@@ -130,12 +87,27 @@ const PortfolioCoinDetails = ({
       selectedCurrency
     );
 
-    if (selectedCoin) {
+    if (selectedCoin && !coinToEdit) {
+      const { id, name, symbol, image } = selectedCoin;
+
+      dispatch(
+        addCoinToPortfolio({
+          id: Math.random().toString(36).substring(2, 9),
+          coinId: id,
+          name,
+          symbol,
+          image,
+          datePurchased,
+          priceAtPurchase,
+          amountPurchased,
+        })
+      );
+    } else if (selectedCoin && coinToEdit) {
       const { id, name, symbol, image } = selectedCoin;
 
       dispatch(
         editPortfolioCoin({
-          id: coinToEdit!.id,
+          id: coinToEdit.id,
           coinId: id,
           name,
           symbol,
@@ -269,7 +241,7 @@ const PortfolioCoinDetails = ({
             <SelectableWrapper selected>
               <button
                 className="p-2 text-center w-full"
-                onClick={coinToEdit ? handleEditCoin : handleAddCoin}
+                onClick={handleAddCoin}
               >
                 Save Currency
               </button>
