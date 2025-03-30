@@ -15,7 +15,7 @@ interface EditPortfolioCoinModalProps {
 
 const EditPortfolioCoinModal = ({ coin }: EditPortfolioCoinModalProps) => {
   return (
-    <DialogContent className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-white dark:bg-gray-950 p-8 rounded-lg text-indigo-900 dark:text-white min-w-[50rem] lg:min-w-[60rem]">
+    <DialogContent className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-white dark:bg-indigo-950 p-8 rounded-lg text-indigo-900 dark:text-white min-w-[50rem] lg:min-w-[60rem]">
       <DialogTitle className="flex justify-between items-center">
         <h2 className="text-xl">Edit Coin</h2>
         <DialogClose asChild>
