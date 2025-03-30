@@ -18,6 +18,7 @@ import {
 import { type PortfolioCoinWithMarketData } from "@/lib/types/PortfolioCoinWithMarketData";
 import { getInputDateFromPortfolioCoin } from "@/utils/getInputDateFromPortfolioCoin";
 import { getDateForApi } from "@/utils/getDateForApi";
+import { toast } from "react-toastify";
 
 interface PortfolioCoinDetailsProps {
   selectedCoin: SearchResult | null;
@@ -77,7 +78,7 @@ const PortfolioCoinDetails = ({
         );
       }
     } catch (error) {
-      alert(`Error adding coin to portfolio: ${error}`);
+      toast.error("Error fetching historical data. Please try again later.");
       return;
     }
 
@@ -141,7 +142,14 @@ const PortfolioCoinDetails = ({
   };
 
   const invalidateAmount = () => {
-    return formSubmitAttempted && (!amount || +amount <= 0);
+    return !amount || +amount <= 0;
+  };
+
+  const invalidateDate = () => {
+    const formattedDate = new Date(formatPortfolioCoinDate(date));
+    return (
+      !date || formattedDate < new Date(minDate) || formattedDate > new Date()
+    );
   };
 
   const handleAmountChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -213,7 +221,7 @@ const PortfolioCoinDetails = ({
             min={0.01}
             placeholder="0.00"
             helperText={`Enter the amount you purchased in your currently selected currency. Selected Currency: ${selectedCurrency}`}
-            hasError={invalidateAmount()}
+            hasError={formSubmitAttempted && invalidateAmount()}
             errorText="Please enter a valid amount."
           />
           <FormControl
@@ -228,13 +236,14 @@ const PortfolioCoinDetails = ({
             placeholder="MM/DD/YYYY"
             helperText="Enter the date you purchased the coin. You can only select a date
               up to a year ago."
-            hasError={formSubmitAttempted && !date}
+            hasError={formSubmitAttempted && invalidateDate()}
             errorText="Please enter the date you purchased the coin."
           />
           <div
             className={`flex-1 ${
               ((!selectedCoin && !coinToEdit) ||
-                (formSubmitAttempted && (invalidateAmount() || !date))) &&
+                invalidateAmount() ||
+                invalidateDate()) &&
               "opacity-50 pointer-events-none"
             }`}
           >

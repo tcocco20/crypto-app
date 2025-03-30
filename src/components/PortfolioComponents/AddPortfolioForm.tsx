@@ -19,6 +19,7 @@ import { MarketDataArray } from "@/utils/types/MarketDataArray";
 import { PortfolioCoinWithMarketData } from "@/lib/types/PortfolioCoinWithMarketData";
 import { getInputDateFromPortfolioCoin } from "@/utils/getInputDateFromPortfolioCoin";
 import { getDateForApi } from "@/utils/getDateForApi";
+import { toast } from "react-toastify";
 
 interface AddPortfolioFormProps {
   coinToEdit?: PortfolioCoinWithMarketData;
@@ -38,7 +39,7 @@ const AddPortfolioForm = ({ coinToEdit }: AddPortfolioFormProps) => {
   const [amount, setAmount] = useState(
     coinToEdit?.amountPurchased[selectedCurrency] || ""
   );
-  const [formSubmitAttempted, setFormSubmitAttempted] = useState(false);
+  const [formSubmitAttempted, setFormSubmitAttempted] = useState(!!coinToEdit);
   const [date, setDate] = useState(
     coinToEdit && new Date(coinToEdit.datePurchased) > new Date(minDate)
       ? getInputDateFromPortfolioCoin(coinToEdit.datePurchased)
@@ -73,7 +74,7 @@ const AddPortfolioForm = ({ coinToEdit }: AddPortfolioFormProps) => {
         );
       }
     } catch (error) {
-      alert(`Error adding coin to portfolio: ${error}`);
+      toast.error("Error fetching historical data. Please try again later.");
       return;
     }
 
@@ -134,7 +135,14 @@ const AddPortfolioForm = ({ coinToEdit }: AddPortfolioFormProps) => {
   };
 
   const invalidateAmount = () => {
-    return formSubmitAttempted && (!amount || +amount <= 0);
+    return !amount || +amount <= 0;
+  };
+
+  const invalidateDate = () => {
+    const formattedDate = new Date(formatPortfolioCoinDate(date));
+    return (
+      !date || formattedDate < new Date(minDate) || formattedDate > new Date()
+    );
   };
 
   const handleAmountChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -204,11 +212,12 @@ const AddPortfolioForm = ({ coinToEdit }: AddPortfolioFormProps) => {
           onChange={handleAmountChange}
           name="amount"
           type="number"
+          min={5}
           step={0.01}
           placeholder="0.00"
           disabled={!selectedCoin && !coinToEdit}
           helperText={`Enter the amount you purchased in your currently selected currency. Selected Currency: ${selectedCurrency}`}
-          hasError={invalidateAmount()}
+          hasError={formSubmitAttempted && invalidateAmount()}
           errorText="Please enter a valid amount."
         />
         <FormControl
@@ -223,15 +232,16 @@ const AddPortfolioForm = ({ coinToEdit }: AddPortfolioFormProps) => {
           disabled={!selectedCoin && !coinToEdit}
           placeholder="MM/DD/YYYY"
           helperText="Enter the date you purchased the coin. You can only select a date up to a year ago."
-          hasError={formSubmitAttempted && !date}
-          errorText="Please enter the date you purchased the coin."
+          hasError={formSubmitAttempted && invalidateDate()}
+          errorText="Please enter a valid date."
         />
         <div className="flex items-center gap-2 text-center">
           {coinToEdit ? deleteButton : cancelButton}
           <div
             className={`flex-1 ${
               ((!selectedCoin && !coinToEdit) ||
-                (formSubmitAttempted && (invalidateAmount() || !date))) &&
+                invalidateAmount() ||
+                invalidateDate()) &&
               "opacity-50 pointer-events-none"
             }`}
           >
