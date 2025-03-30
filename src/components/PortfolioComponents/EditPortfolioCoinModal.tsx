@@ -6,8 +6,8 @@ import {
 } from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 import React from "react";
-import EditPortfolioCoinForm from "./EditPortfolioCoinForm";
 import { PortfolioCoinWithMarketData } from "@/lib/types/PortfolioCoinWithMarketData";
+import AddPortfolioForm from "./AddPortfolioForm";
 
 interface EditPortfolioCoinModalProps {
   coin: PortfolioCoinWithMarketData;
@@ -29,7 +29,7 @@ const EditPortfolioCoinModal = ({ coin }: EditPortfolioCoinModalProps) => {
         your portfolio. For more accurate details, add subsequent purchases of
         the same coin as a separate entry.
       </DialogDescription>
-      <EditPortfolioCoinForm selectedCoin={coin} />
+      <AddPortfolioForm coinToEdit={coin} />
     </DialogContent>
   );
 };

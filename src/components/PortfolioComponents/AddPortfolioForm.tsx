@@ -17,6 +17,8 @@ import { getAmountPurchased } from "@/utils/getAmountPurchased";
 import actions from "@/actions";
 import { MarketDataArray } from "@/utils/types/MarketDataArray";
 import { PortfolioCoinWithMarketData } from "@/lib/types/PortfolioCoinWithMarketData";
+import { getInputDateFromPortfolioCoin } from "@/utils/getInputDateFromPortfolioCoin";
+import { getDateForApi } from "@/utils/getDateForApi";
 
 interface AddPortfolioFormProps {
   coinToEdit?: PortfolioCoinWithMarketData;
@@ -39,7 +41,7 @@ const AddPortfolioForm = ({ coinToEdit }: AddPortfolioFormProps) => {
   const [formSubmitAttempted, setFormSubmitAttempted] = useState(false);
   const [date, setDate] = useState(
     coinToEdit && new Date(coinToEdit.datePurchased) > new Date(minDate)
-      ? coinToEdit.datePurchased
+      ? getInputDateFromPortfolioCoin(coinToEdit.datePurchased)
       : ""
   );
 
@@ -55,15 +57,17 @@ const AddPortfolioForm = ({ coinToEdit }: AddPortfolioFormProps) => {
     }
 
     const datePurchased = formatPortfolioCoinDate(date);
+    const apiDate = getDateForApi(date);
     let priceAtPurchase: MarketDataArray = {};
 
     try {
       priceAtPurchase = await actions.getHistoricalDataForPortfolio(
         selectedCoin.id,
-        datePurchased
+        apiDate
       );
     } catch (error) {
       alert(`Error adding coin to portfolio: ${error}`);
+      return;
     }
 
     const { id, name, symbol, image } = selectedCoin;
@@ -95,22 +99,24 @@ const AddPortfolioForm = ({ coinToEdit }: AddPortfolioFormProps) => {
     }
 
     const datePurchased = formatPortfolioCoinDate(date);
+    const apiDate = getDateForApi(date);
     let priceAtPurchase: MarketDataArray = {};
 
     try {
       if (selectedCoin) {
         priceAtPurchase = await actions.getHistoricalDataForPortfolio(
           selectedCoin.id,
-          datePurchased
+          apiDate
         );
       } else {
         priceAtPurchase = await actions.getHistoricalDataForPortfolio(
           coinToEdit!.coinId,
-          datePurchased
+          apiDate
         );
       }
     } catch (error) {
       alert(`Error adding coin to portfolio: ${error}`);
+      return;
     }
 
     const amountPurchased = getAmountPurchased(
@@ -177,7 +183,7 @@ const AddPortfolioForm = ({ coinToEdit }: AddPortfolioFormProps) => {
   const deleteButton = (
     <DialogClose asChild>
       <button
-        className="flex-1 py-2 text-center w-full bg-red-700 rounded disabled:opacity-50"
+        className="flex-1 py-2 text-center w-full bg-red-700 text-white rounded disabled:opacity-50"
         onClick={handleDeleteCoin}
       >
         Delete Coin
@@ -227,7 +233,7 @@ const AddPortfolioForm = ({ coinToEdit }: AddPortfolioFormProps) => {
           type="number"
           step={0.01}
           placeholder="0.00"
-          disabled={!selectedCoin}
+          disabled={!selectedCoin && !coinToEdit}
           helperText={`Enter the amount you purchased in your currently selected currency. Selected Currency: ${selectedCurrency}`}
           hasError={invalidateAmount()}
           errorText="Please enter a valid amount."
@@ -241,7 +247,7 @@ const AddPortfolioForm = ({ coinToEdit }: AddPortfolioFormProps) => {
           onChange={handleDateChange}
           min={minDate}
           max={today}
-          disabled={!selectedCoin}
+          disabled={!selectedCoin && !coinToEdit}
           placeholder="MM/DD/YYYY"
           helperText="Enter the date you purchased the coin. You can only select a date up to a year ago."
           hasError={formSubmitAttempted && !date}
@@ -251,7 +257,7 @@ const AddPortfolioForm = ({ coinToEdit }: AddPortfolioFormProps) => {
           {coinToEdit ? deleteButton : cancelButton}
           <div
             className={`flex-1 ${
-              (!selectedCoin ||
+              ((!selectedCoin && !coinToEdit) ||
                 (formSubmitAttempted && (invalidateAmount() || !date))) &&
               "opacity-50 pointer-events-none"
             }`}

@@ -11,7 +11,7 @@ export const getAmountPurchased = (
   const quantity = amountPurchased / price;
 
   for (const currency in priceAtPurchase) {
-    amountObject[currency] = quantity * priceAtPurchase[currency];
+    amountObject[currency] = +(quantity * priceAtPurchase[currency]).toFixed(4);
   }
 
   return amountObject;
