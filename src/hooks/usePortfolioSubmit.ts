@@ -12,27 +12,29 @@ import { getDateForApi } from "@/utils/getDateForApi";
 import { toast } from "react-toastify";
 import { MarketDataArray } from "@/utils/types/MarketDataArray";
 import { PortfolioCoinWithMarketData } from "@/lib/types/PortfolioCoinWithMarketData";
+import { getInputDateFromPortfolioCoin } from "@/utils/getInputDateFromPortfolioCoin";
 
-interface UsePortfolioCoinProps {
-  coinToEdit?: PortfolioCoinWithMarketData;
-  onSuccess?: () => void;
-}
-
-export const usePortfolioCoin = ({
-  coinToEdit,
-  onSuccess,
-}: UsePortfolioCoinProps) => {
+export const usePortfolioSubmit = (
+  coinToEdit?: PortfolioCoinWithMarketData,
+  onSuccess?: () => void
+) => {
   const dispatch = useAppDispatch();
   const selectedCurrency = useAppSelector(
     (state) => state.preferences.selectedCurrency
   );
+  const maxDate = new Date().toISOString().split("T")[0];
+  const oneYearAgo = new Date(maxDate);
+  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+  const minDate = oneYearAgo.toISOString().split("T")[0];
 
   const [amount, setAmount] = useState(
     coinToEdit?.amountPurchased[selectedCurrency] || ""
   );
   const [formSubmitAttempted, setFormSubmitAttempted] = useState(!!coinToEdit);
   const [date, setDate] = useState(
-    coinToEdit ? formatPortfolioCoinDate(coinToEdit.datePurchased) : ""
+    coinToEdit && new Date(coinToEdit.datePurchased) > oneYearAgo
+      ? getInputDateFromPortfolioCoin(coinToEdit.datePurchased)
+      : ""
   );
 
   const handleAddCoin = async (selectedCoin?: {
@@ -42,22 +44,26 @@ export const usePortfolioCoin = ({
     image: string;
   }) => {
     setFormSubmitAttempted(true);
-    if ((!selectedCoin && !coinToEdit) || !date || invalidateAmount()) {
+    if (
+      (!selectedCoin && !coinToEdit) ||
+      invalidateDate() ||
+      invalidateAmount()
+    ) {
       return;
     }
 
     const datePurchased = formatPortfolioCoinDate(date);
     const apiDate = getDateForApi(date);
     let priceAtPurchase: MarketDataArray = {};
+    const coinId = selectedCoin ? selectedCoin.id : coinToEdit!.coinId;
 
     try {
-      const coinId = selectedCoin ? selectedCoin.id : coinToEdit!.coinId;
       priceAtPurchase = await actions.getHistoricalDataForPortfolio(
         coinId,
         apiDate
       );
     } catch (error) {
-      toast.error("Error fetching historical data. Please try again later.");
+      toast.error("Error fetching price data. Please try again later.");
       return;
     }
 
@@ -71,7 +77,7 @@ export const usePortfolioCoin = ({
       dispatch(
         addCoinToPortfolio({
           id: Math.random().toString(36).substring(2, 9),
-          coinId: selectedCoin.id,
+          coinId,
           name: selectedCoin.name,
           symbol: selectedCoin.symbol,
           image: selectedCoin.image,
@@ -84,7 +90,7 @@ export const usePortfolioCoin = ({
       dispatch(
         editPortfolioCoin({
           id: coinToEdit!.id,
-          coinId: selectedCoin?.id || coinToEdit!.coinId,
+          coinId,
           name: selectedCoin?.name || coinToEdit!.name,
           symbol: selectedCoin?.symbol || coinToEdit!.symbol,
           image: selectedCoin?.image || coinToEdit!.image,
@@ -107,6 +113,11 @@ export const usePortfolioCoin = ({
 
   const invalidateAmount = () => !amount || +amount <= 0;
 
+  const invalidateDate = () => {
+    const formattedDate = new Date(formatPortfolioCoinDate(date));
+    return !date || formattedDate < oneYearAgo || formattedDate > new Date();
+  };
+
   return {
     amount,
     setAmount,
@@ -116,5 +127,10 @@ export const usePortfolioCoin = ({
     handleAddCoin,
     handleDeleteCoin,
     invalidateAmount,
+    minDate,
+    maxDate,
+    dateInvalid: invalidateDate(),
+    amountInvalid: invalidateAmount(),
+    selectedCurrency,
   };
 };
