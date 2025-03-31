@@ -6,6 +6,8 @@ import { ChevronDown, ChevronUp, Layers } from "lucide-react";
 import utils from "@/utils";
 import { useIsLg } from "@/hooks/useIsLg";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { useAppSelector } from "@/lib/hooks";
+import { getProfitDetails } from "@/utils/getProfitDetails";
 
 interface InvestmentDetailsProps {
   coin: IndividualCoin;
@@ -28,6 +30,12 @@ const InvestmentDetails = ({
 
   const isLg = useIsLg();
   const isMobile = useIsMobile();
+  const portfolio = useAppSelector((state) => state.portfolio.coins);
+  const { inPortfolio, profit, profitUp } = getProfitDetails(
+    coin,
+    portfolio,
+    selectedCurrency
+  );
 
   const iconSizeMultiplier = isMobile ? 1 : isLg ? 1 : 0.7;
 
@@ -70,7 +78,7 @@ const InvestmentDetails = ({
         <h2
           className={`${
             priceDataAvailable
-              ? "text-lg lg:text-xl xl:text-2xl 2xl:text-4xl"
+              ? "text-lg lg:text-xl xl:text-2xl"
               : "text-base md:text-lg lg:text-xl xl:text-2xl"
           } font-semibold`}
         >
@@ -78,13 +86,25 @@ const InvestmentDetails = ({
         </h2>
         {displayPriceChange()}
       </div>
+      {inPortfolio && (
+        <div className="flex gap-2 items-center justify-center">
+          <p className="text-xs lg:text-sm xl:text-base">Profit:</p>
+          <p
+            className={`text-sm lg:text-base xl:text-lg ${
+              profitUp ? "text-cyan-600" : "text-pink-600"
+            }`}
+          >
+            {profit} {selectedCurrency.toUpperCase()}
+          </p>
+        </div>
+      )}
       <Layers size={24 * iconSizeMultiplier} className="mx-auto" />
       <div className="max-md:flex max-md:flex-col max-md:items-center">
         <div className="flex gap-2 lg:gap-4 items-center">
           <ChevronUp strokeWidth={4} size={24} className="text-cyan-600" />
           <p className="text-xs lg:text-sm xl:text-base">All Time High:</p>
           <p className="text-sm lg:text-base xl:text-lg 2xl:text-2xl">
-            ${allTimeHigh}
+            {allTimeHigh} {selectedCurrency.toUpperCase()}
           </p>
         </div>
         <p className="dark:text-gray-300/70 md:text-right text-xs lg:text-sm xl:text-base">
@@ -96,7 +116,7 @@ const InvestmentDetails = ({
           <ChevronDown strokeWidth={4} size={24} className="text-pink-600" />
           <p className="text-xs lg:text-sm xl:text-base">All Time low:</p>
           <p className="text-sm lg:text-base xl:text-lg 2xl:text-2xl">
-            ${allTimeLow}
+            {allTimeLow} {selectedCurrency.toUpperCase()}
           </p>
         </div>
         <p className="dark:text-gray-300/70 md:text-right text-xs lg:text-sm xl:text-base">
