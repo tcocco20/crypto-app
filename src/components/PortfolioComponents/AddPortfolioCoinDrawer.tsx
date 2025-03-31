@@ -30,16 +30,18 @@ const AddPortfolioCoinDrawer = ({
   };
 
   const handleBack = () => {
-    setSelectedCoin(null);
     setCurrentPage(1);
+    setSelectedCoin(null);
   };
 
   const handleAddCoin = () => {
+    setCurrentPage(1);
     onClose();
     setSelectedCoin(null);
   };
 
   const handleCancelAddCoin = () => {
+    setCurrentPage(1);
     setSelectedCoin(null);
     onClose();
   };
