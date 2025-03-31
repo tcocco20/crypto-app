@@ -21,13 +21,13 @@ const PortfolioCoins = () => {
   useEffect(() => {
     const fetchCoins = async () => {
       const coinMarketData = await actions.getSimpleCoinPriceData(
-        coins.map((coin) => coin.id),
+        coins.map((coin) => coin.coinId),
         selectedCurrency
       );
 
       const portfolioCoinsWithMarketData: PortfolioCoinWithMarketData[] =
         coins.map((coin) => {
-          const marketData = coinMarketData[coin.id];
+          const marketData = coinMarketData[coin.coinId];
           const currentValue = getCurrentValueOfInitialInvestment(
             coin.amountPurchased[selectedCurrency],
             coin.priceAtPurchase[selectedCurrency],

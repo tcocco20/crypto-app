@@ -27,6 +27,17 @@ export const portfolioSlice = createSlice({
         localStorage.setItem("portfolio", JSON.stringify(state.coins));
       }
     },
+    editPortfolioCoin: (state, action: PayloadAction<PortfolioCoin>) => {
+      const index = state.coins.findIndex(
+        (coin) => coin.id === action.payload.id
+      );
+      if (index !== -1) {
+        state.coins[index] = action.payload;
+        if (typeof window !== "undefined") {
+          localStorage.setItem("portfolio", JSON.stringify(state.coins));
+        }
+      }
+    },
     removeCoinById: (state, action: PayloadAction<string>) => {
       state.coins = state.coins.filter((coin) => coin.id !== action.payload);
       if (typeof window !== "undefined") {
@@ -36,6 +47,6 @@ export const portfolioSlice = createSlice({
   },
 });
 
-export const { addCoinToPortfolio, removeCoinById } = portfolioSlice.actions;
+export const { addCoinToPortfolio, removeCoinById, editPortfolioCoin } = portfolioSlice.actions;
 
 export default portfolioSlice.reducer;
