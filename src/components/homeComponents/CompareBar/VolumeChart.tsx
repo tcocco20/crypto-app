@@ -16,6 +16,7 @@ import Card from "@/components/UI/Card";
 import { useAppSelector } from "@/lib/hooks";
 import { useScreenSize } from "@/hooks/useScreenSize";
 import Skeleton from "react-loading-skeleton";
+import { getCurrencyFormatter } from "@/utils/formatCurrency";
 
 ChartJS.register(
   LinearScale,
@@ -33,11 +34,12 @@ const VolumeChart = () => {
   const selectedCurrency = useAppSelector(
     (state) => state.preferences.selectedCurrency
   );
+  const { formatter, supported } = getCurrencyFormatter(selectedCurrency);
 
   const labels = firstCoinData.map((data) => data.date);
   const volumes = firstCoinData.map((data) => data.volume);
   const secondCoinVolumes = secondCoinData.map((data) => data.volume);
-  const latestVolume = labels[labels.length - 1];
+  const latestVolumeDate = labels[labels.length - 1];
 
   const screenSize = useScreenSize();
   const chartSkeletonHeight = screenSize === "mobile" ? 150 : 300;
@@ -66,7 +68,7 @@ const VolumeChart = () => {
       <>
         <p className="font-medium text-lg">Volume 24h</p>
         <p className="text-xs text-gray-800 dark:text-gray-400">
-          {latestVolume || <Skeleton width={textSkeletonWidth} />}
+          {latestVolumeDate || <Skeleton width={textSkeletonWidth} />}
         </p>
       </>
     ) : (
@@ -74,13 +76,15 @@ const VolumeChart = () => {
         <p className="text-sm text-gray-700 dark:text-gray-300">Volume 24h</p>
         <p className="font-medium text-lg">
           {volumes.length ? (
-            `${volumes[volumes.length - 1]} ${selectedCurrency.toUpperCase()}`
+            `${formatter.format(volumes[volumes.length - 1])} ${
+              !supported ? selectedCurrency.toUpperCase() : ""
+            }`
           ) : (
             <Skeleton width={textSkeletonWidth} />
           )}
         </p>
         <p className="text-xs text-gray-800 dark:text-gray-400">
-          {latestVolume || <Skeleton width={textSkeletonWidth} />}
+          {latestVolumeDate || <Skeleton width={textSkeletonWidth} />}
         </p>
       </>
     );

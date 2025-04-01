@@ -6,24 +6,34 @@ import React from "react";
 interface MarketDetailsProps {
   selectedCurrency: string;
   coin: PortfolioCoinWithMarketData;
+  formatter: Intl.NumberFormat;
+  supported: boolean;
 }
 
-const MarketDetails = ({ selectedCurrency, coin }: MarketDetailsProps) => {
+const MarketDetails = ({
+  selectedCurrency,
+  coin,
+  formatter,
+  supported,
+}: MarketDetailsProps) => {
   const priceUp = coin.change24h > 0;
   const percentageString = Math.abs(coin.change24h).toFixed(2) + "%";
   const volumeOverCap = (coin.totalVolume / coin.marketCap) * 100;
+  const selectedCurrencyDisplay = !supported
+    ? selectedCurrency.toUpperCase()
+    : "";
   return (
     <div className="bg-indigo-200/50 dark:bg-indigo-950 p-4 grid grid-cols-2 gap-3 rounded-b-md md:flex-1 md:rounded-r-md md:rounded-l-none">
       <div className="border border-white dark:border-indigo-900 p-2 md:p-3 lg:p-4 rounded-md">
         <h5 className="text-lg lg:text-xl mb-2">
-          {coin.price} {selectedCurrency.toUpperCase()}
+          {formatter.format(coin.price)} {selectedCurrencyDisplay}
         </h5>
         <p className="text-sm lg:text-base dark:text-gray-300">Current Price</p>
       </div>
       <div className="border border-white dark:border-indigo-900 p-2 md:p-3 lg:p-4 rounded-md">
         <h5 className="text-lg lg:text-xl mb-2">
-          {coin.priceAtPurchase[selectedCurrency].toLocaleString()}{" "}
-          {selectedCurrency.toUpperCase()}
+          {formatter.format(coin.priceAtPurchase[selectedCurrency])}{" "}
+          {selectedCurrencyDisplay}
         </h5>
         <p className="text-sm lg:text-base dark:text-gray-300">
           Purchase Price

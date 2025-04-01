@@ -1,18 +1,16 @@
 import { ListCoin } from "@/lib/types/ListCoin";
-import { formatCurrency } from "./formatCurrency";
+import { getCurrencyFormatter } from "./formatCurrency";
 
 export const getCoinOverview = (coin: ListCoin, selectedCurrency: string) => {
   const showIcon = !coin.image.includes("missing");
   let displayPrice: string;
+  const { formatter, supported } = getCurrencyFormatter(selectedCurrency);
   if (coin.current_price) {
-    const { currencyVal, supported } = formatCurrency(
-      coin.current_price,
-      selectedCurrency
-    );
     if (supported) {
-      displayPrice = currencyVal;
+      displayPrice = formatter.format(coin.current_price);
     } else {
-      displayPrice = currencyVal + " " + selectedCurrency;
+      displayPrice =
+        formatter.format(coin.current_price) + " " + selectedCurrency;
     }
   } else {
     displayPrice = "N/A";

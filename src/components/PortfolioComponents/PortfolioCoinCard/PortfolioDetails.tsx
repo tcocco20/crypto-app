@@ -6,11 +6,15 @@ import React from "react";
 interface PortfolioDetailsProps {
   coin: PortfolioCoinWithMarketData;
   selectedCurrency: string;
+  formatter: Intl.NumberFormat;
+  supported: boolean;
 }
 
 const PortfolioDetails = ({
   coin,
   selectedCurrency,
+  formatter,
+  supported,
 }: PortfolioDetailsProps) => {
   const priceUp = coin.priceAtPurchase[selectedCurrency] < coin.price;
   const percentageChange =
@@ -19,6 +23,9 @@ const PortfolioDetails = ({
     100;
   const percentageChangeString = percentageChange.toFixed(2) + "%";
   const showImage = !coin.image.includes("missing");
+  const selectedCurrencyDisplay = !supported
+    ? selectedCurrency.toUpperCase()
+    : "";
 
   return (
     <div className="p-4 md:p-5 lg:p-6">
@@ -31,8 +38,9 @@ const PortfolioDetails = ({
             Purchased {coin.datePurchased}
           </p>
           <p className="text-sm md:text-base dark:text-gray-300">
-            Purchase Amount: {coin.amountPurchased[selectedCurrency]}{" "}
-            {selectedCurrency.toUpperCase()}
+            Purchase Amount:{" "}
+            {formatter.format(coin.amountPurchased[selectedCurrency])}{" "}
+            {selectedCurrencyDisplay}
           </p>
         </div>
         {showImage && (
@@ -50,7 +58,7 @@ const PortfolioDetails = ({
       </h3>
       <div className="flex gap-2 items-center">
         <h4 className="text-xl md:text-2xl lg:text-3xl font-medium">
-          {coin.currentValue} {selectedCurrency.toUpperCase()}
+          {formatter.format(coin.currentValue)} {selectedCurrencyDisplay}
         </h4>
         <PercentageWithIcon
           percentage={percentageChangeString}

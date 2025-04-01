@@ -1,3 +1,5 @@
+"use client";
+
 const isCurrencySupported = (currencyCode: string): boolean => {
   try {
     new Intl.NumberFormat(undefined, {
@@ -10,21 +12,21 @@ const isCurrencySupported = (currencyCode: string): boolean => {
   }
 };
 
-export const formatCurrency = (
-  currencyValue: number,
-  selectedCurrency = ""
-) => {
-  const userLocale = navigator.language || "en-US";
-
-  if (selectedCurrency && isCurrencySupported(selectedCurrency)) {
-    const currencyVal = new Intl.NumberFormat(userLocale, {
-      style: "currency",
-      currency: selectedCurrency,
-    }).format(currencyValue);
-
-    return { currencyVal, supported: true };
+export const getCurrencyFormatter = (selectedCurrency = "") => {
+  let userLocale = "en-US";
+  if (typeof window !== "undefined") {
+    userLocale = window.navigator.language;
   }
 
-  const currencyVal = new Intl.NumberFormat(userLocale).format(currencyValue);
-  return { currencyVal, supported: false };
+  if (selectedCurrency && isCurrencySupported(selectedCurrency)) {
+    const formatter = new Intl.NumberFormat(userLocale, {
+      style: "currency",
+      currency: selectedCurrency,
+    });
+
+    return { formatter, supported: true };
+  }
+
+  const formatter = new Intl.NumberFormat(userLocale);
+  return { formatter, supported: false };
 };
