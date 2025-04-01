@@ -1,5 +1,3 @@
-"use client";
-
 const isCurrencySupported = (currencyCode: string): boolean => {
   try {
     new Intl.NumberFormat(undefined, {
