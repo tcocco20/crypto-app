@@ -7,27 +7,30 @@ export const getProfitDetails = (
   portfolio: PortfolioCoin[],
   selectedCurrency: string
 ) => {
-  const inPortfolio = portfolio.some((item) => item.id === coin.id);
+  const inPortfolio = portfolio.some((item) => item.coinId === coin.id);
   if (!inPortfolio) {
     return {
       inPortfolio,
     };
   }
-  const portfolioCoin = portfolio.find(
-    (item) => item.id === coin.id
-  ) as PortfolioCoin;
+  const portfolioCoins = portfolio.filter((item) => item.coinId === coin.id);
+  const currentPrice = coin.current_price[selectedCurrency];
 
-  const currentValue = getCurrentValueOfInitialInvestment(
-    portfolioCoin.amountPurchased[selectedCurrency],
-    portfolioCoin.priceAtPurchase[selectedCurrency],
-    coin.current_price[selectedCurrency]
+  const currentValues = portfolioCoins.map((portfolioCoin) =>
+    getCurrentValueOfInitialInvestment(
+      portfolioCoin.amountPurchased[selectedCurrency],
+      portfolioCoin.priceAtPurchase[selectedCurrency],
+      currentPrice,
+    )
   );
 
-  const profit = Math.abs(
-    currentValue - portfolioCoin.amountPurchased[selectedCurrency]
+  const totalProfit = currentValues.reduce(
+    (prev, cur, index) =>
+      prev + (cur - portfolioCoins[index].amountPurchased[selectedCurrency]),
+    0
   );
-  const profitUp =
-    currentValue > portfolioCoin.amountPurchased[selectedCurrency];
+  const profitUp = totalProfit > 0;
+  const profit = Math.abs(totalProfit);
 
   return {
     profit,
