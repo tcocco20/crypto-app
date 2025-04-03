@@ -10,11 +10,18 @@ const isCurrencySupported = (currencyCode: string): boolean => {
   }
 };
 
-export const getCurrencyFormatter = (selectedCurrency = "") => {
-  let userLocale = "en-US";
+const getUserLocale = (): string => {
   if (typeof window !== "undefined") {
-    userLocale = window.navigator.language;
+    const Cookies = require("js-cookie");
+    return Cookies.get("locale") || window.navigator.language || "en-US";
+  } else {
+    const { cookies } = require("next/headers");
+    return cookies().get("locale")?.value || "en-US";
   }
+};
+
+export const getCurrencyFormatter = (selectedCurrency = "") => {
+  const userLocale = getUserLocale();
 
   if (selectedCurrency && isCurrencySupported(selectedCurrency)) {
     const formatter = new Intl.NumberFormat(userLocale, {
