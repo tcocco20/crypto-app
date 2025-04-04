@@ -16,7 +16,12 @@ const MobileActionButton = () => {
   };
   return (
     <div className="fixed bottom-20 right-8">
-      <SelectableWrapper selected rounded shadowSize="shadow-none">
+      <SelectableWrapper
+        selected
+        rounded
+        shadowSize="shadow-none"
+        animationStyles="hover:opacity-70 active:opacity-50 transition-opacity duration-200 ease-in-out"
+      >
         <button onClick={handleToggleMenu} className="p-2">
           <Plus size={24} />
         </button>

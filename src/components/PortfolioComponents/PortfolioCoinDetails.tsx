@@ -102,7 +102,7 @@ const PortfolioCoinDetails = ({
       </button>
       <h2 className="text-lg text-center mb-4">Enter Coin Details</h2>
       {(selectedCoin || coinToEdit) && (
-        <div className="flex flex-col w-full h-full gap-4 overflow-y-scroll pb-24">
+        <div className="flex flex-col w-full h-full gap-4 overflow-y-scroll pb-28">
           {generateCoinBranding()}
           <FormControl
             label="Amount Purchased"
@@ -134,7 +134,7 @@ const PortfolioCoinDetails = ({
             errorText="Please enter the date you purchased the coin."
           />
           <div
-            className={`flex-1 ${
+            className={`${
               ((!selectedCoin && !coinToEdit) ||
                 amountInvalid ||
                 dateInvalid) &&

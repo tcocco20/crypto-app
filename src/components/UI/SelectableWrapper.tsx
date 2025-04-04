@@ -7,6 +7,7 @@ interface SelectableWrapperProps {
   shadowSize?: string;
   widthClasses?: string;
   rounded?: boolean;
+  animationStyles?: string;
 }
 
 const SelectableWrapper = ({
@@ -16,6 +17,7 @@ const SelectableWrapper = ({
   shadowSize,
   widthClasses,
   rounded,
+  animationStyles,
 }: SelectableWrapperProps) => {
   return (
     <div
@@ -25,7 +27,7 @@ const SelectableWrapper = ({
               shadowSize || ""
             } text-white`
           : ""
-      }${rounded ? " rounded-full" : " rounded-md"}`}
+      }${rounded ? " rounded-full" : " rounded-md"} ${animationStyles || ""}`}
     >
       <div
         className={`${selected ? "bg-indigo-400 dark:bg-indigo-700/90 " : " "}${
