@@ -8,6 +8,7 @@ import SelectableWrapper from "../UI/SelectableWrapper";
 import { type SearchResult } from "@/lib/types/SearchResult";
 import { PortfolioCoinWithMarketData } from "@/lib/types/PortfolioCoinWithMarketData";
 import { usePortfolioSubmit } from "@/hooks/usePortfolioSubmit";
+import SecondaryButton from "../UI/SecondaryButton";
 
 interface AddPortfolioFormProps {
   coinToEdit?: PortfolioCoinWithMarketData;
@@ -53,20 +54,13 @@ const AddPortfolioForm = ({ coinToEdit }: AddPortfolioFormProps) => {
 
   const cancelButton = (
     <DialogClose asChild>
-      <button className="flex-1 py-2 text-center w-full bg-indigo-600/15 dark:bg-violet-900/50 rounded disabled:opacity-50">
-        Cancel
-      </button>
+      <SecondaryButton cancelButton>Cancel</SecondaryButton>
     </DialogClose>
   );
 
   const deleteButton = (
     <DialogClose asChild>
-      <button
-        className="flex-1 py-2 text-center w-full bg-red-700 text-white rounded disabled:opacity-50"
-        onClick={handleDeleteCoin}
-      >
-        Delete Coin
-      </button>
+      <SecondaryButton onClick={handleDeleteCoin}>Delete Coin</SecondaryButton>
     </DialogClose>
   );
 

@@ -7,6 +7,7 @@ import SelectableWrapper from "../UI/SelectableWrapper";
 import FormControl from "../UI/FormControl";
 import { type PortfolioCoinWithMarketData } from "@/lib/types/PortfolioCoinWithMarketData";
 import { usePortfolioSubmit } from "@/hooks/usePortfolioSubmit";
+import SecondaryButton from "../UI/SecondaryButton";
 
 interface PortfolioCoinDetailsProps {
   selectedCoin: SearchResult | null;
@@ -78,21 +79,13 @@ const PortfolioCoinDetails = ({
   };
 
   const cancelButton = (
-    <button
-      className="p-2 text-center w-full bg-white dark:bg-violet-900/50 rounded"
-      onClick={onCancelAddCoin}
-    >
+    <SecondaryButton cancelButton onClick={onCancelAddCoin}>
       Cancel
-    </button>
+    </SecondaryButton>
   );
 
   const deleteButton = (
-    <button
-      className="p-2 text-center w-full bg-red-700 text-white rounded"
-      onClick={handleDeleteCoin}
-    >
-      Delete Coin
-    </button>
+    <SecondaryButton onClick={handleDeleteCoin}>Delete Coin</SecondaryButton>
   );
 
   return (
