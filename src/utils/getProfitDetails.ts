@@ -1,6 +1,7 @@
 import { type IndividualCoin } from "@/lib/types/IndividualCoin";
 import { type PortfolioCoin } from "@/lib/types/PortfolioCoin";
 import { getCurrentValueOfInitialInvestment } from "./getCurrentValueOfInitialInvestment";
+import { getCurrencyFormatter } from "./formatCurrency";
 
 export const getProfitDetails = (
   coin: IndividualCoin,
@@ -8,6 +9,7 @@ export const getProfitDetails = (
   selectedCurrency: string
 ) => {
   const inPortfolio = portfolio.some((item) => item.coinId === coin.id);
+  const { formatter, supported } = getCurrencyFormatter(selectedCurrency);
   if (!inPortfolio) {
     return {
       inPortfolio,
@@ -20,7 +22,7 @@ export const getProfitDetails = (
     getCurrentValueOfInitialInvestment(
       portfolioCoin.amountPurchased[selectedCurrency],
       portfolioCoin.priceAtPurchase[selectedCurrency],
-      currentPrice,
+      currentPrice
     )
   );
 
@@ -30,7 +32,9 @@ export const getProfitDetails = (
     0
   );
   const profitUp = totalProfit > 0;
-  const profit = Math.abs(totalProfit);
+  const profit = `${formatter.format(Math.abs(totalProfit))} ${
+    supported ? "" : selectedCurrency.toUpperCase()
+  }`;
 
   return {
     profit,

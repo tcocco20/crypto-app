@@ -94,7 +94,7 @@ const InvestmentDetails = ({
               profitUp ? "text-cyan-600" : "text-pink-600"
             }`}
           >
-            {profit} {selectedCurrency.toUpperCase()}
+            {profit}
           </p>
         </div>
       )}
