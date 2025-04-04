@@ -4,11 +4,12 @@ import CoinBrand from "../UI/CoinBrand";
 import DesktopSearchComponent from "../UI/DesktopSearchComponent";
 import FormControl from "../UI/FormControl";
 import { DialogClose } from "@radix-ui/react-dialog";
-import SelectableWrapper from "../UI/SelectableWrapper";
+// import SelectableWrapper from "../UI/SelectableWrapper";
 import { type SearchResult } from "@/lib/types/SearchResult";
 import { PortfolioCoinWithMarketData } from "@/lib/types/PortfolioCoinWithMarketData";
 import { usePortfolioSubmit } from "@/hooks/usePortfolioSubmit";
 import SecondaryButton from "../UI/SecondaryButton";
+import PrimaryButton from "../UI/PrimaryButton";
 
 interface AddPortfolioFormProps {
   coinToEdit?: PortfolioCoinWithMarketData;
@@ -54,13 +55,17 @@ const AddPortfolioForm = ({ coinToEdit }: AddPortfolioFormProps) => {
 
   const cancelButton = (
     <DialogClose asChild>
-      <SecondaryButton cancelButton>Cancel</SecondaryButton>
+      <SecondaryButton cancelButton className="flex-1 py-2">
+        Cancel
+      </SecondaryButton>
     </DialogClose>
   );
 
   const deleteButton = (
     <DialogClose asChild>
-      <SecondaryButton onClick={handleDeleteCoin}>Delete Coin</SecondaryButton>
+      <SecondaryButton onClick={handleDeleteCoin} className="flex-1 py-2">
+        Delete Coin
+      </SecondaryButton>
     </DialogClose>
   );
 
@@ -129,7 +134,17 @@ const AddPortfolioForm = ({ coinToEdit }: AddPortfolioFormProps) => {
         />
         <div className="flex items-center gap-2 text-center">
           {coinToEdit ? deleteButton : cancelButton}
-          <div
+          <DialogClose asChild>
+            <PrimaryButton
+              disabled={
+                (!selectedCoin && !coinToEdit) || amountInvalid || dateInvalid
+              }
+              onClick={addCoinHandler}
+            >
+              Save Currency
+            </PrimaryButton>
+          </DialogClose>
+          {/* <div
             className={`flex-1 ${
               ((!selectedCoin && !coinToEdit) ||
                 amountInvalid ||
@@ -147,7 +162,7 @@ const AddPortfolioForm = ({ coinToEdit }: AddPortfolioFormProps) => {
                 </button>
               </DialogClose>
             </SelectableWrapper>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

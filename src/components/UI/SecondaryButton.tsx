@@ -8,7 +8,7 @@ const SecondaryButton = (props: SecondaryButtonProps) => {
   const { cancelButton, className, children, ...rest } = props;
   const styles = {
     deleteStyles: "bg-red-700 text-white",
-    cancelStyles: "bg-white dark:bg-violet-900/50",
+    cancelStyles: "bg-indigo-600/15 dark:bg-violet-900/50",
   };
   return (
     <button
