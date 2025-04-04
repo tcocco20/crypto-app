@@ -4,6 +4,7 @@ import ConverterDropdown from "./ConverterDropdown";
 import { type ChangeEvent } from "react";
 import { type ListCoin } from "@/lib/types/ListCoin";
 import { useAppSelector } from "@/lib/hooks";
+import { getCurrencyFormatter } from "@/utils/formatCurrency";
 
 interface ConverterCurrencySelectorProps {
   isFromCurrency?: boolean;
@@ -23,6 +24,8 @@ const ConverterCurrencySelector = ({
   const userCurrency = useAppSelector(
     (state) => state.preferences.selectedCurrency
   );
+  const { formatter, supported } = getCurrencyFormatter(userCurrency);
+  const selectedCurrencyDisplay = !supported ? userCurrency.toUpperCase() : "";
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setQuantity!(+e.target.value);
@@ -61,7 +64,8 @@ const ConverterCurrencySelector = ({
           <span className="text-indigo-700 dark:text-gray-300">
             1 {selectedCurrency.symbol.toUpperCase()} ={" "}
           </span>
-          {selectedCurrency.current_price} {userCurrency.toUpperCase()}
+          {formatter.format(selectedCurrency.current_price)}{" "}
+          {selectedCurrencyDisplay}
         </p>
       ) : (
         <p

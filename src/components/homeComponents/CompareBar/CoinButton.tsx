@@ -7,6 +7,7 @@ import { type ListCoin } from "@/lib/types/ListCoin";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import PercentageWithIcon from "@/components/UI/PercentageWithIcon";
 import { useAppSelector } from "@/lib/hooks";
+import { getCurrencyFormatter } from "@/utils/formatCurrency";
 
 interface CoinButtonProps {
   selected?: boolean;
@@ -15,15 +16,24 @@ interface CoinButtonProps {
 }
 
 const CoinButton = ({ selected = false, coin, onClick }: CoinButtonProps) => {
+  const selectedCurrency = useAppSelector(
+    (state) => state.preferences.selectedCurrency
+  );
+  const { formatter, supported } = getCurrencyFormatter(selectedCurrency);
   const displaySymbol = coin.symbol.toUpperCase();
   const isMobile = useIsMobile();
   const iconSize = isMobile ? 24 : 38;
   const displayPercentage =
     Math.abs(coin.price_change_percentage_24h_in_currency).toFixed(2) + "%";
-  const displayPrice = coin.current_price.toLocaleString();
-  const selectedCurrency = useAppSelector(
-    (state) => state.preferences.selectedCurrency
-  );
+  let displayPrice: string;
+  if (coin.current_price) {
+    if (supported) displayPrice = formatter.format(coin.current_price);
+    else
+      displayPrice =
+        coin.current_price.toFixed(2) + " " + selectedCurrency.toUpperCase();
+  } else {
+    displayPrice = "N/A";
+  }
 
   return (
     <SelectableWrapper selected={selected} widthClasses="w-fit">
@@ -45,9 +55,7 @@ const CoinButton = ({ selected = false, coin, onClick }: CoinButtonProps) => {
             {coin.name} ({displaySymbol})
           </p>
           <div className="hidden md:flex items-center gap-4">
-            <p className="font-light">
-              {displayPrice} {selectedCurrency.toUpperCase()}
-            </p>
+            <p className="font-light">{displayPrice}</p>
             <PercentageWithIcon
               percentage={displayPercentage}
               percentageUp={coin.price_change_percentage_24h_in_currency > 0}

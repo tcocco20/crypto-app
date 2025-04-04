@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { type PortfolioCoinWithMarketData } from "@/lib/types/PortfolioCoinWithMarketData";
 import actions from "@/actions";
 import { getCurrentValueOfInitialInvestment } from "@/utils/getCurrentValueOfInitialInvestment";
+import { getCurrencyFormatter } from "@/utils/formatCurrency";
 
 const PortfolioCoins = () => {
   const [portfolioCoins, setPortfolioCoins] = useState<
@@ -17,6 +18,7 @@ const PortfolioCoins = () => {
   const selectedCurrency = useAppSelector(
     (state) => state.preferences.selectedCurrency
   );
+  const { formatter, supported } = getCurrencyFormatter(selectedCurrency);
 
   useEffect(() => {
     const fetchCoins = async () => {
@@ -63,6 +65,8 @@ const PortfolioCoins = () => {
   const generateCoinCards = () => {
     return portfolioCoins.map((coin) => (
       <PortfolioCoinCard
+        formatter={formatter}
+        supported={supported}
         key={coin.id}
         coin={coin}
         selectedCurrency={selectedCurrency}

@@ -104,7 +104,7 @@ const InvestmentDetails = ({
           <ChevronUp strokeWidth={4} size={24} className="text-cyan-600" />
           <p className="text-xs lg:text-sm xl:text-base">All Time High:</p>
           <p className="text-sm lg:text-base xl:text-lg 2xl:text-2xl">
-            {allTimeHigh} {selectedCurrency.toUpperCase()}
+            {allTimeHigh}
           </p>
         </div>
         <p className="dark:text-gray-300/70 md:text-right text-xs lg:text-sm xl:text-base">
@@ -116,7 +116,7 @@ const InvestmentDetails = ({
           <ChevronDown strokeWidth={4} size={24} className="text-pink-600" />
           <p className="text-xs lg:text-sm xl:text-base">All Time low:</p>
           <p className="text-sm lg:text-base xl:text-lg 2xl:text-2xl">
-            {allTimeLow} {selectedCurrency.toUpperCase()}
+            {allTimeLow}
           </p>
         </div>
         <p className="dark:text-gray-300/70 md:text-right text-xs lg:text-sm xl:text-base">

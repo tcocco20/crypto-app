@@ -3,6 +3,7 @@
 import { IndividualCoin } from "@/lib/types/IndividualCoin";
 import Card from "../UI/Card";
 import DataPoint from "./DataPoint";
+import { getCurrencyFormatter } from "@/utils/formatCurrency";
 
 interface MarketDataProps {
   coin: IndividualCoin;
@@ -11,6 +12,10 @@ interface MarketDataProps {
 
 const MarketData = ({ coin, selectedCurrency }: MarketDataProps) => {
   let volumeOverMarket: number | null = null;
+  const { formatter: currencyFormatter, supported: currencySupported } =
+    getCurrencyFormatter(selectedCurrency);
+  const { formatter: coinFormatter, supported: coinSupported } =
+    getCurrencyFormatter(coin.symbol);
 
   if (
     coin.total_volume[selectedCurrency] &&
@@ -25,38 +30,56 @@ const MarketData = ({ coin, selectedCurrency }: MarketDataProps) => {
       <DataPoint
         title="Market Cap"
         dataPoint={coin.market_cap[selectedCurrency]}
-        currencyToDisplay={selectedCurrency.toUpperCase()}
+        currencyToDisplay={
+          !currencySupported ? selectedCurrency.toUpperCase() : undefined
+        }
+        formatter={currencyFormatter}
         currencyDisplay
       />
       <DataPoint
         title="Fully Diluted Valuation"
         dataPoint={coin.fully_diluted_valuation[selectedCurrency]}
-        currencyToDisplay={selectedCurrency.toUpperCase()}
+        currencyToDisplay={
+          !currencySupported ? selectedCurrency.toUpperCase() : undefined
+        }
+        formatter={currencyFormatter}
         currencyDisplay
       />
       <DataPoint
         title="Volume 24h"
         dataPoint={coin.total_volume[selectedCurrency]}
-        currencyToDisplay={selectedCurrency.toUpperCase()}
+        currencyToDisplay={
+          !currencySupported ? selectedCurrency.toUpperCase() : undefined
+        }
+        formatter={currencyFormatter}
         currencyDisplay
       />
       <DataPoint title="Volume/Market" dataPoint={volumeOverMarket} />
       <DataPoint
         title="Total Volume"
         dataPoint={coin.total_volume[coin.symbol]}
-        currencyToDisplay={coin.symbol.toUpperCase()}
+        currencyToDisplay={
+          !coinSupported ? coin.symbol.toUpperCase() : undefined
+        }
+        formatter={coinFormatter}
         currencyDisplay
       />
       <DataPoint
         title="Circulating Supply"
         dataPoint={coin.circulating_supply}
-        currencyToDisplay={coin.symbol.toUpperCase()}
+        currencyToDisplay={
+          !coinSupported ? coin.symbol.toUpperCase() : undefined
+        }
+        formatter={coinFormatter}
         currencyDisplay
       />
       <DataPoint
         title="Max Supply"
         dataPoint={coin.max_supply}
-        currencyToDisplay={coin.symbol.toUpperCase()}
+        currencyToDisplay={
+          !coinSupported ? coin.symbol.toUpperCase() : undefined
+        }
+        formatter={coinFormatter}
         currencyDisplay
       />
     </Card>

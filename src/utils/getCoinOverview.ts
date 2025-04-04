@@ -1,10 +1,20 @@
 import { ListCoin } from "@/lib/types/ListCoin";
+import { getCurrencyFormatter } from "./formatCurrency";
 
 export const getCoinOverview = (coin: ListCoin, selectedCurrency: string) => {
   const showIcon = !coin.image.includes("missing");
-  const displayPrice = coin.current_price
-    ? coin.current_price.toLocaleString() + " " + selectedCurrency
-    : "N/A";
+  let displayPrice: string;
+  const { formatter, supported } = getCurrencyFormatter(selectedCurrency);
+  if (coin.current_price) {
+    if (supported) {
+      displayPrice = formatter.format(coin.current_price);
+    } else {
+      displayPrice =
+        formatter.format(coin.current_price) + " " + selectedCurrency;
+    }
+  } else {
+    displayPrice = "N/A";
+  }
   const oneHrChange =
     Math.abs(coin.price_change_percentage_1h_in_currency).toFixed(2) + "%";
   const oneDayChange =

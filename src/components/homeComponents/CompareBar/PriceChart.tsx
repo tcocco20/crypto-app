@@ -16,6 +16,7 @@ import Card from "@/components/UI/Card";
 import { useAppSelector } from "@/lib/hooks";
 import Skeleton from "react-loading-skeleton";
 import { useScreenSize } from "@/hooks/useScreenSize";
+import { getCurrencyFormatter } from "@/utils/formatCurrency";
 
 ChartJS.register(
   LinearScale,
@@ -33,10 +34,11 @@ const PriceChart = () => {
   const selectedCurrency = useAppSelector(
     (state) => state.preferences.selectedCurrency
   );
+  const { formatter, supported } = getCurrencyFormatter(selectedCurrency);
 
   const labels = firstCoinData.map((data) => data.date);
   const prices = firstCoinData.map((data) => data.price);
-  const latestPrice = labels[labels.length - 1];
+  const latestPriceDate = labels[labels.length - 1];
   const secondCoinPrices = secondCoinData.map((data) => data.price);
 
   const screenSize = useScreenSize();
@@ -78,7 +80,7 @@ const PriceChart = () => {
       <>
         <p className="font-medium text-lg">Price</p>
         <p className="text-xs text-gray-800 dark:text-gray-400">
-          {latestPrice}
+          {latestPriceDate}
         </p>
       </>
     ) : (
@@ -92,13 +94,15 @@ const PriceChart = () => {
         </p>
         <p className="font-medium text-lg">
           {firstCoin ? (
-            `${firstCoin?.current_price} ${selectedCurrency.toUpperCase()}`
+            `${formatter.format(firstCoin.current_price)} ${
+              !supported ? selectedCurrency.toUpperCase() : ""
+            }`
           ) : (
             <Skeleton width={textSkeletonWidth} />
           )}
         </p>
         <p className="text-xs text-gray-800 dark:text-gray-400">
-          {latestPrice || <Skeleton width={textSkeletonWidth} />}
+          {latestPriceDate || <Skeleton width={textSkeletonWidth} />}
         </p>
       </>
     );

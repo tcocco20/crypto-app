@@ -11,18 +11,32 @@ import DesktopCoinWrapper from "./DesktopCoinWrapper";
 interface PortfolioCoinCardProps {
   coin: PortfolioCoinWithMarketData;
   selectedCurrency: string;
+  formatter: Intl.NumberFormat;
+  supported: boolean;
 }
 
 const PortfolioCoinCard = ({
   coin,
   selectedCurrency,
+  formatter,
+  supported,
 }: PortfolioCoinCardProps) => {
   const isMobile = useIsMobile();
 
   const coinCard = (
     <Card className="p-px md:p-[2px] rounded-md md:flex text-start">
-      <PortfolioDetails coin={coin} selectedCurrency={selectedCurrency} />
-      <MarketDetails coin={coin} selectedCurrency={selectedCurrency} />
+      <PortfolioDetails
+        coin={coin}
+        selectedCurrency={selectedCurrency}
+        formatter={formatter}
+        supported={supported}
+      />
+      <MarketDetails
+        coin={coin}
+        selectedCurrency={selectedCurrency}
+        formatter={formatter}
+        supported={supported}
+      />
     </Card>
   );
 

@@ -8,6 +8,7 @@ import { useIsLg } from "@/hooks/useIsLg";
 interface DataPointProps {
   title: string;
   currencyDisplay?: boolean;
+  formatter?: Intl.NumberFormat;
   currencyToDisplay?: string;
   dataPoint: number | null;
 }
@@ -16,6 +17,7 @@ const DataPoint = ({
   title,
   currencyDisplay,
   currencyToDisplay,
+  formatter,
   dataPoint,
 }: DataPointProps) => {
   const isMobile = useIsMobile();
@@ -24,7 +26,7 @@ const DataPoint = ({
   let dataPointToDisplay = "N/A";
   if (dataPoint) {
     if (currencyDisplay) {
-      dataPointToDisplay = dataPoint?.toLocaleString();
+      dataPointToDisplay = formatter?.format(dataPoint) || dataPoint.toString();
     } else {
       dataPointToDisplay = dataPoint.toString();
     }
