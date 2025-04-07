@@ -48,7 +48,7 @@ const ConverterCurrencySelector = ({
         {isFromCurrency ? (
           <input
             type="number"
-            className="bg-transparent outline-none text-right w-2/5 lg:text-lg appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+            className="bg-transparent outline-none text-right w-2/5 lg:text-lg appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none hover:opacity-75 active:opacity-50"
             placeholder="Quantity"
             value={quantity}
             onChange={handleChange}

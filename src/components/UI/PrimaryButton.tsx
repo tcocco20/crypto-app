@@ -4,10 +4,12 @@ import SelectableWrapper from "./SelectableWrapper";
 interface PrimaryButtonProps extends ComponentPropsWithoutRef<"button"> {
   rounded?: boolean;
   shadowSize?: string;
+  flex?: boolean;
 }
 
 const PrimaryButton = (props: PrimaryButtonProps) => {
-  const { rounded, shadowSize, className, children, disabled, ...rest } = props;
+  const { rounded, shadowSize, className, children, disabled, flex, ...rest } =
+    props;
   return (
     <SelectableWrapper
       selected
@@ -15,11 +17,12 @@ const PrimaryButton = (props: PrimaryButtonProps) => {
         disabled ? "opacity-50 pointer-events-none" : ""
       }`}
       rounded={rounded}
+      widthClasses={flex ? "flex-1" : ""}
       shadowSize={shadowSize}
     >
       <button
         {...rest}
-        className={`p-2 text-center ${className || ""}`}
+        className={`w-full p-2 text-center ${className || ""}`}
         disabled={disabled}
       >
         {children}

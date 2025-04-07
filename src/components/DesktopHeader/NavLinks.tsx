@@ -14,7 +14,7 @@ const NavLinks = () => {
           className={`${
             path === "/" || path === "/converter"
               ? "text-indigo-900 dark:text-white"
-              : "text-indigo-900/40 dark:text-gray-500"
+              : "text-indigo-900/40 dark:text-gray-500 hover:opacity-75 hover:text-indigo-900 dark:hover:text-white transition-all duration-200"
           } lg:text-lg flex gap-3 items-center`}
         >
           <House size={26} />
@@ -26,7 +26,7 @@ const NavLinks = () => {
           className={`${
             path === "/portfolio"
               ? "text-indigo-900 dark:text-white"
-              : "text-indigo-900/40 dark:text-gray-500"
+              : "text-indigo-900/40 dark:text-gray-500 hover:opacity-75 hover:text-indigo-900 dark:hover:text-white transition-all duration-200"
           } lg:text-lg flex gap-3 items-center`}
           href="/portfolio"
         >

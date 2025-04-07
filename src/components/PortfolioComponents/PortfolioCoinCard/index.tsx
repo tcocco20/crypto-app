@@ -24,7 +24,7 @@ const PortfolioCoinCard = ({
   const isMobile = useIsMobile();
 
   const coinCard = (
-    <Card className="p-px md:p-[2px] rounded-md md:flex text-start">
+    <Card className="p-px md:p-[2px] rounded-md md:flex text-start hover:scale-[1.01] transition-transform duration-100 ease-in active:opacity-70">
       <PortfolioDetails
         coin={coin}
         selectedCurrency={selectedCurrency}

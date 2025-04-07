@@ -29,12 +29,12 @@ const ConverterDropdown = ({
 
   const renderDropdownItem = (item: ListCoin, index?: number) => {
     const coinIndex = index!;
-    return <button onClick={() => onSelect(coinIndex)}>{item.name}</button>;
+    return <button onClick={() => onSelect(coinIndex)} className="hover:opacity-60 active:opacity-50">{item.name}</button>;
   };
   return (
     <>
       <Dropdown<ListCoin>
-        containerClassName="flex flex-1 items-center gap-2"
+        containerClassName="flex flex-1 items-center gap-2 cursor-pointer hover:opacity-70"
         parentClassName="text-xs md:text-base lg:text-lg xl:text-xl"
         menuClassName="top-full mt-1 bg-violet-100/90 shadow-md dark:shadow-0 dark:bg-indigo-950/70 w-full p-2 rounded-md overflow-y-auto max-h-60 z-50"
         data={coins}

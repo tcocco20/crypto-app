@@ -3,11 +3,11 @@ import { SearchResult } from "@/lib/types/SearchResult";
 import { ChevronLeft } from "lucide-react";
 import React, { type ChangeEvent } from "react";
 import CoinBrand from "../UI/CoinBrand";
-import SelectableWrapper from "../UI/SelectableWrapper";
 import FormControl from "../UI/FormControl";
 import { type PortfolioCoinWithMarketData } from "@/lib/types/PortfolioCoinWithMarketData";
 import { usePortfolioSubmit } from "@/hooks/usePortfolioSubmit";
 import SecondaryButton from "../UI/SecondaryButton";
+import PrimaryButton from "../UI/PrimaryButton";
 
 interface PortfolioCoinDetailsProps {
   selectedCoin: SearchResult | null;
@@ -126,23 +126,14 @@ const PortfolioCoinDetails = ({
             hasError={formSubmitAttempted && dateInvalid}
             errorText="Please enter the date you purchased the coin."
           />
-          <div
-            className={`${
-              ((!selectedCoin && !coinToEdit) ||
-                amountInvalid ||
-                dateInvalid) &&
-              "opacity-50 pointer-events-none"
-            }`}
+          <PrimaryButton
+            disabled={
+              (!selectedCoin && !coinToEdit) || amountInvalid || dateInvalid
+            }
+            onClick={addCoinHandler}
           >
-            <SelectableWrapper selected>
-              <button
-                className="p-2 text-center w-full"
-                onClick={addCoinHandler}
-              >
-                Save Currency
-              </button>
-            </SelectableWrapper>
-          </div>
+            Save Currency
+          </PrimaryButton>
           {coinToEdit ? deleteButton : cancelButton}
         </div>
       )}

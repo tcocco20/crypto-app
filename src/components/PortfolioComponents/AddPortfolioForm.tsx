@@ -4,7 +4,6 @@ import CoinBrand from "../UI/CoinBrand";
 import DesktopSearchComponent from "../UI/DesktopSearchComponent";
 import FormControl from "../UI/FormControl";
 import { DialogClose } from "@radix-ui/react-dialog";
-// import SelectableWrapper from "../UI/SelectableWrapper";
 import { type SearchResult } from "@/lib/types/SearchResult";
 import { PortfolioCoinWithMarketData } from "@/lib/types/PortfolioCoinWithMarketData";
 import { usePortfolioSubmit } from "@/hooks/usePortfolioSubmit";
@@ -136,6 +135,7 @@ const AddPortfolioForm = ({ coinToEdit }: AddPortfolioFormProps) => {
           {coinToEdit ? deleteButton : cancelButton}
           <DialogClose asChild>
             <PrimaryButton
+              flex
               disabled={
                 (!selectedCoin && !coinToEdit) || amountInvalid || dateInvalid
               }
@@ -144,25 +144,6 @@ const AddPortfolioForm = ({ coinToEdit }: AddPortfolioFormProps) => {
               Save Currency
             </PrimaryButton>
           </DialogClose>
-          {/* <div
-            className={`flex-1 ${
-              ((!selectedCoin && !coinToEdit) ||
-                amountInvalid ||
-                dateInvalid) &&
-              "opacity-50 pointer-events-none"
-            }`}
-          >
-            <SelectableWrapper selected>
-              <DialogClose asChild>
-                <button
-                  className="p-2 text-center w-full"
-                  onClick={addCoinHandler}
-                >
-                  Save Currency
-                </button>
-              </DialogClose>
-            </SelectableWrapper>
-          </div> */}
         </div>
       </div>
     </div>

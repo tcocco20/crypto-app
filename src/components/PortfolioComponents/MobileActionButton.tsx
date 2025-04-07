@@ -1,10 +1,10 @@
 "use client";
 
 import { useIsMobile } from "@/hooks/useIsMobile";
-import SelectableWrapper from "../UI/SelectableWrapper";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import AddPortfolioCoinDrawer from "./AddPortfolioCoinDrawer";
+import PrimaryButton from "../UI/PrimaryButton";
 
 const MobileActionButton = () => {
   const [isOpened, setIsOpened] = useState(false);
@@ -16,16 +16,13 @@ const MobileActionButton = () => {
   };
   return (
     <div className="fixed bottom-20 right-8">
-      <SelectableWrapper
-        selected
+      <PrimaryButton
         rounded
         shadowSize="shadow-none"
-        animationStyles="hover:opacity-70 active:opacity-50 transition-opacity duration-200 ease-in-out"
+        onClick={handleToggleMenu}
       >
-        <button onClick={handleToggleMenu} className="p-2">
-          <Plus size={24} />
-        </button>
-      </SelectableWrapper>
+        <Plus size={24} />
+      </PrimaryButton>
       <AddPortfolioCoinDrawer onClose={handleToggleMenu} isOpen={isOpened} />
     </div>
   );
