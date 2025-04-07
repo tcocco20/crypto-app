@@ -69,7 +69,7 @@ const ConverterSelectorContainer = ({
         />
         <button
           onClick={handleSwitchCurrency}
-          className="p-3 md:p-4 bg-indigo-800 dark:bg-white text-sm absolute rounded-full rotate-90 translate-x-1/2 top-1/2 right-1/2 -translate-y-1/2 dark:border-4 dark:border-gray-800 active:opacity-50 text-white dark:text-indigo-800"
+          className="p-3 md:p-4 bg-indigo-800 dark:bg-white text-sm absolute rounded-full rotate-90 translate-x-1/2 top-1/2 right-1/2 -translate-y-1/2 dark:border-4 dark:border-gray-800 hover:opacity-75 active:opacity-50 text-white dark:text-indigo-800"
         >
           <Repeat size={24} />
         </button>

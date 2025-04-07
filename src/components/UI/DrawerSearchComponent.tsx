@@ -44,7 +44,7 @@ const DrawerSearchComponent = ({
       return (
         <button
           key={result.id}
-          className="text-sm mb-2 flex items-center gap-2"
+          className="text-sm mb-2 flex items-center gap-2 hover:opacity-75 active:opacity-50"
           onClick={handleItemClick}
         >
           {renderImage && (

@@ -3,10 +3,11 @@ import { SearchResult } from "@/lib/types/SearchResult";
 import { ChevronLeft } from "lucide-react";
 import React, { type ChangeEvent } from "react";
 import CoinBrand from "../UI/CoinBrand";
-import SelectableWrapper from "../UI/SelectableWrapper";
 import FormControl from "../UI/FormControl";
 import { type PortfolioCoinWithMarketData } from "@/lib/types/PortfolioCoinWithMarketData";
 import { usePortfolioSubmit } from "@/hooks/usePortfolioSubmit";
+import SecondaryButton from "../UI/SecondaryButton";
+import PrimaryButton from "../UI/PrimaryButton";
 
 interface PortfolioCoinDetailsProps {
   selectedCoin: SearchResult | null;
@@ -78,21 +79,13 @@ const PortfolioCoinDetails = ({
   };
 
   const cancelButton = (
-    <button
-      className="p-2 text-center w-full bg-white dark:bg-violet-900/50 rounded"
-      onClick={onCancelAddCoin}
-    >
+    <SecondaryButton cancelButton onClick={onCancelAddCoin}>
       Cancel
-    </button>
+    </SecondaryButton>
   );
 
   const deleteButton = (
-    <button
-      className="p-2 text-center w-full bg-red-700 text-white rounded"
-      onClick={handleDeleteCoin}
-    >
-      Delete Coin
-    </button>
+    <SecondaryButton onClick={handleDeleteCoin}>Delete Coin</SecondaryButton>
   );
 
   return (
@@ -102,7 +95,7 @@ const PortfolioCoinDetails = ({
       </button>
       <h2 className="text-lg text-center mb-4">Enter Coin Details</h2>
       {(selectedCoin || coinToEdit) && (
-        <div className="flex flex-col w-full h-full gap-4 overflow-y-scroll pb-24">
+        <div className="flex flex-col w-full h-full gap-4 overflow-y-scroll pb-28">
           {generateCoinBranding()}
           <FormControl
             label="Amount Purchased"
@@ -133,23 +126,14 @@ const PortfolioCoinDetails = ({
             hasError={formSubmitAttempted && dateInvalid}
             errorText="Please enter the date you purchased the coin."
           />
-          <div
-            className={`flex-1 ${
-              ((!selectedCoin && !coinToEdit) ||
-                amountInvalid ||
-                dateInvalid) &&
-              "opacity-50 pointer-events-none"
-            }`}
+          <PrimaryButton
+            disabled={
+              (!selectedCoin && !coinToEdit) || amountInvalid || dateInvalid
+            }
+            onClick={addCoinHandler}
           >
-            <SelectableWrapper selected>
-              <button
-                className="p-2 text-center w-full"
-                onClick={addCoinHandler}
-              >
-                Save Currency
-              </button>
-            </SelectableWrapper>
-          </div>
+            Save Currency
+          </PrimaryButton>
           {coinToEdit ? deleteButton : cancelButton}
         </div>
       )}

@@ -7,7 +7,10 @@ const AddPortfolioCoinButton = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <SelectableWrapper selected>
+        <SelectableWrapper
+          selected
+          animationStyles="hover:opacity-70 active:opacity-50 transition-opacity duration-200 ease-in-out"
+        >
           <button className="py-2 px-8 lg:px-12 xl:px-16">Add Asset</button>
         </SelectableWrapper>
       </DialogTrigger>

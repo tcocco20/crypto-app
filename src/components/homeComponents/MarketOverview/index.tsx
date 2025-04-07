@@ -65,7 +65,7 @@ const MarketOverview = () => {
         loader={<CoinOverviewSkeleton />}
         endMessage={<p style={{ textAlign: "center" }}>end of list</p>}
         next={fetchCoins}
-        className="text-white flex flex-col gap-1 md:gap-2 pb-16 mb-2"
+        className="text-white flex flex-col gap-1 md:gap-2 pb-16 mb-2 !overflow-visible"
       >
         {renderCoins()}
       </InfiniteScroll>

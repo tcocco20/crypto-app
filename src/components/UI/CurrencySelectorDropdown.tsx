@@ -27,7 +27,10 @@ const CurrencySelectorDropdown = ({
 
   const renderDropdownItem = (item: string) => {
     return (
-      <button onClick={() => handleSelectCurrency(item)}>
+      <button
+        onClick={() => handleSelectCurrency(item)}
+        className="hover:opacity-75 active:opacity-50"
+      >
         {item.toUpperCase()}
       </button>
     );

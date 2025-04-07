@@ -54,7 +54,7 @@ const DesktopCoinOverview = ({ coin }: DesktopCoinOverviewProps) => {
   return (
     <Link
       href={`/coin/${coin.id}`}
-      className="grid grid-cols-11 md:gap-1 lg:gap-2 xl:gap-4 bg-white dark:bg-violet-950 rounded-md py-4 px-1 lg:px-2 xl:p-4 text-black dark:text-white items-center"
+      className="grid grid-cols-11 md:gap-1 lg:gap-2 xl:gap-4 bg-white dark:bg-violet-950 rounded-md py-4 px-1 lg:px-2 xl:p-4 text-black dark:text-white items-center active:opacity-55 hover:opacity-85 hover:scale-[1.01] transition-all duration-200 ease-in-out"
     >
       <div className="flex items-center gap-2 col-span-2">
         {showIcon && (

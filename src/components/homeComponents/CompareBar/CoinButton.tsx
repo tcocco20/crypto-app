@@ -40,7 +40,9 @@ const CoinButton = ({ selected = false, coin, onClick }: CoinButtonProps) => {
       <button
         onClick={onClick}
         className={`p-3 md:p-5 w-full rounded-md flex items-center gap-2 md:gap-4 ${
-          !selected ? "bg-white dark:bg-violet-950" : ""
+          !selected
+            ? "bg-white dark:bg-violet-950 hover:bg-indigo-400 hover:dark:bg-indigo-700/90"
+            : ""
         }`}
       >
         <Image

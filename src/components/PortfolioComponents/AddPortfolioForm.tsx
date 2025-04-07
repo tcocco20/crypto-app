@@ -4,10 +4,11 @@ import CoinBrand from "../UI/CoinBrand";
 import DesktopSearchComponent from "../UI/DesktopSearchComponent";
 import FormControl from "../UI/FormControl";
 import { DialogClose } from "@radix-ui/react-dialog";
-import SelectableWrapper from "../UI/SelectableWrapper";
 import { type SearchResult } from "@/lib/types/SearchResult";
 import { PortfolioCoinWithMarketData } from "@/lib/types/PortfolioCoinWithMarketData";
 import { usePortfolioSubmit } from "@/hooks/usePortfolioSubmit";
+import SecondaryButton from "../UI/SecondaryButton";
+import PrimaryButton from "../UI/PrimaryButton";
 
 interface AddPortfolioFormProps {
   coinToEdit?: PortfolioCoinWithMarketData;
@@ -53,20 +54,17 @@ const AddPortfolioForm = ({ coinToEdit }: AddPortfolioFormProps) => {
 
   const cancelButton = (
     <DialogClose asChild>
-      <button className="flex-1 py-2 text-center w-full bg-indigo-600/15 dark:bg-violet-900/50 rounded disabled:opacity-50">
+      <SecondaryButton cancelButton className="flex-1 py-2">
         Cancel
-      </button>
+      </SecondaryButton>
     </DialogClose>
   );
 
   const deleteButton = (
     <DialogClose asChild>
-      <button
-        className="flex-1 py-2 text-center w-full bg-red-700 text-white rounded disabled:opacity-50"
-        onClick={handleDeleteCoin}
-      >
+      <SecondaryButton onClick={handleDeleteCoin} className="flex-1 py-2">
         Delete Coin
-      </button>
+      </SecondaryButton>
     </DialogClose>
   );
 
@@ -135,25 +133,17 @@ const AddPortfolioForm = ({ coinToEdit }: AddPortfolioFormProps) => {
         />
         <div className="flex items-center gap-2 text-center">
           {coinToEdit ? deleteButton : cancelButton}
-          <div
-            className={`flex-1 ${
-              ((!selectedCoin && !coinToEdit) ||
-                amountInvalid ||
-                dateInvalid) &&
-              "opacity-50 pointer-events-none"
-            }`}
-          >
-            <SelectableWrapper selected>
-              <DialogClose asChild>
-                <button
-                  className="p-2 text-center w-full"
-                  onClick={addCoinHandler}
-                >
-                  Save Currency
-                </button>
-              </DialogClose>
-            </SelectableWrapper>
-          </div>
+          <DialogClose asChild>
+            <PrimaryButton
+              flex
+              disabled={
+                (!selectedCoin && !coinToEdit) || amountInvalid || dateInvalid
+              }
+              onClick={addCoinHandler}
+            >
+              Save Currency
+            </PrimaryButton>
+          </DialogClose>
         </div>
       </div>
     </div>

@@ -24,7 +24,7 @@ const CompareBar = () => {
         <p>Select the currency to view statistics</p>
         <button
           onClick={() => updateCompareModeSelected(!compareModeSelected)}
-          className="p-3 bg-white dark:bg-violet-900/40 rounded-md flex items-center gap-1 active:opacity-50 transition-opacity duration-50"
+          className="p-3 bg-white dark:bg-violet-900/40 rounded-md flex items-center gap-1 hover:opacity-70 active:opacity-50"
         >
           {compareModeSelected ? <X size={13} /> : <ChartLine size={16} />}
           <span>{compareModeSelected ? "Exit Compare" : "Compare"}</span>
